@@ -70,7 +70,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   home-manager = {
   extraSpecialArgs = { inherit inputs;};
   users={
-"deepshell" = /.home.nix; 
+"deepshell" = ./home.nix; 
 };  
 };
     # Home Manager ayarlarını buraya koyacaksın.
