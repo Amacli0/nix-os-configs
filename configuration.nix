@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-       inputs.home-manager.nixosModules.nixos
+       inputs.home-manager.nixosModules.Nixtilus
     ];
 
   # Use the systemd-boot EFI boot loader.
