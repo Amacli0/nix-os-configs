@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-       inputs.home-manager.nixosModules.Nixtilus
+       inputs.home-manager.nixosModules.home-manager
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -65,6 +65,22 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
     pulse.enable = true;
     alsa.enable = true; 
   };
+
+
+  home-manager.users.deepshell = {
+    # Home Manager ayarlarını buraya koyacaksın.
+    # Örneğin: programs.zsh.enable = true;
+    # Eğer özel ayarların başka bir dosyadaysa, onu da buraya dahil et.
+    # Ancak şimdilik sadece boş bir set olarak bırakabiliriz:
+    };
+
+
+
+
+
+
+
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
