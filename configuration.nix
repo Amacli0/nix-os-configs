@@ -67,12 +67,16 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
 
-  home-manager.users.deepshell = {
+  home-manager = {
+  extraSpecialArgs = { inherit inputs;};
+  users={
+"deepshell" = /.home.nix; 
+};  
+};
     # Home Manager ayarlarını buraya koyacaksın.
     # Örneğin: programs.zsh.enable = true;
     # Eğer özel ayarların başka bir dosyadaysa, onu da buraya dahil et.
-    # Ancak şimdilik sadece boş bir set olarak bırakabiliriz:
-    };
+    # Ancak şimdilik sadece boş bir set olarak bırakabiliriz
 
 
 
