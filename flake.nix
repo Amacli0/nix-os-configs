@@ -1,22 +1,30 @@
 {
-  description = "Nixos config flake";
+  description = "NixOS configuration for Nixtilus with Home Manager and Hyprland";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-     home-manager = {
-       url = "github:nix-community/home-manager";
-       inputs.nixpkgs.follows = "nixpkgs";
-     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.Nixtilus = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      system = "x86_64-linux"; # sistem mimarini belirt (gerekli!)
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
-       #inputs.home-manager.nixosModules.Nixtilus
+
+        home-manager.nixosModules.home-manager
+
+        # home.nix'i dahil ediyoruz
+        ({ config, pkgs, ... }: {
+          home-manager.users.deepshell = import ./home.nix;
+        })
       ];
     };
   };
 }
+
