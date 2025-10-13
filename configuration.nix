@@ -1,39 +1,37 @@
 #Nixos config File
-{ config, lib, pkgs, inputs, ... }:
-
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-       inputs.home-manager.nixosModules.home-manager
-    ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
   boot.loader = {
- 
- timeout = 15;
- 
- systemd-boot= {
-  enable = false;
-  };
-  
-  efi.canTouchEfiVariables = true;
- 
- grub= {
-  
-  enable = true;
-   device = "nodev";
-  efiSupport = true;
-  useOSProber = true;
-  };
+    timeout = 15;
 
-};
+    systemd-boot = {
+      enable = false;
+    };
+
+    efi.canTouchEfiVariables = true;
+
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      useOSProber = true;
+    };
+  };
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "Nixtilus"; 
-  networking.networkmanager.enable = true; 
-   
-
+  networking.hostName = "Nixtilus";
+  networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Istanbul";
 
@@ -41,63 +39,58 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
- 
   i18n.defaultLocale = "en_US.UTF-8";
-  
 
-console = {
+  console = {
     font = "Lat2-Terminus16";
-   #  keyMap = "tr";
-    useXkbConfig = false; 
+    #  keyMap = "tr";
+    useXkbConfig = false;
   };
 
-  
-services.openssh.enable = true;
+  services.openssh.enable = true;
 
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
 
-services.displayManager.sddm = {
-  enable = true;
-  wayland.enable = true;
-};
+  programs.hyprland.enable = true;
+  programs.zsh.enable = true;
 
-
-
-programs.hyprland.enable = true;
-programs.zsh.enable = true;
-
-nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   services.pipewire = {
     enable = true;
     pulse.enable = true;
-    alsa.enable = true; 
+    alsa.enable = true;
   };
 
-
   home-manager = {
-  extraSpecialArgs = { inherit inputs;};
-  users={
-"deepshell" = ./home.nix; 
-};  
-};
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "deepshell" = ./home.nix;
+    };
+  };
   services.libinput.enable = true;
- 
- users.users.deepshell = {
+
+  users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ]; # Enable ‘sudo’ for the user.                             
-  #   packages = with pkgs; [
-  #     tree
-  #   ];
+    extraGroups = ["wheel" "networkmanager" "audio" "video"]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      tree
+    ];
   };
 
   environment.shells = [pkgs.zsh];
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [
+    alejandra
+  ];
 
-#services.gpg-agent = {
-#enable=true;
-#enableSshSupport = true;
-#};
+  #services.gpg-agent = {
+  #enable=true;
+  #enableSshSupport = true;
+  #};
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -118,9 +111,5 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
 
-
-
-  system.stateVersion = "25.05"; 
-
+  system.stateVersion = "25.05";
 }
-

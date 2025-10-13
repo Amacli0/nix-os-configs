@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }:
-
-let
-  mod = "SUPER";
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  mod = "SUPER";
+in {
   home.username = "deepshell";
   home.homeDirectory = "/home/deepshell";
   home.stateVersion = "25.05";
@@ -20,17 +22,24 @@ in
     bitwarden-desktop
     fastfetch
     hyprland
+    alejandra
   ];
 
   programs = {
-   git = {
-  enable = true;
-  userName = "Mehmet Şükrü Bilgiç";
-  userEmail = "deepshell@proton.me";
-};
+    git = {
+      enable = true;
+      userName = "Mehmet Şükrü Bilgiç";
+      userEmail = "deepshell@proton.me";
+    };
 
+    firefox.enable = true;
 
-   firefox.enable = true;
+    kitty = {
+      enable = true;
+      settings = {
+        confirm_os_window_close = -1;
+      };
+    };
 
     zsh = {
       enable = true;
@@ -46,16 +55,15 @@ in
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "git" ];
+        plugins = ["git"];
         theme = "kphoen";
       };
     };
   };
 
-  home.file = { };
+  home.file = {};
 
   home.sessionVariables = {
     EDITOR = "nvim";
   };
 }
-
