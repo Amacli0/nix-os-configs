@@ -23,7 +23,14 @@ in
   ];
 
   programs = {
-    firefox.enable = true;
+   git = {
+  enable = true;
+  userName = "Mehmet Şükrü Bilgiç";
+  userEmail = "deepshell@proton.me";
+};
+
+
+   firefox.enable = true;
 
     zsh = {
       enable = true;
