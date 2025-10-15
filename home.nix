@@ -27,7 +27,7 @@ in {
     waybar
     tree
     pavucontrol
-    bluez
+    blueman
   ];
 
   programs = {

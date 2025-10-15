@@ -60,7 +60,7 @@
     useXkbConfig = false;
   };
 
-  services = {
+services = {
    openssh.enable = true;
    displayManager.sddm = {
     enable = true;
@@ -70,8 +70,14 @@
     enable = true;
     pulse.enable = true;
     alsa.enable = true;
+    bluetooh.enable = true;
   };
- libinput.enable = true;
+bluetooth = {
+  enable = true;
+  autoEnable = true;
+
+
+libinput.enable = true;
 
 printing= {
 enable = true;
