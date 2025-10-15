@@ -23,6 +23,11 @@ in {
     fastfetch
     hyprland
     alejandra
+    whatsapp-electron
+    waybar
+    tree
+    pavucontrol
+    bluez
   ];
 
   programs = {

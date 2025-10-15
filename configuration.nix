@@ -5,7 +5,11 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+
+
+
+{
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
@@ -41,38 +45,58 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
+ 
+  security.pki.certificates = [
+    (builtins.readFile ./MEB_SERTIFIKASI.pem)
+  ];
+
+
+
+
+
   console = {
     font = "Lat2-Terminus16";
     #  keyMap = "tr";
     useXkbConfig = false;
   };
 
-  services.openssh.enable = true;
-
-  services.displayManager.sddm = {
+  services = {
+   openssh.enable = true;
+   displayManager.sddm = {
     enable = true;
     wayland.enable = true;
   };
+  pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+  };
+ libinput.enable = true;
 
+printing= {
+enable = true;
+drivers = [ pkgs.hplip pkgs.cups ];
+};
+blueman.enable = true;
+
+
+
+
+
+};
   programs.hyprland.enable = true;
   programs.zsh.enable = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-  };
-
+ 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
       "deepshell" = ./home.nix;
     };
   };
-  services.libinput.enable = true;
-
+ 
   users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -92,8 +116,6 @@
   #enableSshSupport = true;
   #};
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
   # programs.mtr.enable = true;
 
   # List services that you want to enable:
@@ -106,10 +128,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   system.stateVersion = "25.05";
 }
