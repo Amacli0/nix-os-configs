@@ -51,8 +51,8 @@
         ++ lib.flatten (lib.genList (i:
           let ws = builtins.toString (i + 1);
           in [
-            "${mod}, ${ws}, workspace, ${ws}"
-            "${mod} SHIFT, ${ws}, movetoworkspace, ${ws}"
+            "$mod, ${ws}, workspace, ${ws}"
+            "$mod SHIFT, ${ws}, movetoworkspace, ${ws}"
           ]
         ) 9);
     };
