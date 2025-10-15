@@ -70,26 +70,19 @@ services = {
     enable = true;
     pulse.enable = true;
     alsa.enable = true;
-    bluetooh.enable = true;
   };
-bluetooth = {
-  enable = true;
-  autoEnable = true;
+
+
 
 
 libinput.enable = true;
-
 printing= {
 enable = true;
 drivers = [ pkgs.hplip pkgs.cups ];
 };
-blueman.enable = true;
-
-
-
-
 };
-};
+hardware.bluetooth.enable = true;
+
   programs.hyprland.enable = true;
   programs.zsh.enable = true;
 
@@ -112,6 +105,7 @@ blueman.enable = true;
   environment.shells = [pkgs.zsh];
   environment.systemPackages = with pkgs; [
    alejandra
+   protonvpn-cli_2
   ];
 
   #services.gpg-agent = {
