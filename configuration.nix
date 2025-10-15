@@ -101,14 +101,11 @@ blueman.enable = true;
     shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "audio" "video"]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-    ];
   };
 
   environment.shells = [pkgs.zsh];
   environment.systemPackages = with pkgs; [
-    alejandra
+   alejandra
   ];
 
   #services.gpg-agent = {
