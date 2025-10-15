@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let
-  mod = "SUPER";
-in
+
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -31,24 +29,24 @@ in
       "monitor" = [
         "eDP-1, 1920x1080@144, 0x0, 1"
       ];
-
+          "$mod" = "SUPER";
       "bind" =
         [
-          "${mod}, T, exec, kitty"
-          "${mod}, Q, killactive"
-          "${mod} SHIFT, M, exit"
-          "${mod}, F, fullscreen"
-          "${mod}, V, togglefloating"
+          "$mod, T, exec, kitty"
+          "$mod, Q, killactive"
+          "$mod SHIFT, M, exit"
+          "$mod, F, fullscreen"
+          "$mod, V, togglefloating"
 
-          "${mod}, left, movefocus, l"
-          "${mod}, right, movefocus, r"
-          "${mod}, up, movefocus, u"
-          "${mod}, down, movefocus, d"
+          "$mod, left, movefocus, l"
+          "$mod, right, movefocus, r"
+          "$mod, up, movefocus, u"
+          "$mod, down, movefocus, d"
 
-          "${mod} SHIFT, left, movewindow, l"
-          "${mod} SHIFT, right, movewindow, r"
-          "${mod} SHIFT, up, movewindow, u"
-          "${mod} SHIFT, down, movewindow, d"
+          "$mod SHIFT, left, movewindow, l"
+          "$mod SHIFT, right, movewindow, r"
+          "$mod SHIFT, up, movewindow, u"
+          "$mod SHIFT, down, movewindow, d"
         ]
         ++ lib.flatten (lib.genList (i:
           let ws = builtins.toString (i + 1);
