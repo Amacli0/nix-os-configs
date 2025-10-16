@@ -15,16 +15,13 @@
 "shift" = "SHIFT";
 "$terminal" = "kitty";
 "$fileManager" = "thunar";
-"$menu" = "rofi"
+"$menu" = "rofi";
 
-"exec-once" = [
-
-"waybar"
+exec-once = [
+"${pkgs.waybar}/bin/waybar"
 ];
 
-   "monitor" = [
-        "eDP-1, 1920x1080@144, 0x0, 1"
-      ];
+   "monitor" = "eDP-1, 1920x1080@144, 0x0, 1";
 
 
 
