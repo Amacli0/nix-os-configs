@@ -12,9 +12,8 @@
 "$alt" = "Alt";
 "$space" = "SPACE";
 "$control" = "CTRL";
-"shift" = "SHIFT";
+"$shift" = "SHIFT";
 "$terminal" = "kitty";
-"$fileManager" = "thunar";
 "$menu" = "rofi";
 
 exec-once = [
@@ -51,7 +50,6 @@ exec-once = [
           "$mod, F, fullscreen"
           "$mod, V, togglefloating"
 	  "$mod, M, exit"
-	  "$mod, E, $fileManager"
 	  "$alt $space,,$menu -show drun"
           
 
@@ -66,10 +64,10 @@ exec-once = [
 
 
 
-	  "$mod SHIFT, left, movewindow, l"
-          "$mod SHIFT, right, movewindow, r"
-          "$mod SHIFT, up, movewindow, u"
-          "$mod SHIFT, down, movewindow, d"
+	  "$mod $shift, left, movewindow, l"
+          "$mod $shift, right, movewindow, r"
+          "$mod $shift, up, movewindow, u"
+          "$mod $shift, down, movewindow, d"
 
 	"$mod, 1 , workspace, 1"
 	"$mod, 2 , workspace, 2"
@@ -97,8 +95,8 @@ exec-once = [
 
 
 
-        ]
+        ];
     };
-  };
+    };
 }
 

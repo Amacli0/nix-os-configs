@@ -28,6 +28,8 @@ in {
     tree
     pavucontrol
     blueman
+    rofi
+    yazi
   ];
 
   programs = {
