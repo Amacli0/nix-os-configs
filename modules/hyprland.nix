@@ -50,7 +50,7 @@ exec-once = [
           "$mod, F, fullscreen"
           "$mod, V, togglefloating"
 	  "$mod, M, exit"
-	  "$alt $space,,$menu -show drun"
+	  "$alt, $space,exec, $menu -show drun"
           
 
 

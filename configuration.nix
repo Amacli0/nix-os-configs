@@ -5,99 +5,108 @@
   pkgs,
   inputs,
   ...
-}:
-
-
-
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  boot = { 
-  
-  kernelPackages = pkgs.linuxPackages_latest;
-  
-  loader = {
-  timeout = 15;
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
 
-    systemd-boot = {
-      enable = false;
-    };
+    loader = {
+      timeout = 15;
 
-    efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = false;
+      };
 
-    grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
-      useOSProber = true;
+      efi.canTouchEfiVariables = true;
+
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+      };
     };
   };
+
+  networking = {
+    hostName = "Nixtilus";
+    networkmanager.enable = true;
   };
-
-  networking = { 
-
-  hostName = "Nixtilus";
-  networkmanager.enable = true;
-};
   time.timeZone = "Europe/Istanbul";
-
 
   i18n.defaultLocale = "en_US.UTF-8";
 
- 
   security.pki.certificates = [
     (builtins.readFile ./MEB_SERTIFIKASI.pem)
   ];
-
-
-
-
 
   console = {
     font = "Lat2-Terminus16";
     useXkbConfig = false;
   };
 
-services = {
-openssh.enable = true;
+  services = {
+    postgresql = {
+      enable = true;
 
-displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-};
-  pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
+      ensureUsers = [
+        {
+          name = "MyData";
+
+        ensureDBOwnership = true;
+	ensureClauses.createdb = true;
+	}
+	
+      ];
+      ensureDatabases = [
+        "MyData"
+        "test1"
+        "deepshell"
+      ];
+
+      authentication = pkgs.lib.mkOverride 10 ''
+        local all all trust
+      '';
+    };
+
+    openssh.enable = true;
+
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa.enable = true;
+    };
+    libinput.enable = true;
+
+    printing = {
+      enable = true;
+      drivers = [pkgs.hplip pkgs.cups];
+    };
   };
-libinput.enable = true;
 
-printing= {
-   enable = true;
-   drivers = [ pkgs.hplip pkgs.cups ];
-};
-};
-
-
-hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = true;
 
   programs.hyprland.enable = true;
- programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland; 
+  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.zsh.enable = true;
 
-nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
- 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
       "deepshell" = ./home.nix;
     };
   };
- 
+
   users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -106,11 +115,9 @@ nix.settings.experimental-features = ["nix-command" "flakes"];
 
   environment.shells = [pkgs.zsh];
   environment.systemPackages = with pkgs; [
-   alejandra
-   protonvpn-cli_2
+    alejandra
+    protonvpn-cli_2
   ];
-
-
 
   system.stateVersion = "25.05";
 }
