@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}: let
-  mod = "SUPER";
-in {
+}:
+
+{
   home.username = "deepshell";
   home.homeDirectory = "/home/deepshell";
   home.stateVersion = "25.05";
@@ -30,7 +30,11 @@ in {
     blueman
     rofi
     yazi
+    claude-code
+    vscodium
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   programs = {
     git = {

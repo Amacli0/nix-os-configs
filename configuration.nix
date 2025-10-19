@@ -118,6 +118,5 @@
     alejandra
     protonvpn-cli_2
   ];
-
   system.stateVersion = "25.05";
 }
