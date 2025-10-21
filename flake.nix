@@ -32,8 +32,8 @@
 	specialArgs = { inherit inputs; };
          
  modules = [
-      ./server/hardware_configuration.nix
-      ./server/configuration-server.nix
+      ./server/hardware-configuration.nix
+      ./server/configuration_server.nix
 
       ];
 
