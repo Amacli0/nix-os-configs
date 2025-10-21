@@ -31,16 +31,19 @@
 
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+ console = {
+ keyMap = "trq";   
+ font = "latarcyrheb-sun32";
+#     useXkbConfig = true; # use xkb.options in tty.
+   };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
+nix.settings = {
+experimental-features = ["nix-command" "flakes" ];
 
+};
   
 
   # Configure keymap in X11
@@ -74,10 +77,13 @@
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+   environment.systemPackages = with pkgs; [
+git     
+neovim 
+terminus_font
+# Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #   wget
-  # ];
+   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
