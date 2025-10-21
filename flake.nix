@@ -33,7 +33,7 @@
          
  modules = [
       ./server/hardware_configuration.nix
-      ./server/configuration_server.nix
+      ./server/configuration-server.nix
 
       ];
 
