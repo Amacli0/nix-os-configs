@@ -11,7 +11,9 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations.Nixtilus = nixpkgs.lib.nixosSystem {
+    nixosConfigurations = {
+
+    Nixtilus = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux"; # sistem mimarini belirt (gerekli!)
       specialArgs = { inherit inputs; };
       modules = [
@@ -24,6 +26,24 @@
           home-manager.users.deepshell = import ./home.nix;
         })
       ];
+    };
+	server-pc = nixpkgs.lib.nixosSystem {
+	system = "x86_64-linux";
+	specialArgs = { inherit inputs; };
+         
+ modules = [
+      ./server/hardware_configuration.nix
+      ./server/configuration_server.nix
+
+      ];
+
+
+
+
+	};
+
+
+
     };
   };
 }
