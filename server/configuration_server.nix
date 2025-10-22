@@ -38,6 +38,22 @@ terminus_font
    ];
 
 
+
+
+users.users.server-pc = {
+isNormalUser = true;
+extraGroups = ["whell" "networkmanager"];
+
+
+
+};
+
+
+
+
+
+
+
    services.openssh.enable = true;
 
   system.stateVersion = "25.05"; 
