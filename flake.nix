@@ -17,13 +17,13 @@
       system = "x86_64-linux"; # sistem mimarini belirt (gerekli!)
       specialArgs = { inherit inputs; };
       modules = [
-        ./configuration.nix
+        ./main/configuration.nix
 
         home-manager.nixosModules.home-manager
 
         # home.nix'i dahil ediyoruz
         ({ config, pkgs, ... }: {
-          home-manager.users.deepshell = import ./home.nix;
+          home-manager.users.deepshell = import ./main/home.nix;
         })
       ];
     };
