@@ -49,7 +49,7 @@ security.sudo = {
 };
 users.users.server-pc = {
 isNormalUser = true;
-extraGroups = ["networkmanager" "wheel"];
+extraGroups = ["networkmanager" "wheel" "tailscale"];
 
 
 
@@ -58,20 +58,34 @@ extraGroups = ["networkmanager" "wheel"];
 networking.firewall = {
   enable = true;
   # SSH, HTTP ve HTTPS portlarını aç
-  allowedTCPPorts = [ 22 80 443 ]; 
+  allowedTCPPorts = [ 22 80 443 ];
+
+  allowedUDPPorts = [ 41641 ];
 };
 
 
   services.openssh= {
   enable = true;
-settings = {  
-  passwordAuthentication = false;
-  permitRootLogin = "no";
- };
 };
 
 
 services.nginx.enable = true;
+
+
+
+services.tailscale = {
+  enable = true;
+
+
+
+
+};
+
+
+
+
+
+
 
 
 
