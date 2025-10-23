@@ -13,7 +13,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "server-pc"; 
-   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+   networking.networkmanager.enable = true;  
 
    time.timeZone = "Europe/Istanbul";
 
@@ -44,24 +44,38 @@ security.sudo = {
       groups = [ "wheel" ]; 
       commands = [ "ALL" ];   
 
-
+}
+  ];
+};
 users.users.server-pc = {
 isNormalUser = true;
-extraGroups = ["whell" "networkmanager"];
+extraGroups = ["networkmanager" "wheel"];
 
 
 
 };
 
+networking.firewall = {
+  enable = true;
+  # SSH, HTTP ve HTTPS portlarını aç
+  allowedTCPPorts = [ 22 80 443 ]; 
+};
+
+
+  services.openssh= {
+  enable = true;
+settings = {  
+  passwordAuthentication = false;
+  permitRootLogin = "no";
+ };
+};
+
+
+services.nginx.enable = true;
 
 
 
-
-
-
-   services.openssh.enable = true;
-
-  system.stateVersion = "25.05"; 
+system.stateVersion = "25.05"; 
 
 }
 
