@@ -37,7 +37,12 @@ neovim
 terminus_font
    ];
 
-
+security.sudo = {
+  enable = true; 
+  extraRules = [
+    {
+      groups = [ "wheel" ]; 
+      commands = [ "ALL" ];   
 
 
 users.users.server-pc = {
