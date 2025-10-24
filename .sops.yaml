@@ -1,0 +1,11 @@
+# .sops.yaml (repo root'unda)
+keys:
+  - &pc age1hzwtpxgtcn9l3zgqs0j732lsvpm77czykej5p4k6jfpuwsy3gceq5f7jvt  # PC'nin public keyi
+  - &sunucu age1u9mhnzr42z8r8lhh0s7vmgg7k64nyvl5zstac4vkqhndjnjmcyhspc6ye9  # Sunucunun public keyi (farklı olacak)
+
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+      - age:
+          - *pc
+          - *sunucu

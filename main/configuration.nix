@@ -50,6 +50,9 @@
   };
 
   services = {
+    tailscale ={
+    enable = true;
+};
     postgresql = {
       enable = true;
 
@@ -92,13 +95,27 @@
     };
   };
 
+
+
   hardware.bluetooth.enable = true;
+
+
 
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.zsh.enable = true;
 
+
+
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.keyFile = "/root/.config/sops/age/keys.txt";
+
+
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
@@ -117,6 +134,17 @@
   environment.systemPackages = with pkgs; [
     alejandra
     protonvpn-cli_2
+    age
+    sops
   ];
-  system.stateVersion = "25.05";
+ 
+
+
+
+
+
+
+
+
+ system.stateVersion = "25.05";
 }

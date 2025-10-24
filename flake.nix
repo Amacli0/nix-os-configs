@@ -8,9 +8,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+	sops-nix.url = "github:Mic92/sops-nix";
+	sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs: {
     nixosConfigurations = {
 
     Nixtilus = nixpkgs.lib.nixosSystem {
@@ -18,7 +21,7 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./main/configuration.nix
-
+        sops-nix.nixosModules.sops  
         home-manager.nixosModules.home-manager
 
         # home.nix'i dahil ediyoruz
@@ -34,7 +37,7 @@
  modules = [
       ./server/hardware-configuration.nix
       ./server/configuration_server.nix
-
+       sops-nix.nixosModules.sops  
       ];
 
 
