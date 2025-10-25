@@ -4,14 +4,47 @@
   virtualisation.docker = {
     enable = true;
     
+    # Storage driver
+    storageDriver = "overlay2";
+    
     # Performance & security
     autoPrune = {
       enable = true;
       dates = "weekly";
       flags = [ "--all" ];
     };
+    
+    # Daemon settings
+    daemon.settings = {
+      # Log rotation
+      log-driver = "json-file";
+      log-opts = {
+        max-size = "10m";
+        max-file = "3";
+      };
+      
+      # Performance
+      default-ulimits = {
+        nofile = {
+          Hard = 64000;
+          Name = "nofile";
+          Soft = 64000;
+        };
+      };
+    };
+  };
 
-  # Docker network için
+  # Docker compose dizinleri
+  systemd.tmpfiles.rules = [
+    "d /opt/docker 0755 root root -"
+    "d /opt/docker/ghost 0755 root root -"
+    "d /opt/docker/freshrss 0755 root root -"
+    "d /opt/docker/uptime-kuma 0755 root root -"
+    "d /opt/docker/stirling-pdf 0755 root root -"
+    "d /opt/docker/ntfy 0755 root root -"
+  ];
+
+  # Docker network setup
   systemd.services.docker-network-setup = {
     description = "Create Docker Networks";
     after = [ "docker.service" ];
@@ -27,7 +60,7 @@
     '';
   };
 
-  # Docker için monitoring
+  # Docker prune service
   systemd.services.docker-prune = {
     description = "Cleanup Docker resources";
     serviceConfig = {
@@ -46,45 +79,11 @@
       Persistent = true;
     };
   };
-}
-    
-    # Storage driver (overlay2 is default and best)
-    storageDriver = "overlay2";
-    
-    # Daemon settings
-    daemon.settings = {
-      # Log rotation (disk tasarrufu)
-      log-driver = "json-file";
-      log-opts = {
-        max-size = "10m";
-        max-file = "3";
-      };
-      
-      # Performance
-      default-ulimits = {
-        nofile = {
-          Hard = 64000;
-          Name = "nofile";
-          Soft = 64000;
-        };
-      };
-    };
-  };
 
-  # Docker Compose dosyaları için dizin
-  systemd.tmpfiles.rules = [
-    "d /opt/docker 0755 root root -"
-    "d /opt/docker/ghost 0755 root root -"
-    "d /opt/docker/freshrss 0755 root root -"
-    "d /opt/docker/uptime-kuma 0755 root root -"
-    "d /opt/docker/stirling-pdf 0755 root root -"
-    "d /opt/docker/ntfy 0755 root root -"
-  ];
-
-  # Systemd service for Ghost
+  # Ghost Blog
   systemd.services.docker-ghost = {
     description = "Ghost Blog Docker Container";
-    after = [ "docker.service" "network-online.target" ];
+    after = [ "docker.service" "docker-network-setup.service" "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     
@@ -98,10 +97,10 @@
     };
   };
 
-  # Systemd service for docker compose (FreshRSS)
+  # FreshRSS
   systemd.services.docker-freshrss = {
     description = "FreshRSS Docker Container";
-    after = [ "docker.service" "network-online.target" ];
+    after = [ "docker.service" "docker-network-setup.service" "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     
@@ -118,7 +117,7 @@
   # Uptime Kuma
   systemd.services.docker-uptime-kuma = {
     description = "Uptime Kuma Monitoring";
-    after = [ "docker.service" "network-online.target" ];
+    after = [ "docker.service" "docker-network-setup.service" "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     
@@ -135,7 +134,7 @@
   # Stirling PDF
   systemd.services.docker-stirling-pdf = {
     description = "Stirling PDF Tools";
-    after = [ "docker.service" "network-online.target" ];
+    after = [ "docker.service" "docker-network-setup.service" "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     
@@ -152,7 +151,7 @@
   # Ntfy
   systemd.services.docker-ntfy = {
     description = "Ntfy Push Notifications";
-    after = [ "docker.service" "network-online.target" ];
+    after = [ "docker.service" "docker-network-setup.service" "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     
@@ -165,3 +164,4 @@
       Restart = "on-failure";
     };
   };
+}

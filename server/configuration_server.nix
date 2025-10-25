@@ -2,22 +2,19 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-       ./services/core.nix       # PostgreSQL, Caddy
-       ./services/web-apps.nix   # Ghost, Nextcloud
-       ./services/monitoring.nix # Uptime Kuma, Netdata
-   #    ./services/docker.nix# Docker + compose setup
-       ./services/ddns.nix
+    ./services/core.nix       # PostgreSQL, Caddy
+    ./services/web-apps.nix   # Nextcloud, Vaultwarden, Gitea
+    ./services/docker.nix     # Docker + compose setup
+    ./services/ddns.nix       # Cloudflare DDNS
+    # ./services/monitoring.nix # Opsiyonel: Grafana, Prometheus vs
   ];
 
   # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  
-  # Disk optimizasyonu (240GB için önemli)
   boot.tmp.cleanOnBoot = true;
   
-
   # Network
   networking.hostName = "server-pc";
   networking.networkmanager.enable = true;
@@ -47,10 +44,9 @@
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
-      max-jobs = 4; # i5-6500T için
+      max-jobs = 4;
     };
     
-    # Otomatik garbage collection (disk tasarrufu)
     gc = {
       automatic = true;
       dates = "weekly";
@@ -69,7 +65,7 @@
     # Monitoring & Debug
     btop
     iotop
-    ncdu  # Disk kullanım analizi
+    ncdu
     
     # Network
     curl
@@ -81,7 +77,7 @@
     age
     sops
     
-    # Docker (compose için)
+    # Docker
     docker-compose
     
     # PostgreSQL client
@@ -91,12 +87,13 @@
   # Editor
   environment.variables.EDITOR = "neovim";
   
-  # Shell aliases (opsiyonel)
+  # Shell aliases
   environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake .#server-pc";
-    update = "nix flake update && sudo nixos-rebuild switch --flake .#server-pc";
+    rebuild = "sudo nixos-rebuild switch --flake ~/nixos-flake-config#server-pc";
+    update = "cd ~/nixos-flake-config && nix flake update && sudo nixos-rebuild switch --flake .#server-pc";
     logs = "journalctl -xeu";
     dsize = "ncdu /";
+    dstatus = "systemctl status docker-*";
   };
 
   # User Configuration
@@ -106,7 +103,7 @@
       "networkmanager" 
       "wheel" 
       "tailscale"
-      "docker"  # Docker için
+      "docker"
     ];
     shell = pkgs.bash;
   };
@@ -126,28 +123,33 @@
     age.keyFile = "/root/.config/sops/age/keys.txt";
     
     secrets = {
-      # Database
-      postgres-ghost-password = { owner = "ghost"; };
-      postgres-nextcloud-password = { owner = "nextcloud"; };
+      # Nextcloud
+      nextcloud-admin-password = { 
+        owner = "nextcloud"; 
+      };
       
-      # Applications
-      ghost-admin-password = { owner = "ghost"; };
-      nextcloud-admin-password = { owner = "nextcloud"; };
-      vaultwarden-admin-token = { owner = "vaultwarden"; };
+      # Vaultwarden
+      vaultwarden-admin-token = { 
+        owner = "vaultwarden"; 
+      };
       
-      # Monitoring
-      uptime-kuma-admin-password = {};
+      # Cloudflare DDNS
+      cloudflare-ddns-env = {
+        owner = "root";
+        mode = "0400";
+      };
+      cloudflare-api-token = { 
+        owner = "root";
+        mode = "0400";
+      };
       
-      # Docker apps
-      freshrss-admin-password = {};
-      gitea-admin-password = {};
-      
-      # Cloudflare (opsiyonel)
-      cloudflare-api-token = { owner = "caddy"; };
+      # Docker apps (opsiyonel - şimdilik gerek yok)
+      # freshrss-admin-password = {};
+      # gitea-admin-password = {};
     };
   };
 
-  # Basic Services
+  # SSH
   services.openssh = {
     enable = true;
     settings = {
@@ -157,21 +159,17 @@
     };
   };
 
+  # Tailscale
   services.tailscale.enable = true;
 
-  # Systemd journal size limit (disk tasarrufu)
+  # Journal size limit
   services.journald.extraConfig = ''
     SystemMaxUse=500M
     MaxRetentionSec=7day
   '';
 
-  # Otomatik güvenlik güncellemeleri
-  system.autoUpgrade = {
-    enable = false;  # Manuel kontrol edelim başta
-    # enable = true;
-    # flake = "github:yourusername/nixos-flake-config";
-    # flags = [ "--update-input" "nixpkgs" ];
-  };
+  # Auto upgrade (şimdilik kapalı)
+  system.autoUpgrade.enable = false;
 
   system.stateVersion = "25.05";
 }
