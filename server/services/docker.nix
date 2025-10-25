@@ -60,25 +60,8 @@
     '';
   };
 
-  # Docker prune service
-  systemd.services.docker-prune = {
-    description = "Cleanup Docker resources";
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    script = ''
-      ${pkgs.docker}/bin/docker system prune -af --volumes
-    '';
-  };
-
-  systemd.timers.docker-prune = {
-    description = "Cleanup Docker resources weekly";
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "weekly";
-      Persistent = true;
-    };
-  };
+  # Docker prune zaten Docker modülünde var (autoPrune ile)
+  # Ekstra cleanup'a ihtiyaç yoksa kaldırıldı
 
   # Ghost Blog
   systemd.services.docker-ghost = {

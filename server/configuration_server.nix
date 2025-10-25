@@ -128,9 +128,10 @@
         owner = "nextcloud"; 
       };
       
-      # Vaultwarden
+      # Vaultwarden (environment file formatında)
       vaultwarden-admin-token = { 
-        owner = "vaultwarden"; 
+        owner = "vaultwarden";
+        mode = "0400";
       };
       
       # Cloudflare DDNS

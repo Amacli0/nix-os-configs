@@ -1,11 +1,9 @@
 { config, lib, pkgs, ... }:
 {
-
-
   # Nextcloud
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud30;  # Versiyonu açıkça belirt (29 eski, 30 stable)
     hostName = "cloud.deepshell.org";
     
     config = {
@@ -41,7 +39,7 @@
     maxUploadSize = "16G";
     https = true;
     
-    # Apps (opsiyonel - ihtiyacına göre ekle)
+    # Apps (opsiyonel)
     extraAppsEnable = true;
     extraApps = with config.services.nextcloud.package.packages.apps; {
       inherit calendar contacts mail notes tasks deck;
@@ -75,17 +73,12 @@
       SIGNUPS_ALLOWED = false;  # Sadece invite ile kayıt
       INVITATIONS_ALLOWED = true;
       
-      # Admin panel
-      # ADMIN_TOKEN sops'tan gelecek
-      
-      # Email (opsiyonel)
-      # SMTP_HOST = "smtp.gmail.com";
-      # SMTP_FROM = "your-email@gmail.com";
-      # SMTP_PORT = 587;
-      # SMTP_SECURITY = "starttls";
-      # SMTP_USERNAME = "your-email@gmail.com";
-      # SMTP_PASSWORD = "app-password";
+      # Admin panel (SOPS'tan gelecek)
+      # ADMIN_TOKEN sops secret'ı kullanarak ayarlanacak
     };
+    
+    # Admin token'ı environment file ile ekle
+    environmentFile = config.sops.secrets.vaultwarden-admin-token.path;
     
     backupDir = "/var/backup/vaultwarden";
   };
@@ -122,15 +115,6 @@
       lfs = {
         ENABLE = true;
       };
-      
-      # Mailer (opsiyonel)
-      # mailer = {
-      #   ENABLED = true;
-      #   FROM = "gitea@deepshell.org";
-      #   PROTOCOL = "smtp";
-      #   SMTP_ADDR = "smtp.gmail.com";
-      #   SMTP_PORT = 587;
-      # };
     };
     
     database = {
@@ -141,7 +125,7 @@
     };
   };
 
-  # Systemd timers for backups (opsiyonel)
+  # Systemd timers for backups
   systemd.timers.backup-databases = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
@@ -163,7 +147,7 @@
     };
   };
 
-  # Backup dizini
+  # Backup dizinleri
   systemd.tmpfiles.rules = [
     "d /var/backup 0755 root root -"
     "d /var/backup/postgresql 0755 postgres postgres -"
