@@ -5,7 +5,7 @@
   # Nextcloud
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud30;
+    package = pkgs.nextcloud31;
     hostName = "cloud.deepshell.org";
     
     config = {
