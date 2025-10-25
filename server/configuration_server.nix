@@ -5,7 +5,7 @@
        ./services/core.nix       # PostgreSQL, Caddy
        ./services/web-apps.nix   # Ghost, Nextcloud
        ./services/monitoring.nix # Uptime Kuma, Netdata
-       ./services/docker.nix# Docker + compose setup
+   #    ./services/docker.nix# Docker + compose setup
        ./services/ddns.nix
   ];
 
