@@ -3,7 +3,7 @@
   # Nextcloud
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud30;  # Versiyonu açıkça belirt (29 eski, 30 stable)
+    package = pkgs.nextcloud31;  # Versiyonu açıkça belirt (29 eski, 30 stable)
     hostName = "cloud.deepshell.org";
     
     config = {
