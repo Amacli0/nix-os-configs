@@ -35,7 +35,6 @@
     
     # Databases
     ensureDatabases = [ 
-      "ghost"
       "nextcloud"
       "gitea"
       "MyData"
@@ -43,10 +42,6 @@
     
     # Users
     ensureUsers = [
-      {
-        name = "ghost";
-        ensureDBOwnership = true;
-      }
       {
         name = "nextcloud";
         ensureDBOwnership = true;

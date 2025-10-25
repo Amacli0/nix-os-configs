@@ -1,49 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Ghost Blog Platform
-  services.ghost = {
-    enable = true;
-    
-    config = {
-      url = "https://blog.deepshell.org";
-      
-      server = {
-        host = "127.0.0.1";
-        port = 2368;
-      };
-      
-      # PostgreSQL database
-      database = {
-        client = "postgres";
-        connection = {
-          host = "/run/postgresql";
-          user = "ghost";
-          database = "ghost";
-        };
-      };
-      
-      # Mail configuration (opsiyonel - sonra ekle)
-      # mail = {
-      #   transport = "SMTP";
-      #   options = {
-      #     service = "Gmail";
-      #     host = "smtp.gmail.com";
-      #     port = 587;
-      #     secure = false;
-      #     auth = {
-      #       user = "your-email@gmail.com";
-      #       pass = "app-specific-password";
-      #     };
-      #   };
-      # };
-      
-      # Privacy & performance
-      privacy = {
-        useUpdateCheck = false;
-        useGravatar = false;
-      };
-    };
-  };
+
 
   # Nextcloud
   services.nextcloud = {
