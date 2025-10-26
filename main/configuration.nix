@@ -111,10 +111,6 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
 
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = "/root/.config/sops/age/keys.txt";
-
 
 
   home-manager = {

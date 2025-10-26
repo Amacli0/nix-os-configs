@@ -1,179 +1,117 @@
 { config, lib, pkgs, ... }:
 {
-  # PostgreSQL - Ana database
+  # ============================================
+  # DOCKER - Konteyner servisleri için
+  # ============================================
+  virtualisation.docker = {
+    enable = true;
+    # Otomatik başlat
+    enableOnBoot = true;
+    # Eski image'ları otomatik temizle
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
+  };
+
+  # Docker için ek ayarlar
+  virtualisation.oci-containers.backend = "docker";  # Podman yerine Docker kullan
+
+  # ============================================
+  # POSTGRESQL - Veritabanı
+  # ============================================
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_16;
+    package = pkgs.postgresql_16;  # PostgreSQL 16 kullan
     
-    # Performance tuning (16GB RAM için)
-    settings = {
-      # Memory
-      shared_buffers = "4GB";
-      effective_cache_size = "12GB";
-      maintenance_work_mem = "1GB";
-      work_mem = "64MB";
-      
-      # Checkpoints
-      checkpoint_completion_target = "0.9";
-      wal_buffers = "16MB";
-      
-      # Connections
-      max_connections = "100";
-      
-      # Query planning
-      random_page_cost = "1.1";
-      effective_io_concurrency = "200";
-      
-      # Logging (debugging için)
-      log_line_prefix = "%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h ";
-      log_checkpoints = true;
-      log_connections = true;
-      log_disconnections = true;
-      log_lock_waits = true;
-      log_temp_files = 0;
-    };
+    # Otomatik başlat
+    enableTCPIP = true;  # Ağ bağlantılarını aktif et
     
-    # Databases
+    # Port ayarı (varsayılan 5432)
+    port = 5432;
+    
+    # İlk kurulumda veritabanlarını oluştur
     ensureDatabases = [ 
-      "nextcloud"
-      "gitea"
-      "MyData"
+      "nextcloud"   # Nextcloud için
+      "ghost"       # Ghost için
     ];
     
-    # Users
+    # Kullanıcıları oluştur
     ensureUsers = [
       {
         name = "nextcloud";
-        ensureDBOwnership = true;
+        ensureDBOwnership = true;  # nextcloud DB'sine tam yetki
       }
       {
-        name = "gitea";
-        ensureDBOwnership = true;
-      }
-
-      {
-	name = "MyData";
-	ensureDBOwnership = true;
-
+        name = "ghost";
+        ensureDBOwnership = true;  # ghost DB'sine tam yetki
       }
     ];
     
-    # Otomatik yedekleme
-    # backup.enable = true;
-  };
-
-  # PostgreSQL monitoring için
-  services.postgresql.enableTCPIP = true;
-  
-  # Caddy - Reverse Proxy (Otomatik SSL)
-  services.caddy = {
-    enable = true;
-    email = "deepshell@proton.me";  # Değiştir!
-    
-    # Global ayarlar
-    globalConfig = ''
-      # ACME (Let's Encrypt) ayarları
-      acme_ca https://acme-v02.api.letsencrypt.org/directory
-      
-      # Security headers
-      servers {
-        protocols h1 h2 h3
-      }
+    # Güvenlik ayarları
+    authentication = pkgs.lib.mkOverride 10 ''
+      # Local bağlantılar için trust (güvenli, sadece sunucu içi)
+      local   all             all                                     trust
+      # Localhost için trust
+      host    all             all             127.0.0.1/32            trust
+      host    all             all             ::1/128                 trust
+      # Docker network'ü için (sonra güncelleyeceğiz)
+      host    all             all             172.17.0.0/16           md5
     '';
-    
-    virtualHosts = {
-      # Ghost Blog
-      "blog.deepshell.org" = {
-        extraConfig = ''
-          # Security headers
-          header {
-            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-            X-Content-Type-Options "nosniff"
-            X-Frame-Options "SAMEORIGIN"
-            Referrer-Policy "strict-origin-when-cross-origin"
-          }
-          
-          reverse_proxy localhost:2368
-        '';
-      };
-      
-      # Nextcloud
-      "cloud.deepshell.org" = {
-        extraConfig = ''
-          header {
-            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-          }
-          
-          # Nextcloud için özel ayarlar
-          redir /.well-known/carddav /remote.php/dav 301
-          redir /.well-known/caldav /remote.php/dav 301
-          
-          reverse_proxy localhost:8080 {
-            header_up X-Forwarded-For {remote_host}
-          }
-        '';
-      };
-      
-      # Vaultwarden (Password Manager)
-      "vault.deepshell.org" = {
-        extraConfig = ''
-          header {
-            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-          }
-          
-          reverse_proxy localhost:8222
-          reverse_proxy /notifications/hub localhost:3012
-        '';
-      };
-      
-      # Uptime Kuma (Monitoring)
-      "status.deepshell.org" = {
-        extraConfig = ''
-          reverse_proxy localhost:3001
-        '';
-      };
-      
-      # Gitea (Git Server)
-      "git.deepshell.org" = {
-        extraConfig = ''
-          reverse_proxy localhost:3000
-        '';
-      };
-      
-      # Grafana (Metrics)
-      "metrics.deepshell.org" = {
-        extraConfig = ''
-          reverse_proxy localhost:3002
-        '';
-      };
-      
-      # Docker apps için hazır
-      "rss.deepshell.org" = {
-        extraConfig = ''
-          reverse_proxy localhost:8081
-        '';
-      };
-      
-      # Ntfy (Notifications)
-      "ntfy.deepshell.org" = {
-        extraConfig = ''
-          reverse_proxy localhost:8083
-        '';
-      };
-      
-      # Netdata (System Monitoring - optional)
-      "netdata.deepshell.org" = {
-        extraConfig = ''
-          reverse_proxy localhost:19999
-        '';
-      };
-    };
   };
 
-  # Caddy için automatic certificate renewal
-  systemd.services.caddy.serviceConfig = {
-    # Restart on failure
-    Restart = "on-failure";
-    RestartSec = "5s";
+  # PostgreSQL otomatik yedekleme
+  services.postgresqlBackup = {
+    enable = true;
+    location = "/var/backup/postgresql";  # Yedek konumu
+    startAt = "*-*-* 03:00:00";  # Her gün saat 03:00'da yedekle
+  };
+
+  # ============================================
+  # FAIL2BAN - Brute force koruması
+  # ============================================
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5;  # 5 başarısız denemeden sonra banla
+    ignoreIP = [
+      "127.0.0.1/8"    # Localhost
+      "10.0.0.0/8"     # Özel ağlar
+      "172.16.0.0/12"  # Docker network
+      # Tailscale IP'lerini buraya ekleyeceğiz
+    ];
+    
+    # SSH koruması
+    jails.sshd = ''
+      enabled = true
+      port = 22
+      filter = sshd
+      logpath = /var/log/auth.log
+      maxretry = 3
+      bantime = 3600
+    '';
+  };
+
+  # ============================================
+  # NGINX - Reverse Proxy
+  # ============================================
+  services.nginx = {
+    enable = true;
+    
+    # Önerilen ayarlar
+    recommendedGzipSettings = true;   # Sıkıştırma
+    recommendedOptimisation = true;   # Optimizasyon
+    recommendedProxySettings = true;  # Proxy ayarları
+    recommendedTlsSettings = true;    # SSL/TLS ayarları
+    
+    # Maksimum upload boyutu (Nextcloud için önemli)
+    clientMaxBodySize = "512M";
+  };
+
+  # ============================================
+  # ACME (Let's Encrypt) - SSL Sertifikaları
+  # ============================================
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "deepshell@proton.me";  # BURAYA KENDİ EMAİLİNİ YAZ!
   };
 }

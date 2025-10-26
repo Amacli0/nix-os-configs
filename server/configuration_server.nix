@@ -1,176 +1,136 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
-    ./services/core.nix       # PostgreSQL, Caddy
-    ./services/web-apps.nix   # Nextcloud, Vaultwarden, Gitea
-    ./services/docker.nix     # Docker + compose setup
-    ./services/ddns.nix       # Cloudflare DDNS
-    # ./services/monitoring.nix # Opsiyonel: Grafana, Prometheus vs
+    ./services/core.nix           # Temel servisler
+    ./services/networking.nix     # Ağ servisleri
+    ./services/web-apps.nix       # Web uygulamaları
+    ./services/monitoring.nix     # İzleme araçları
   ];
 
-  # Boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.tmp.cleanOnBoot = true;
-  
-  # Network
+  # ============================================
+  # BOOT AYARLARI
+  # ============================================
+  boot.loader.systemd-boot.enable = true;  # Systemd boot kullan
+  boot.loader.efi.canTouchEfiVariables = true;  # EFI değişkenlerine yazabilir
+  boot.kernelPackages = pkgs.linuxPackages_latest;  # En son kernel
+
+  # ============================================
+  # AĞ AYARLARI
+  # ============================================
   networking.hostName = "server-pc";
   networking.networkmanager.enable = true;
+  
+  # Firewall - Sadece gerekli portları aç
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 
       22    # SSH
       80    # HTTP
       443   # HTTPS
+      8080  # Alternatif HTTP (bazı servisler için)
+      9443  # Portainer
     ];
     allowedUDPPorts = [ 
-      41641 # Tailscale
+      41641  # Tailscale
+      51820  # WireGuard
     ];
+    # Tailscale interface'ini güvenilir olarak işaretle
     trustedInterfaces = [ "tailscale0" ];
   };
 
-  # Locale & Time
+  # ============================================
+  # ZAMAN VE DİL
+  # ============================================
   time.timeZone = "Europe/Istanbul";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    keyMap = "trq";
+    keyMap = "trq";   
     font = "latarcyrheb-sun32";
   };
 
-  # Nix Settings
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      max-jobs = 4;
-    };
-    
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  # ============================================
+  # NIX AYARLARI
+  # ============================================
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    # Otomatik garbage collection - disk dolmasını önler
+    auto-optimise-store = true;
+  };
+  
+  # Haftada bir eski paketleri temizle
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
   };
 
-  # System Packages
+  # ============================================
+  # SOPS - Şifreleme için
+  # ============================================
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;  # Şifreli dosyanın yeri
+    age.keyFile = "/var/lib/sops-nix/key.txt";  # Şifre çözme anahtarı
+    
+    # Burada hangi secret'ları kullanacağını tanımlayacağız
+    # Şimdilik boş bırakıyoruz, servisleri eklerken dolduracağız
+    secrets = {};
+  };
+
+  # ============================================
+  # SİSTEM PAKETLERİ
+  # ============================================
   environment.systemPackages = with pkgs; [
-    # Temel
     git
     neovim
-    nano
-    terminus_font
-    
-    # Monitoring & Debug
-    btop
-    iotop
-    ncdu
-    
-    # Network
-    curl
+    btop           # Daha güzel sistem monitör
+    ncdu           # Disk kullanımı analizi
     wget
-    dig
-    netcat
-    
-    # SOPS
-    age
-    sops
-    
-    # Docker
+    curl
+    unzip
     docker-compose
-    
-    # PostgreSQL client
-    postgresql
+    age            # sops için şifreleme
+    sops           # Secret yönetimi
+    terminus_font
   ];
 
-  # Editor
-  environment.variables.EDITOR = "neovim";
-  
-  # Shell aliases
-  environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake ~/nixos-flake-config#server-pc";
-    update = "cd ~/nixos-flake-config && nix flake update && sudo nixos-rebuild switch --flake .#server-pc";
-    logs = "journalctl -xeu";
-    dsize = "ncdu /";
-    dstatus = "systemctl status docker-*";
-  };
-
-  # User Configuration
+  # ============================================
+  # KULLANICI AYARLARI
+  # ============================================
   users.users.server-pc = {
     isNormalUser = true;
-    extraGroups = [ 
-      "networkmanager" 
-      "wheel" 
-      "tailscale"
-      "docker"
+    extraGroups = [
+      "wheel"          # sudo yetkisi için
+      "networkmanager" # Ağ ayarlarını değiştirebilmek için
+      "docker"         # Docker kullanabilmek için
+      "tailscale"      # Tailscale yönetimi için
     ];
-    shell = pkgs.bash;
+    # İlk kurulumda şifre belirlemelisin: passwd server-pc
   };
 
-  # Security
+  # Sudo ayarları
   security.sudo = {
     enable = true;
     extraRules = [{
       groups = [ "wheel" ];
-      commands = [{ command = "ALL"; options = [ "NOPASSWD" ]; }];
+      commands = [{ 
+        command = "ALL";
+        options = [ "NOPASSWD" ];  # Şifresiz sudo (opsiyonel, güvenlik riski!)
+      }];
     }];
   };
 
-  # SOPS Configuration
-  sops = {
-    defaultSopsFile = ../secrets/secrets.yaml;
-    age.keyFile = "/root/.config/sops/age/keys.txt";
-    
-    secrets = {
-      # Nextcloud
-      nextcloud-admin-password = { 
-        owner = "nextcloud"; 
-      };
-      
-      # Vaultwarden (environment file formatında)
-      vaultwarden-admin-token = { 
-        owner = "vaultwarden";
-        mode = "0400";
-      };
-      
-      # Cloudflare DDNS
-      cloudflare-ddns-env = {
-        owner = "root";
-        mode = "0400";
-      };
-      cloudflare-api-token = { 
-        owner = "root";
-        mode = "0400";
-      };
-      
-      # Docker apps (opsiyonel - şimdilik gerek yok)
-      # freshrss-admin-password = {};
-      # gitea-admin-password = {};
-    };
-  };
-
+  # ============================================
   # SSH
+  # ============================================
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = true;
-      PermitRootLogin = "no";
-      X11Forwarding = false;
+      PermitRootLogin = "no";  # Root ile giriş yasak (güvenlik)
+      PasswordAuthentication = true;  # Şifre ile giriş (sonra key-based'e geçebilirsin)
     };
   };
 
-  # Tailscale
-  services.tailscale.enable = true;
-
-  # Journal size limit
-  services.journald.extraConfig = ''
-    SystemMaxUse=500M
-    MaxRetentionSec=7day
-  '';
-
-  # Auto upgrade (şimdilik kapalı)
-  system.autoUpgrade.enable = false;
-
+  # NixOS sürümü - DEĞİŞTİRME!
   system.stateVersion = "25.05";
 }
