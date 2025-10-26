@@ -1,156 +1,160 @@
 { config, lib, pkgs, ... }:
 {
-  # Nextcloud
-  services.nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud31;  # Versiyonu açıkça belirt (29 eski, 30 stable)
-    hostName = "cloud.deepshell.org";
+  # ============================================
+  # PORTAINER - Docker Yönetim Arayüzü
+  # ============================================
+  # Portainer ile diğer servisleri daha kolay yönetebiliriz
+  
+  virtualisation.oci-containers.containers.portainer = {
+    image = "portainer/portainer-ce:latest";
     
-    config = {
-      adminuser = "admin";
-      adminpassFile = config.sops.secrets.nextcloud-admin-password.path;
-      
-      # PostgreSQL
-      dbtype = "pgsql";
-      dbhost = "/run/postgresql";
-      dbname = "nextcloud";
-      dbuser = "nextcloud";
-    };
+    # Otomatik başlat
+    autoStart = true;
     
-    settings = {
-      trusted_domains = [ "cloud.deepshell.org" ];
-      overwriteprotocol = "https";
-      default_phone_region = "TR";
-      
-      # Performance
-      "memcache.local" = "\\OC\\Memcache\\APCu";
-      "memcache.distributed" = "\\OC\\Memcache\\Redis";
-      "memcache.locking" = "\\OC\\Memcache\\Redis";
-      redis = {
-        host = "/run/redis-nextcloud/redis.sock";
-        port = 0;
-      };
-      
-      # Maintenance
-      maintenance_window_start = 3; # 03:00'da maintenance
-    };
+    # Port mapping
+    ports = [
+      "9443:9443"  # HTTPS arayüzü
+      "8000:8000"  # Edge agent (opsiyonel)
+    ];
     
-    # Upload limits
-    maxUploadSize = "16G";
-    https = true;
+    # Volume mount - Portainer verilerini sakla
+    volumes = [
+      "portainer_data:/data"                    # Portainer verileri
+      "/var/run/docker.sock:/var/run/docker.sock:ro"  # Docker socket (read-only)
+    ];
     
-    # Apps (opsiyonel)
-    extraAppsEnable = true;
-    extraApps = with config.services.nextcloud.package.packages.apps; {
-      inherit calendar contacts mail notes tasks deck;
-    };
+    # Restart policy
+    extraOptions = [
+      "--restart=always"
+    ];
   };
 
-  # Redis for Nextcloud
-  services.redis.servers.nextcloud = {
-    enable = true;
-    port = 0;
-    unixSocket = "/run/redis-nextcloud/redis.sock";
-    unixSocketPerm = 770;
-    user = "nextcloud";
+  # ============================================
+  # UPTIME KUMA - Servis İzleme
+  # ============================================
+  virtualisation.oci-containers.containers.uptime-kuma = {
+    image = "louislam/uptime-kuma:latest";
+    
+    autoStart = true;
+    
+    ports = [
+      "3001:3001"  # Web arayüzü
+    ];
+    
+    volumes = [
+      "uptime-kuma:/app/data"  # Uptime Kuma verileri
+    ];
+    
+    extraOptions = [
+      "--restart=always"
+    ];
   };
 
-  # Vaultwarden (Bitwarden Password Manager)
-  services.vaultwarden = {
-    enable = true;
+  # ============================================
+  # ADGUARD HOME - DNS Ad Blocker
+  # ============================================
+  virtualisation.oci-containers.containers.adguardhome = {
+    image = "adguard/adguardhome:latest";
     
-    config = {
-      DOMAIN = "https://vault.deepshell.org";
-      ROCKET_ADDRESS = "127.0.0.1";
-      ROCKET_PORT = 8222;
-      
-      # WebSocket için
-      WEBSOCKET_ENABLED = true;
-      WEBSOCKET_ADDRESS = "127.0.0.1";
-      WEBSOCKET_PORT = 3012;
-      
-      # Security
-      SIGNUPS_ALLOWED = false;  # Sadece invite ile kayıt
-      INVITATIONS_ALLOWED = true;
-      
-      # Admin panel (SOPS'tan gelecek)
-      # ADMIN_TOKEN sops secret'ı kullanarak ayarlanacak
-    };
+    autoStart = true;
     
-    # Admin token'ı environment file ile ekle
-    environmentFile = config.sops.secrets.vaultwarden-admin-token.path;
+    ports = [
+      "3000:3000"  # Web arayüzü (ilk kurulum)
+      "53:53/tcp"  # DNS
+      "53:53/udp"  # DNS
+      "67:67/udp"  # DHCP (opsiyonel)
+      "68:68/udp"  # DHCP (opsiyonel)
+      "80:80/tcp"  # HTTP (admin paneli için)
+      # "443:443/tcp"  # HTTPS (şimdilik kapalı, Nginx ile충돌 yapar)
+      "853:853/tcp"  # DNS-over-TLS
+    ];
     
-    backupDir = "/var/backup/vaultwarden";
+    volumes = [
+      "adguard_work:/opt/adguardhome/work"
+      "adguard_conf:/opt/adguardhome/conf"
+    ];
+    
+    extraOptions = [
+      "--restart=always"
+      "--cap-add=NET_ADMIN"  # Ağ yönetimi için gerekli
+    ];
   };
 
-  # Gitea (Git Server)
-  services.gitea = {
-    enable = true;
-    
-    settings = {
-      server = {
-        DOMAIN = "git.deepshell.org";
-        ROOT_URL = "https://git.deepshell.org";
-        HTTP_ADDR = "127.0.0.1";
-        HTTP_PORT = 3000;
-      };
+  # ============================================
+  # NGINX VHOST TANIMLARI
+  # ============================================
+  # Her servis için reverse proxy kuralım
+  
+  services.nginx.virtualHosts = {
+    # Portainer için
+    "portainer.deepshell.org" = {
+      forceSSL = true;  # HTTPS'e yönlendir
+      enableACME = true;  # Let's Encrypt sertifikası al
       
-      database = {
-        DB_TYPE = "postgres";
-        HOST = "/run/postgresql";
-        NAME = "gitea";
-        USER = "gitea";
-      };
-      
-      service = {
-        DISABLE_REGISTRATION = true;  # Sadece admin user oluşturabilir
-        REQUIRE_SIGNIN_VIEW = false;  # Public repos görülebilir
-      };
-      
-      session = {
-        COOKIE_SECURE = true;
-      };
-      
-      # Git LFS support
-      lfs = {
-        ENABLE = true;
+      locations."/" = {
+        proxyPass = "https://127.0.0.1:9443";
+        proxyWebsockets = true;  # WebSocket desteği
+        
+        extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          
+          # SSL doğrulamasını atla (self-signed cert)
+          proxy_ssl_verify off;
+        '';
       };
     };
     
-    database = {
-      type = "postgres";
-      host = "/run/postgresql";
-      name = "gitea";
-      user = "gitea";
-    };
-  };
-
-  # Systemd timers for backups
-  systemd.timers.backup-databases = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true;
-    };
-  };
-
-  systemd.services.backup-databases = {
-    script = ''
-      ${pkgs.postgresql}/bin/pg_dumpall > /var/backup/postgresql/dump-$(date +%Y%m%d).sql
+    # Uptime Kuma için
+    "uptime.deepshell.org" = {
+      forceSSL = true;
+      enableACME = true;
       
-      # 7 günden eski backupları sil
-      find /var/backup/postgresql -name "dump-*.sql" -mtime +7 -delete
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "postgres";
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:3001";
+        proxyWebsockets = true;
+        
+        extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
+    };
+    
+    # AdGuard Home için
+    "adguard.deepshell.org" = {
+      forceSSL = true;
+      enableACME = true;
+      
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:80";  # AdGuard'ın HTTP portu
+        
+        extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
     };
   };
 
-  # Backup dizinleri
-  systemd.tmpfiles.rules = [
-    "d /var/backup 0755 root root -"
-    "d /var/backup/postgresql 0755 postgres postgres -"
-    "d /var/backup/vaultwarden 0755 vaultwarden vaultwarden -"
+  # ============================================
+  # FİREWALL - Ek portlar
+  # ============================================
+  networking.firewall.allowedTCPPorts = [
+    3000   # AdGuard initial setup
+    3001   # Uptime Kuma
+    53     # DNS (AdGuard)
+  ];
+  
+  networking.firewall.allowedUDPPorts = [
+    53     # DNS (AdGuard)
+    67     # DHCP (AdGuard - opsiyonel)
+    68     # DHCP (AdGuard - opsiyonel)
   ];
 }
