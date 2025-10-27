@@ -27,7 +27,7 @@ systemd.user.services."nginx-container" = {
  docker.io/library/nginx:latest
  ''
 
- ExecStop = "${pkgs.podman}/bin/podman stop nginx-test"
+ ExecStop = "${pkgs.podman}/bin/podman stop nginx-test";
  Restart = "always";
  };
 };
