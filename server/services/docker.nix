@@ -19,7 +19,7 @@
 systemd.user.services."nginx-container" = {
  description = "Test nginx container";
  wantedBy = [ "default.target1" ];
- servicesConfig = {
+ serviceConfig = {
 
  ExecStart = ''
  ${pkgs.podman}/bin/podman run --name nginx-test \
