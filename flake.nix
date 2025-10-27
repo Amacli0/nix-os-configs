@@ -16,7 +16,6 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./main/configuration.nix
-          sops-nix.nixosModules.sops  
           home-manager.nixosModules.home-manager
           ({ config, pkgs, ... }: {
             home-manager.users.deepshell = import ./main/home.nix;
