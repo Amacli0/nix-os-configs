@@ -11,6 +11,6 @@
     domain = "deepshell.org";
     
     # Güncellenecek DNS kaydı (örn: home.example.com veya sadece example.com için @)
-    recordName = "@";
+    recordName = "deepshell.org";
   };
 }
