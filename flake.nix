@@ -31,7 +31,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./server/configuration_server.nix
-          sops-nix.nixosModules.sops
+        #  sops-nix.nixosModules.sops
         ];
       };
     };

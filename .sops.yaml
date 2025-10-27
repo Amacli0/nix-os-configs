@@ -1,8 +1,0 @@
-keys:
-  - &server age1klc9x9g0g4gdekld9qtt4evya7cg0su4drlqchfx9s8mjth83gcqq87nu2  # BURAYA SUNUCUNUN PUBLIC KEY'İNİ YAPIŞTIR
-
-creation_rules:
-  - path_regex: secrets\.yaml$
-    key_groups:
-    - age:
-      - *server
