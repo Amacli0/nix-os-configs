@@ -1,0 +1,5 @@
+# Secrets ve env dosyalarını git'e ekleme
+server/secrets.nix
+server/cloudflare.env
+server/cloudflare-ddns.sh
+
