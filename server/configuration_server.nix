@@ -4,6 +4,7 @@
   imports =
     [ 
       ./hardware-configuration.nix
+      ./services/docker.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -48,7 +49,7 @@ security.sudo = {
 };
 users.users.server-pc = {
 isNormalUser = true;
-extraGroups = ["networkmanager" "wheel" "tailscale"];
+extraGroups = ["networkmanager" "wheel" "tailscale" "podman"];
 
 
 
