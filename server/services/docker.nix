@@ -12,13 +12,14 @@
   environment.systemPackages = with pkgs; [
  dive
  podman-tui
-
+ podman
+shadow
  ];
 
 
-systemd.user.services."nginx-container" = {
+systemd.services."nginx-container" = {
  description = "Test nginx container";
- wantedBy = [ "default.target1" ];
+ wantedBy = [ "default.target" ];
  serviceConfig = {
 
  ExecStart = ''

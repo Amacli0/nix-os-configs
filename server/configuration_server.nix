@@ -5,6 +5,7 @@
     [ 
       ./hardware-configuration.nix
       ./services/docker.nix
+      ./ddns.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -58,7 +59,7 @@ extraGroups = ["networkmanager" "wheel" "tailscale" "podman"];
 networking.firewall = {
   enable = true;
   # SSH, HTTP ve HTTPS portlarını aç
-  allowedTCPPorts = [ 22 80 443 ];
+  allowedTCPPorts = [ 22 80 443 8080];
 
   allowedUDPPorts = [ 41641 ];
 };
@@ -69,7 +70,7 @@ networking.firewall = {
 };
 
 
-services.nginx.enable = true;
+#services.nginx.enable = true;
 
 
 

@@ -1,0 +1,17 @@
+ Secrets dosyası - GİT'E EKLENMEMELİ!
+server/secrets.nix
+
+# NixOS geçmiş linkleri
+result
+result-*
+
+# Editor dosyaları
+*~
+*.swp
+*.swo
+.*.swp
+.*.swo
+
+# Direnv
+.direnv/
+.envrc
