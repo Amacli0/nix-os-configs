@@ -5,7 +5,6 @@
     [ 
       ./hardware-configuration.nix
       ./services/docker.nix
-      ./ddns.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -55,7 +54,7 @@ extraGroups = ["networkmanager" "wheel" "tailscale" "podman"];
 
 
 };
-
+networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
 networking.firewall = {
   enable = true;
   # SSH, HTTP ve HTTPS portlarını aç
