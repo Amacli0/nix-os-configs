@@ -14,10 +14,22 @@ let
     #!${pkgs.bash}/bin/bash
     set -e
 
-    : "${ZONE_ID:?ZONE_ID not set}"
-    : "${API_TOKEN:?API_TOKEN not set}"
-    : "${DOMAIN:?DOMAIN not set}"
-    : "${RECORD_NAME:?RECORD_NAME not set}"
+    if [ -z "$ZONE_ID" ]; then
+      echo "ZONE_ID not set"
+      exit 1
+    fi
+    if [ -z "$API_TOKEN" ]; then
+      echo "API_TOKEN not set"
+      exit 1
+    fi
+    if [ -z "$DOMAIN" ]; then
+      echo "DOMAIN not set"
+      exit 1
+    fi
+    if [ -z "$RECORD_NAME" ]; then
+      echo "RECORD_NAME not set"
+      exit 1
+    fi
 
     CURRENT_IP=$(${pkgs.curl}/bin/curl -s https://api.ipify.org)
 
