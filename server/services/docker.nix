@@ -25,7 +25,7 @@ systemd.user.services."nginx-container" = {
  ${pkgs.podman}/bin/podman run --name nginx-test \
  -p 8080:80 \
  docker.io/library/nginx:latest
- ''
+ '';
 
  ExecStop = "${pkgs.podman}/bin/podman stop nginx-test";
  Restart = "always";
