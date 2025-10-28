@@ -1,4 +1,3 @@
-#Nixos config File
 {
   config,
   lib,
@@ -9,50 +8,31 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
+    ../modules/common.nix
+ ];
+
+
+
+
+fonts.packages = with pkgs; [
+    monocraft
   ];
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-
-    loader = {
-      timeout = 15;
-
-      systemd-boot = {
-        enable = false;
-      };
-
-      efi.canTouchEfiVariables = true;
-
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        useOSProber = true;
-      };
-    };
-  };
+  fonts.fontconfig.enable = true;
+  
 
   networking = {
     hostName = "Nixtilus";
-    networkmanager.enable = true;
   };
-  time.timeZone = "Europe/Istanbul";
+ 
 
-  i18n.defaultLocale = "en_US.UTF-8";
 
   security.pki.certificates = [
     (builtins.readFile ./MEB_SERTIFIKASI.pem)
   ];
 
-  console = {
-    font = "Lat2-Terminus16";
-    useXkbConfig = false;
-  };
 
   services = {
-    tailscale ={
-    enable = true;
-};
     postgresql = {
       enable = true;
 
@@ -76,7 +56,6 @@
       '';
     };
 
-    openssh.enable = true;
 
     displayManager.sddm = {
       enable = true;
@@ -87,7 +66,8 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-    libinput.enable = true;
+   
+   libinput.enable = true;
 
     printing = {
       enable = true;
@@ -101,14 +81,16 @@
 
 
 
-  programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  programs.zsh.enable = true;
+programs = {
+	hyprland = {
+	enable = true;
+	package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+	};
+	zsh.enable = true;
+	};
 
 
 
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
 
 
@@ -127,9 +109,6 @@
   };
 
   environment.shells = [pkgs.zsh];
-  environment.systemPackages = with pkgs; [
-    alejandra
-  ];
  
 
 
