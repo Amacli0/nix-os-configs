@@ -58,10 +58,9 @@
 
 
 sops = {
-    enable = true;
-    age.keyFile = "/etc/sops/age/keys.txt";
+    age.keyFile = "/home/deepshell/.config/sops/age/keys.txt";
 
-defaultSopsFile = ./secrets/main.yaml;
+defaultSopsFile = ../secrets/main.yaml;
     secrets.test_key = {
 	key = "test_key";
 
@@ -74,18 +73,24 @@ defaultSopsFile = ./secrets/main.yaml;
 	};
 	
 };
+
+
 systemd.services.sops-test-verification = {
     description = "SOPS Decryption Test Service";
     wantedBy = [ "multi-user.target" ];
-    # Sırların (Secrets) dağıtılmasından sonra çalışır
-    after = [ "sops-keys.service" ]; 
+    after = [ "sops-keys.service" ];
     serviceConfig = {
       Type = "oneshot";
-      # Sırrın dosya yolunu bir ortam değişkeni olarak ayarla
-      Environment = [ "SECRET_PATH=${config.sops.secrets.test_key.path}" ];
-      # Gizli dosyanın içeriğini okur ve /tmp/sops_test_result.txt dosyasına yazar
-      ExecStart = "${pkgs.coreutils}/bin/sh -c '${pkgs.coreutils}/bin/cat $SECRET_PATH > /tmp/sops_test_result.txt'";
+      # Kaldır: ExecStart
     };
-  };
+    
+    # Ekle: Script. Bu, /bin/sh kullanmak yerine 
+    # komutları doğrudan Nix store'daki doğru yollara bağlar.
+    script = ''
+      # Gizli dosyanın içeriğini okur ve /tmp/sops_test_result.txt dosyasına yazar
+      ${pkgs.coreutils}/bin/cat ${config.sops.secrets.test_key.path} > /tmp/sops_test_result.txt
+    '';
+
+};
 
 }
