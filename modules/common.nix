@@ -61,7 +61,7 @@ sops = {
     enable = true;
     age.keyFile = "/etc/sops/age/keys.txt";
 
-
+defaultSopsFile = ./secrets/main.yaml;
     secrets.test_key = {
 	key = "test_key";
 

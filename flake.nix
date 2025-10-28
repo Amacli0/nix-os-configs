@@ -1,44 +1,41 @@
+# /home/deepshell/nix-os-configs/flake.nix (Temizlenmiş Versiyon)
+
 {
   description = "NixOS configuration for Nixtilus with Home Manager and Hyprland";
+  
   inputs = {
-    
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
     hyprland.url = "github:hyprwm/Hyprland";
     
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-      };
-      
-      sops-nix = {
+    };
+    
+    sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    sops-nix,
-    ...
-  } @ inputs: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs: {
     nixosConfigurations = {
       Nixtilus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
+        
         modules = [
+          # 1. Ana Yapılandırma
           ./main/configuration.nix
           
-	sops-nix.nixosModules.sops
-	  
-	  home-manager.nixosModules.home-manager        
-	  ({
-            config,
-            pkgs,
-            ...
-          }: {
+          # 2. SOPS-NIX Modülü (Şimdi liste içinde temiz bir şekilde)
+          sops-nix.nixosModules.sops
+
+          # 3. Home Manager Modülü
+          home-manager.nixosModules.home-manager
+
+          # 4. Home Manager kullanıcı ayarlarının olduğu kısım (anonymous module)
+          ({ config, pkgs, ... }: {
             home-manager.users.deepshell = import ./main/home.nix;
           })
         ];
@@ -49,6 +46,8 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./server/configuration_server.nix
+          # SERVER tarafına da sops-nix eklenmeli, unutmaman için not.
+           sops-nix.nixosModules.sops
         ];
       };
     };
