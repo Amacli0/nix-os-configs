@@ -15,14 +15,10 @@
   ];
 
   home.packages = with pkgs; [
-    vim
-    neovim
     kitty
-    git
     bitwarden-desktop
     fastfetch
     hyprland
-    alejandra
     whatsapp-electron
     waybar
     tree
@@ -30,11 +26,9 @@
     blueman
     rofi
     yazi
-    claude-code
     vscodium
   ];
 
-  nixpkgs.config.allowUnfree = true;
 
   programs = {
     git = {
@@ -50,6 +44,10 @@
       settings = {
         confirm_os_window_close = -1;
       };
+	font = {
+    name = "Monocraft";
+    size = 12;
+  };
     };
 
     zsh = {
