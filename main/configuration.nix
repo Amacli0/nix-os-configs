@@ -129,9 +129,6 @@
   environment.shells = [pkgs.zsh];
   environment.systemPackages = with pkgs; [
     alejandra
-    protonvpn-cli_2
-    age
-    sops
   ];
  
 
