@@ -9,13 +9,8 @@ boot = {
 	
 	loader = {
 	timeout = 15;
-	};
 
-	systemd-boot = {
-	enable = false;
-	};
 
-	efi.canTouchEfiVariables = true;
 
 	grub = {
 	enable = true;
@@ -24,10 +19,14 @@ boot = {
 	useOSProber = true;
 	};
 
+
+	systemd-boot = {
+	enable = false;
 	};
 
+	};
+	};
 networking = {
-	hostName = "PC";
 	
 	networkmanager = {
 	enable = true;
@@ -40,7 +39,7 @@ networking = {
 
 time.timeZone = "Europe/Istanbul";
 
-il8n.defaultLocale = "en_US.UTF-8";
+i18n.defaultLocale = "en_US.UTF-8";
 
 console = {
 	keyMap = "trq";
@@ -52,11 +51,11 @@ services = {
 	tailscale = {
 	enable = true;
 	};
-	};
-	openshh = {
+
+	openssh = {
 	enable = true;
 	};
-
+	};
 
 
 
@@ -66,9 +65,8 @@ nix.settings.experimental-features = ["nix-command" "flakes"];
 
 
 
-
-enviroment.systemPackages = with pkgs; [
-  alenjandra
+environment.systemPackages = with pkgs; [
+ alejandra
   git
   neovim
 
