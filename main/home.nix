@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   home.username = "deepshell";
   home.homeDirectory = "/home/deepshell";
   home.stateVersion = "25.05";
@@ -29,7 +27,6 @@
     vscodium
   ];
 
-
   programs = {
     git = {
       enable = true;
@@ -44,10 +41,10 @@
       settings = {
         confirm_os_window_close = -1;
       };
-	font = {
-    name = "Monocraft";
-    size = 12;
-  };
+      font = {
+        name = "Monocraft";
+        size = 12;
+      };
     };
 
     zsh = {

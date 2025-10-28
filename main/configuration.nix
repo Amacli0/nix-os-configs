@@ -9,28 +9,21 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
     ../modules/common.nix
- ];
+  ];
 
-
-
-
-fonts.packages = with pkgs; [
+  fonts.packages = with pkgs; [
     monocraft
   ];
 
   fonts.fontconfig.enable = true;
-  
 
   networking = {
     hostName = "Nixtilus";
   };
- 
-
 
   security.pki.certificates = [
     (builtins.readFile ./MEB_SERTIFIKASI.pem)
   ];
-
 
   services = {
     postgresql = {
@@ -40,10 +33,9 @@ fonts.packages = with pkgs; [
         {
           name = "MyData";
 
-        ensureDBOwnership = true;
-	ensureClauses.createdb = true;
-	}
-	
+          ensureDBOwnership = true;
+          ensureClauses.createdb = true;
+        }
       ];
       ensureDatabases = [
         "MyData"
@@ -56,7 +48,6 @@ fonts.packages = with pkgs; [
       '';
     };
 
-
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -66,8 +57,8 @@ fonts.packages = with pkgs; [
       pulse.enable = true;
       alsa.enable = true;
     };
-   
-   libinput.enable = true;
+
+    libinput.enable = true;
 
     printing = {
       enable = true;
@@ -75,25 +66,15 @@ fonts.packages = with pkgs; [
     };
   };
 
-
-
   hardware.bluetooth.enable = true;
 
-
-
-programs = {
-	hyprland = {
-	enable = true;
-	package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-	};
-	zsh.enable = true;
-	};
-
-
-
-
-
-
+  programs = {
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    };
+    zsh.enable = true;
+  };
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
@@ -109,14 +90,6 @@ programs = {
   };
 
   environment.shells = [pkgs.zsh];
- 
 
-
-
-
-
-
-
-
- system.stateVersion = "25.05";
+  system.stateVersion = "25.05";
 }
