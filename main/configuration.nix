@@ -116,7 +116,7 @@ boot = {
 
 
 stylix.enable = true;
-stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/mellow-purple.yaml ";
+stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/mellow-purple.yaml";
 
 
 
