@@ -11,6 +11,28 @@
     ../modules/common.nix
   ];
 
+boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
+    loader = {
+      timeout = 15;
+
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+      };
+
+      systemd-boot = {
+        enable = false;
+      };
+    };
+  };
+
+
+
+
   fonts.packages = with pkgs; [
     monocraft
   ];
