@@ -42,7 +42,7 @@
         confirm_os_window_close = -1;
       };
       font = {
-        name = "Monocraft";
+        name = lib.mkForce "Monocraft";
         size = 12;
       };
     };
