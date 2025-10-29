@@ -10,6 +10,7 @@
 
   imports = [
     ./modules/hyprland.nix
+    ./modules/nvim.nix
   ];
 
   home.packages = with pkgs; [
@@ -25,6 +26,10 @@
     rofi
     yazi
     vscodium
+    xclip
+    wl-clipboard
+    lua-language-server
+    rnix-lsp
   ];
 
   programs = {
@@ -65,6 +70,7 @@
         theme = "kphoen";
       };
     };
+
   };
 
   home.file = {};
