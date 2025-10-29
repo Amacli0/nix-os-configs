@@ -63,18 +63,17 @@ lspconfig.lua_ls.setup({
 })
 
 -- Nix
-lspconfig.nil_ls.setup({
+lspconfig.nixd.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
-    ['nil'] = {
+    nixd = {
       formatting = {
         command = { "nixpkgs-fmt" },
       },
     },
   },
 })
-
 -- Python
 lspconfig.pyright.setup({
   on_attach = on_attach,

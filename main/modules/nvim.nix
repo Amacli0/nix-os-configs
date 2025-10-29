@@ -1,29 +1,36 @@
 { config, pkgs, ... }:
-
 {
   programs.neovim = {
     enable = true;
-    defaultEditor = true;  # Varsayılan editör olarak ayarla
-    viAlias = true;        # 'vi' komutu ile çalıştır
-    vimAlias = true;       # 'vim' komutu ile çalıştır
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
     
-    # Lua yapılandırmasını yükle
+    # ✅ TÜM LUA DOSYALARINI YÜKLE
     extraLuaConfig = ''
+      -- Options
       ${builtins.readFile ./nvim/options.lua}
+      
+      -- Plugin Configurations
+      ${builtins.readFile ./nvim/plugin/lsp.lua}
+      ${builtins.readFile ./nvim/plugin/cmp.lua}
+      ${builtins.readFile ./nvim/plugin/treesitter.lua}
+      ${builtins.readFile ./nvim/plugin/telescope.lua}
+      ${builtins.readFile ./nvim/plugin/other.lua}
     '';
-
+    
     plugins = with pkgs.vimPlugins; [
       # 🎨 Tema ve Görünüm
-      catppuccin-nvim           # Modern, şık tema
-      lualine-nvim              # Durum çubuğu
-      nvim-web-devicons         # İkonlar
+      catppuccin-nvim
+      lualine-nvim
+      nvim-web-devicons
       
       # 📂 Dosya Yönetimi
-      telescope-nvim            # Fuzzy finder
-      telescope-fzf-native-nvim # Telescope için native sorter
-      plenary-nvim              # Lua fonksiyonları (telescope dependency)
+      telescope-nvim
+      telescope-fzf-native-nvim
+      plenary-nvim
       
-      # 🌳 Treesitter (Syntax Highlighting)
+      # 🌳 Treesitter
       (nvim-treesitter.withPlugins (p: [
         p.nix p.lua p.python p.javascript
         p.typescript p.rust p.go p.html
@@ -32,51 +39,50 @@
       ]))
       nvim-treesitter-textobjects
       
-      # 💡 LSP (Language Server Protocol)
-      nvim-lspconfig            # LSP yapılandırma
-      fidget-nvim               # LSP loading progress
+      # 💡 LSP
+      nvim-lspconfig
+      fidget-nvim
       
       # 📝 Auto-completion
-      nvim-cmp                  # Completion engine
-      cmp-nvim-lsp              # LSP source
-      cmp-buffer                # Buffer source
-      cmp-path                  # Path source
-      cmp-cmdline               # Command line source
-      luasnip                   # Snippet engine
-      cmp_luasnip               # Snippet source
-      friendly-snippets         # Hazır snippet'ler
+      nvim-cmp
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+      luasnip
+      cmp_luasnip
+      friendly-snippets
       
       # 🔧 Yardımcı Plugin'ler
-      comment-nvim              # Kolay yorum satırı
-      vim-sleuth                # Otomatik indent algılama
-      gitsigns-nvim             # Git işaretleri
-      which-key-nvim            # Tuş kombinasyonlarını göster
-      indent-blankline-nvim     # Indent çizgileri
+      comment-nvim
+      vim-sleuth
+      gitsigns-nvim
+      which-key-nvim
+      indent-blankline-nvim
       
       # 🚀 Performans
-      impatient-nvim            # Lua modüllerini cache'le
+      impatient-nvim
     ];
-
-    # LSP sunucularını sistem paketlerine ekle
+    
     extraPackages = with pkgs; [
       # Language Servers
-      lua-language-server       # Lua
-      nil                       # Nix (modern, nixd yerine)
-      pyright                   # Python
-      nodePackages.typescript-language-server  # TypeScript/JavaScript
-      rust-analyzer             # Rust
-      gopls                     # Go
+      lua-language-server
+      nixd                      # ✅ nixd kullan
+      pyright
+      nodePackages.typescript-language-server
+      rust-analyzer
+      gopls
       
       # Formatters & Linters
-      stylua                    # Lua formatter
-      nixpkgs-fmt               # Nix formatter
-      black                     # Python formatter
-      isort                     # Python import sorter
-      nodePackages.prettier     # JS/TS/HTML/CSS formatter
+      stylua
+      nixpkgs-fmt
+      black
+      isort
+      nodePackages.prettier
       
       # Diğer araçlar
-      ripgrep                   # Telescope için gerekli
-      fd                        # Dosya arama
+      ripgrep
+      fd
     ];
   };
 }
