@@ -43,7 +43,7 @@
             home-manager.users.deepshell = import ./main/home.nix;
           })
 	  #5 Stylix Moduleri
-	  inputs.stylix.nixModules.stylix
+	  inputs.stylix.nixosModules.stylix
         ];
       };
 
