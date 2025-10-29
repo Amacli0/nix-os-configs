@@ -113,5 +113,19 @@ boot = {
 
   environment.shells = [pkgs.zsh];
 
+
+
+stylix.enable = true;
+stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/mellow_purple.yaml";
+
+
+
+
+
+
+
+
+
+
   system.stateVersion = "25.05";
 }

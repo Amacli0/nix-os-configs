@@ -16,9 +16,13 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix.url = "github:danth/stylix";
+	
+
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, stylix, ... }@inputs: {
     nixosConfigurations = {
       Nixtilus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -38,6 +42,8 @@
           ({ config, pkgs, ... }: {
             home-manager.users.deepshell = import ./main/home.nix;
           })
+	  #5 Stylix Moduleri
+	  inputs.stylix.nixModules.stylix
         ];
       };
 
