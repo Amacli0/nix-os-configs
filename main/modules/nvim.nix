@@ -1,98 +1,82 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
-
-
-  programs.neovim = 
-  let
-    toLua = str: "lua << EOF\n${str}\nEOF\n";
-    toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
-  in
-  {
+  programs.neovim = {
     enable = true;
-
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-
-    extraPackages = with pkgs; [
-      lua-language-server
-
-      xclip
-      wl-clipboard
-    ];
+    defaultEditor = true;  # Varsayılan editör olarak ayarla
+    viAlias = true;        # 'vi' komutu ile çalıştır
+    vimAlias = true;       # 'vim' komutu ile çalıştır
+    
+    # Lua yapılandırmasını yükle
+    extraLuaConfig = ''
+      ${builtins.readFile ./nvim/options.lua}
+    '';
 
     plugins = with pkgs.vimPlugins; [
-
-      {
-        plugin = nvim-lspconfig;
-        config = toLuaFile ./nvim/plugin/lsp.lua;
-      }
-
-      {
-        plugin = comment-nvim;
-        config = toLua "require(\"Comment\").setup()";
-      }
-
-      {
-        plugin = gruvbox-nvim;
-        config = "colorscheme gruvbox";
-      }
-
-      neodev-nvim
-
-      nvim-cmp 
-      {
-        plugin = nvim-cmp;
-        config = toLuaFile ./nvim/plugin/cmp.lua;
-      }
-
-      {
-        plugin = telescope-nvim;
-        config = toLuaFile ./nvim/plugin/telescope.lua;
-      }
-
-      telescope-fzf-native-nvim
-
-      cmp_luasnip
-      cmp-nvim-lsp
-
-      luasnip
-      friendly-snippets
-
-
-      lualine-nvim
-      nvim-web-devicons
-
-      {
-        plugin = (nvim-treesitter.withPlugins (p: [
-          p.tree-sitter-nix
-          p.tree-sitter-vim
-          p.tree-sitter-bash
-          p.tree-sitter-lua
-          p.tree-sitter-python
-          p.tree-sitter-json
-        ]));
-        config = toLuaFile ./nvim/plugin/treesitter.lua;
-      }
-
-      vim-nix
-
-      # {
-      #   plugin = vimPlugins.own-onedark-nvim;
-      #   config = "colorscheme onedark";
-      # }
+      # 🎨 Tema ve Görünüm
+      catppuccin-nvim           # Modern, şık tema
+      lualine-nvim              # Durum çubuğu
+      nvim-web-devicons         # İkonlar
+      
+      # 📂 Dosya Yönetimi
+      telescope-nvim            # Fuzzy finder
+      telescope-fzf-native-nvim # Telescope için native sorter
+      plenary-nvim              # Lua fonksiyonları (telescope dependency)
+      
+      # 🌳 Treesitter (Syntax Highlighting)
+      (nvim-treesitter.withPlugins (p: [
+        p.nix p.lua p.python p.javascript
+        p.typescript p.rust p.go p.html
+        p.css p.json p.yaml p.markdown
+        p.bash
+      ]))
+      nvim-treesitter-textobjects
+      
+      # 💡 LSP (Language Server Protocol)
+      nvim-lspconfig            # LSP yapılandırma
+      fidget-nvim               # LSP loading progress
+      
+      # 📝 Auto-completion
+      nvim-cmp                  # Completion engine
+      cmp-nvim-lsp              # LSP source
+      cmp-buffer                # Buffer source
+      cmp-path                  # Path source
+      cmp-cmdline               # Command line source
+      luasnip                   # Snippet engine
+      cmp_luasnip               # Snippet source
+      friendly-snippets         # Hazır snippet'ler
+      
+      # 🔧 Yardımcı Plugin'ler
+      comment-nvim              # Kolay yorum satırı
+      vim-sleuth                # Otomatik indent algılama
+      gitsigns-nvim             # Git işaretleri
+      which-key-nvim            # Tuş kombinasyonlarını göster
+      indent-blankline-nvim     # Indent çizgileri
+      
+      # 🚀 Performans
+      impatient-nvim            # Lua modüllerini cache'le
     ];
 
-
-     extraLuaConfig = ''
-       ${builtins.readFile ./nvim/options.lua}
-       ${builtins.readFile ./nvim/plugin/lsp.lua}
-       ${builtins.readFile ./nvim/plugin/cmp.lua}
-       ${builtins.readFile ./nvim/plugin/telescope.lua}
-       ${builtins.readFile ./nvim/plugin/treesitter.lua}
-       ${builtins.readFile ./nvim/plugin/other.lua}
-     '';
+    # LSP sunucularını sistem paketlerine ekle
+    extraPackages = with pkgs; [
+      # Language Servers
+      lua-language-server       # Lua
+      nil                       # Nix (modern, nixd yerine)
+      pyright                   # Python
+      nodePackages.typescript-language-server  # TypeScript/JavaScript
+      rust-analyzer             # Rust
+      gopls                     # Go
+      
+      # Formatters & Linters
+      stylua                    # Lua formatter
+      nixpkgs-fmt               # Nix formatter
+      black                     # Python formatter
+      isort                     # Python import sorter
+      nodePackages.prettier     # JS/TS/HTML/CSS formatter
+      
+      # Diğer araçlar
+      ripgrep                   # Telescope için gerekli
+      fd                        # Dosya arama
+    ];
   };
-
 }

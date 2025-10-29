@@ -29,6 +29,7 @@
     xclip
     wl-clipboard
     lua-language-server
+    nixd
   ];
 
   programs = {
