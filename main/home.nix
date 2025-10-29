@@ -29,7 +29,6 @@
     xclip
     wl-clipboard
     lua-language-server
-    rnix-lsp
   ];
 
   programs = {
