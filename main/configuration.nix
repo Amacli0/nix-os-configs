@@ -48,6 +48,10 @@ boot = {
   ];
 
   services = {
+    xserver.videoDriver = ["amdgpu"];
+
+
+
     postgresql = {
       enable = true;
 
@@ -88,15 +92,31 @@ boot = {
     };
   };
 
-  hardware.bluetooth.enable = true;
+  hardware = {
+    bluetooth.enable = true;
 
+    opengl = {
+
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+  };
   programs = {
     hyprland = {
       enable = true;
       package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     };
     zsh.enable = true;
-  };
+
+    steam = { 
+      enable = true;
+      gamescopeSession = true;
+
+    };
+    gamemode.enable = true;
+  
+    };
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
