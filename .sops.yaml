@@ -1,12 +1,8 @@
-creation_rules:
-  - path_regex: secrets/.*\.yaml$  # secrets/ dizinindeki tüm .yaml dosyaları
-    key_groups:
-      - age1:
-          - " age1y087hz49zzjc9a989kxe5d8tm0tl2te97x4umv9zuqukrhswnudqhzf5sa" 
-        ssh1:
-          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+Z9k7btWhp684pSZYGu1yxA3j5H0smGvZdzBpur1Sr root@Nixtilus"
-      - age2:
-          - " age1c0rf7306rlcpvnjy3vn36zl8t8n0kjfew2lnt4shtu92s48acu5qe07yje" 
-        ssh2:
-          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkCTrPIK3XXhNYvb7VhhrNEwuQeOe7Q8DDvAWAnY/Z6 root@server-pc"
 
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    
+    key_groups:
+      - 
+        age:
+          - "age10kwtuwu57x6seyx2kzu27kpcv0mg90mpfc39xcw5je2gqw7apf2s5xpclt"  # Server PC
