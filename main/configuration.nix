@@ -35,7 +35,7 @@ boot = {
 
   fonts.packages = with pkgs; [
     monocraft
-   pkgs.nerdfonts.fira-code
+   pkgs.nerd-fonts.fira-code
   ];
 
   fonts.fontconfig.enable = true;
