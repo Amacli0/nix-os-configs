@@ -35,7 +35,13 @@ boot = {
 
   fonts.packages = with pkgs; [
     monocraft
-    JetBrainsMono
+ (pkgs.nerdfonts.override { 
+          fonts = [ 
+              "JetBrainsMono" # En popüler ve stabil Nerd Font'lardan biri
+              "FiraCode"      # Diğer popüler font
+          ]; 
+      }) 
+
   ];
 
   fonts.fontconfig.enable = true;
