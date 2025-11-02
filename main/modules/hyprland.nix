@@ -22,7 +22,6 @@
         "${pkgs.waybar}/bin/waybar"
         "swww-daemon"
 
-        "swww img /home/deepshell/pictures/Wallpapers/default.jpg --transition-type outer --transition-step 30"
       ];
 
       "monitor" = "eDP-1, 1920x1080@144, 0x0, 1";
