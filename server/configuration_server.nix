@@ -7,6 +7,7 @@
   imports = [
     ./hardware-configuration.nix
     ../modules/common.nix
+    ./services/ddns.nix
   ];
 
 
@@ -20,7 +21,8 @@ kernelPackages = pkgs.linuxPackages_latest;
  };
 
  };
- 
+  sops.defaultSopsFile = ../secrets/main2.yaml;
+   sops.age.keyFile = "~/secrets/new_age_key.txt";
 
 
 
