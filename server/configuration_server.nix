@@ -45,14 +45,36 @@ kernelPackages = pkgs.linuxPackages_latest;
 
 users.users.server-pc = {
 isNormalUser = true;
-extraGroups = ["wheel" "networkmanager" "docker" "podman" ];
-
+extraGroups = ["networkmanager" "wheel" "tailscale" "podman docker"];
 
 
 
 };
+networking.firewall = {
+  enable = true;
+  # SSH, HTTP ve HTTPS portlarını aç
+  allowedTCPPorts = [ 22 80 443 8080];
+
+  allowedUDPPorts = [ 41641 ];
+};
 
 
+  services.openssh= {
+  enable = true;
+};
+
+
+#services.nginx.enable = true;
+
+
+
+services.tailscale = {
+  enable = true;
+
+
+};
+
+networking.networkmanager.dns = "none";
 
 
 
