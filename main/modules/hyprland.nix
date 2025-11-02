@@ -20,6 +20,9 @@
 
       exec-once = [
         "${pkgs.waybar}/bin/waybar"
+        "swww-daemon"
+
+        "swww img /home/deepshell/pictures/Wallpapers/default.jpg --transition-type outer --transition-step 30"
       ];
 
       "monitor" = "eDP-1, 1920x1080@144, 0x0, 1";
@@ -82,6 +85,8 @@
         "$mod $shift, 8 ,  movetoworkspace, 8"
         "$mod $shift, 9 ,  movetoworkspace, 9"
         "$mod $shift, 0 ,  movetoworkspace, 10"
+        
+        "$mod, W, exec, waypaper"
       ];
     };
   };

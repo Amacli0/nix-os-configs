@@ -30,6 +30,9 @@
     wl-clipboard
     lua-language-server
     nixd
+    swww
+    waypaper
+    btop
   ];
 
   programs = {
@@ -78,4 +81,29 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+
+
+
+systemd.user.services.wallchange = {
+  Unit = { Description = "Change wallpaper periodically"; };
+  Service.ExecStart = "${pkgs.bash}/bin/bash ${config.home.homeDirectory}/.local/bin/wallchange.sh";
+};
+
+systemd.user.timers.wallchange = {
+  Unit.Description = "Wallpaper change timer";
+  Timer.OnUnitActiveSec = "20s";
+  Install.WantedBy = [ "timers.target" ];
+};
+
+
+
+
+
+
+
+
+
+
+
 }
