@@ -35,7 +35,7 @@ boot = {
 
   fonts.packages = with pkgs; [
     monocraft
-nerdfonts.fonts.jetbrains-mono
+   nerdfonts
   ];
 
   fonts.fontconfig.enable = true;
