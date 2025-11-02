@@ -77,10 +77,6 @@
 
       waybar = {
       enable = true;
-      config = {
-      modules-left = [ "clock" ];
-      modules-right = [" network" ];
-    };
     };
 
 

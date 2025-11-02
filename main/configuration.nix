@@ -35,6 +35,7 @@ boot = {
 
   fonts.packages = with pkgs; [
     monocraft
+    JetBrainsMono
   ];
 
   fonts.fontconfig.enable = true;
