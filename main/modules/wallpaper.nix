@@ -10,11 +10,9 @@
     Service = {
       Type = "oneshot";
       ExecStart = ''
-        WALLPAPERS="$HOME/pictures"
-        RANDOM_WALL=$(find "$WALLPAPERS" -type f | shuf -n 1)
-        ${pkgs.swww}/bin/swww img "$RANDOM_WALL" \
-          --transition-type fade \
-          --transition-duration 2
+        WALLPAPERS=$HOME/pictures; \
+        RANDOM_WALL=$(find "$WALLPAPERS" -type f | shuf -n 1); \
+        ${pkgs.swww}/bin/swww img "$RANDOM_WALL" --transition-type fade --transition-duration 2
       '';
     };
 
@@ -30,7 +28,7 @@
 
     Timer = {
       OnBootSec = "5s";
-      OnUnitActiveSec = "30s"; # 30 saniye yerine 30 dakika önerilir
+      OnUnitActiveSec = "30m";
       AccuracySec = "1s";
     };
 
