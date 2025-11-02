@@ -75,8 +75,12 @@
     };
         
 
-      waybar.settings.main = {
-      modules-right = ["clock"];
+      waybar = {
+      enable = true;
+      config = {
+      modules-left = [ "clock" ];
+      modules-right = [" network" ];
+    };
     };
 
 
