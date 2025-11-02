@@ -11,7 +11,6 @@
   imports = [
     ./modules/hyprland.nix
     ./modules/nvim.nix
-    ./modules/wallpaper.nix
   ];
 
   home.packages = with pkgs; [
@@ -74,6 +73,12 @@
         theme = "kphoen";
       };
     };
+        
+
+      waybar.settings.main = {
+      modules-right = ["clock"];
+    };
+
 
   };
 
