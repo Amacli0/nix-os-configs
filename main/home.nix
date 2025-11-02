@@ -11,6 +11,7 @@
   imports = [
     ./modules/hyprland.nix
     ./modules/nvim.nix
+    ./modules/wallpaper.nix
   ];
 
   home.packages = with pkgs; [
@@ -81,22 +82,6 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
-
-
-
-systemd.user.services.wallchange = {
-  Unit = { Description = "Change wallpaper periodically"; };
-  Service.ExecStart = "${pkgs.bash}/bin/bash ${config.home.homeDirectory}/.local/bin/wallchange.sh";
-};
-
-systemd.user.timers.wallchange = {
-  Unit.Description = "Wallpaper change timer";
-  Timer.OnUnitActiveSec = "20s";
-  Install.WantedBy = [ "timers.target" ];
-};
-
-
 
 
 
