@@ -14,6 +14,11 @@
 boot = {
 kernelPackages = pkgs.linuxPackages_latest;
 
+kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+
  loader = {
  systemd-boot.enable = true;
 
@@ -35,14 +40,6 @@ kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "server-pc";
 
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [22 80 443 8080];
-
-    allowedUDPPorts = [41641];
-  };
-
-
 users.users.server-pc = {
 isNormalUser = true;
 extraGroups = ["networkmanager" "wheel" "tailscale" "podman docker"];
@@ -54,7 +51,7 @@ networking.firewall = {
   enable = true;
   # SSH, HTTP ve HTTPS portlarını aç
   allowedTCPPorts = [ 22 80 443 8080];
-
+    trustedInterfaces = [ "tailscale0" ];
   allowedUDPPorts = [ 41641 ];
 };
 
