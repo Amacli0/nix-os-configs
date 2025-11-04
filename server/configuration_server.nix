@@ -30,12 +30,19 @@ kernel.sysctl = {
 
 
 
+  systemd.services."ethtool-gro-fix" = {
+    description = "Enable GRO and GSO for Tailscale performance";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        /run/current-system/sw/bin/ethtool -K enp0s31f6 gro on gso on || true
+        /run/current-system/sw/bin/ethtool --set-priv-flags enp0s31f6 rx-gro-forwarding on || true
+      '';
+    };
+  };
 
-
-  networking.interfaces.enp0s31f6.ethtoolCmds = ''
-    -K enp0s31f6 gro on gso on
-    --set-priv-flags enp0s31f6 rx-gro-forwarding on
-  '';
 
 
 
