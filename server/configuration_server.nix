@@ -7,7 +7,6 @@
   imports = [
     ./hardware-configuration.nix
     ../modules/common.nix
-    ./services/ddns.nix
   ];
 
 
