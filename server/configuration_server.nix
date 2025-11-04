@@ -32,6 +32,12 @@ kernel.sysctl = {
 
 
 
+  networking.interfaces.enp0s31f6.ethtoolCmds = ''
+    -K enp0s31f6 gro on gso on
+    --set-priv-flags enp0s31f6 rx-gro-forwarding on
+  '';
+
+
 
 
 
