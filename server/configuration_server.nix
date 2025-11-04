@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
     ../modules/common.nix
   ];
-
+virtualisation.docker.enable = true;
 
 boot = {
 kernelPackages = pkgs.linuxPackages_latest;
@@ -38,7 +38,7 @@ kernel.sysctl = {
 
 users.users.server-pc = {
 isNormalUser = true;
-extraGroups = ["networkmanager" "wheel" "tailscale" "podman docker"];
+extraGroups = ["networkmanager" "wheel" "tailscale" "podman" "docker"];
 
 
 
