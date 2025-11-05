@@ -1,24 +1,30 @@
 # /home/deepshell/nix-os-configs/flake.nix (Temizlenmiş Versiyon)
 {
   description = "NixOS configuration for Nixtilus with Home Manager and Hyprland";
-
+  #######################################
+  #              INPUTLAR              #
+  #######################################
   inputs = {
+    #NİX PAKETLERİ
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #HYPRLAND
     hyprland.url = "github:hyprwm/Hyprland";
-
+    #HOME MANAGER
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    #SOPS NİX
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    #STYLİX
     stylix.url = "github:danth/stylix";
   };
-
+  #######################################
+  #              OUTPUTS                #
+  #######################################
   outputs = {
     self,
     nixpkgs,
@@ -26,23 +32,30 @@
     sops-nix,
     stylix,
     ...
-  } @ inputs: {
+  }
+  #######################################
+  #              AYARLAMALAR              #
+  #######################################
+  @ inputs: {
     nixosConfigurations = {
+      #NİXTİLUS
       Nixtilus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
-
+        #######################################
+        #              MODUL AYARLARI         #
+        #######################################
         modules = [
           # 1. Ana Yapılandırma
           ./main/configuration.nix
 
-          # 2. SOPS-NIX Modülü (Şimdi liste içinde temiz bir şekilde)
+          # 2. SOPS-NIX Modülü
           sops-nix.nixosModules.sops
 
-          # 3. Home Manager Modülü
+          # 3. Home Manager
           home-manager.nixosModules.home-manager
 
-          # 4. Home Manager kullanıcı ayarlarının olduğu kısım (anonymous module)
+          # 4. Home Manager k
           ({
             config,
             pkgs,
@@ -54,13 +67,17 @@
           inputs.stylix.nixosModules.stylix
         ];
       };
-
+      #SERVER PC
       server-pc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
+        #######################################
+        #            MODUL AYARLARI           #
+        #######################################
         modules = [
+          # 1. Ana Yapılandırma
           ./server/configuration_server.nix
-          # SERVER tarafına da sops-nix eklenmeli, unutmaman için not.
+          #SOPS-NİX Modül
           sops-nix.nixosModules.sops
         ];
       };
