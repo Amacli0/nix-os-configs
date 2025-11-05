@@ -53,8 +53,10 @@
     #######################################
     git = {
       enable = true;
-      userName = "Mehmet Şükrü Bilgiç";
-      userEmail = "deepshell@proton.me";
+      settings = {
+        userName = "Mehmet Şükrü Bilgiç";
+        userEmail = "deepshell@proton.me";
+      };
     };
     #######################################
     #            FİREFOX                  #

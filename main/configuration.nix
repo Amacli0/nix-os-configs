@@ -59,6 +59,9 @@
   #            SERVİCES                 #
   #######################################
   services = {
+    #######################################
+    #           EKRAN KARTI               #
+    #######################################
     xserver.videoDriver = ["amdgpu"];
     #######################################
     #            DATABASES                  #
@@ -110,9 +113,9 @@
   hardware = {
     bluetooth.enable = true;
 
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
   };
   #######################################
