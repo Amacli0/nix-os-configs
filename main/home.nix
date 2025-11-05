@@ -36,6 +36,7 @@
     swww
     waypaper
     btop
+    hyprpolkitagent
   ];
 
   programs = {
