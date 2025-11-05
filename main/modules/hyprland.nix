@@ -9,6 +9,10 @@
     xwayland.enable = true;
     package = pkgs.hyprland;
 
+    extraConfig = ''
+      exec-once = hyprpolkitagent
+    '';
+
     settings = {
       "$mod" = "SUPER";
       "$alt" = "Alt";
