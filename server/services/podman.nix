@@ -40,7 +40,7 @@
 
         # Web arayüzü için port
         ports = [
-          "8022:5678"
+          "8082:5678"
         ];
 
         # Environment variables
