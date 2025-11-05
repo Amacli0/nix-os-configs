@@ -15,9 +15,12 @@
 
   home.packages = with pkgs; [
     kitty
-    bitwarden-desktop
     fastfetch
+
+    bitwarden-desktop
+
     hyprland
+
     whatsapp-electron
     waybar
     tree
@@ -33,6 +36,8 @@
     swww
     waypaper
     btop
+
+    hyprpolkitagent
   ];
 
   programs = {
@@ -73,13 +78,10 @@
         theme = "kphoen";
       };
     };
-        
 
-      waybar = {
+    waybar = {
       enable = true;
     };
-
-
   };
 
   home.file = {};
@@ -87,13 +89,4 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
-
-
-
-
-
-
-
-
 }

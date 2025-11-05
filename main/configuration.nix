@@ -11,7 +11,7 @@
     ../modules/common.nix
   ];
 
-boot = {
+  boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
@@ -30,12 +30,9 @@ boot = {
     };
   };
 
-
-
-
   fonts.packages = with pkgs; [
     monocraft
-   pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.fira-code
   ];
 
   fonts.fontconfig.enable = true;
@@ -50,8 +47,6 @@ boot = {
 
   services = {
     xserver.videoDriver = ["amdgpu"];
-
-
 
     postgresql = {
       enable = true;
@@ -97,7 +92,6 @@ boot = {
     bluetooth.enable = true;
 
     opengl = {
-
       enable = true;
       driSupport32Bit = true;
     };
@@ -109,14 +103,12 @@ boot = {
     };
     zsh.enable = true;
 
-    steam = { 
+    steam = {
       enable = true;
       gamescopeSession.enable = true;
-
     };
     gamemode.enable = true;
-  
-    };
+  };
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
@@ -133,19 +125,12 @@ boot = {
 
   environment.shells = [pkgs.zsh];
 
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
+  nixpkgs.config.allowUnfree = true;
 
-stylix.enable = true;
-stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-
-
-
-
-
-
-nixpkgs.config.allowUnfree = true;
-
-
+  security.polkit.enable = true;
 
   system.stateVersion = "25.05";
 }
