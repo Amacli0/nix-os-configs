@@ -25,7 +25,7 @@
       exec-once = [
         "${pkgs.waybar}/bin/waybar"
         "swww-daemon"
-        "hyprpolkitagent"
+        "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
       ];
 
       "monitor" = "eDP-1, 1920x1080@144, 0x0, 1";
