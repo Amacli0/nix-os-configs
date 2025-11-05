@@ -19,7 +19,7 @@
     backend = "podman";
     containers = {
       candy = {
-        image = "ghcr.io/cultureamp/docker-candy:latest";
+        image = "docker.io/library/caddy:latest";
 
         ports = [
           "8080:80"
@@ -31,7 +31,7 @@
         autoStart = true;
 
         volumes = [
-          # "/var/lib/candy:/data"  # Örnek: kalıcı veri
+          "/var/lib/candy:/data" # Örnek: kalıcı veri
         ];
       };
     };
