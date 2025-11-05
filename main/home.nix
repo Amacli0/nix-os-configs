@@ -54,8 +54,8 @@
     git = {
       enable = true;
       settings = {
-        userName = "Mehmet Şükrü Bilgiç";
-        userEmail = "deepshell@proton.me";
+        user.name = "Mehmet Şükrü Bilgiç";
+        user.email = "deepshell@proton.me";
       };
     };
     #######################################
