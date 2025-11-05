@@ -122,7 +122,9 @@
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "audio" "video"]; # Enable ‘sudo’ for the user.
   };
-
+  environment.systemPackages = with pkgs; [
+    hyprpolkitagent
+  ];
   environment.shells = [pkgs.zsh];
 
   stylix.enable = true;
