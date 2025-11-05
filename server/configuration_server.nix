@@ -9,7 +9,7 @@
   #######################################
   imports = [
     ./hardware-configuration.nix
-    ../modules/common.nix
+    ../common.nix
     ./services/podman.nix
   ];
   #######################################

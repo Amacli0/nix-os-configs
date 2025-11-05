@@ -10,7 +10,7 @@
   #######################################
   imports = [
     ./hardware-configuration.nix
-    ../modules/common.nix
+    ../common.nix
     inputs.home-manager.nixosModules.home-manager
   ];
   #######################################
