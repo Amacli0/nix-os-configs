@@ -5,12 +5,17 @@
   inputs,
   ...
 }: {
+  #######################################
+  #            IMPORTS                  #
+  #######################################
   imports = [
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.home-manager
     ../modules/common.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
-
+  #######################################
+  #                BOOT                 #
+  #######################################
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -29,25 +34,35 @@
       };
     };
   };
-
+  #######################################
+  #               FONT                  #
+  #######################################
   fonts.packages = with pkgs; [
     monocraft
     pkgs.nerd-fonts.fira-code
   ];
 
   fonts.fontconfig.enable = true;
-
+  #######################################
+  #            NETWORK                  #
+  #######################################
   networking = {
     hostName = "Nixtilus";
   };
-
+  #######################################
+  #            SERTİFİKA                #
+  #######################################
   security.pki.certificates = [
     (builtins.readFile ./MEB_SERTIFIKASI.pem)
   ];
-
+  #######################################
+  #            SERVİCES                 #
+  #######################################
   services = {
     xserver.videoDriver = ["amdgpu"];
-
+    #######################################
+    #            DATABASES                  #
+    #######################################
     postgresql = {
       enable = true;
 
@@ -69,7 +84,9 @@
         local all all trust
       '';
     };
-
+    #######################################
+    #            SOUND  ETC               #
+    #######################################
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -87,7 +104,9 @@
       drivers = [pkgs.hplip pkgs.cups];
     };
   };
-
+  #######################################
+  #            HARDWARES                #
+  #######################################
   hardware = {
     bluetooth.enable = true;
 
@@ -96,43 +115,64 @@
       driSupport32Bit = true;
     };
   };
+  #######################################
+  #            PROGRAMS                 #
+  #######################################
   programs = {
+    #######################################
+    #            Hyprland                  #
+    #######################################
     hyprland = {
       enable = true;
       package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     };
+    # ZSH
     zsh.enable = true;
-
+    #STEAM
     steam = {
       enable = true;
       gamescopeSession.enable = true;
     };
     gamemode.enable = true;
   };
-
+  #######################################
+  #            HOME MANAGER             #
+  #######################################
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
       "deepshell" = ./home.nix;
     };
   };
-
+  #######################################
+  #            KULLANICILAR             #
+  #######################################
   users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "audio" "video"]; # Enable ‘sudo’ for the user.
   };
+
+  #######################################
+  #            PAKETLER                 #
+  #######################################
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
   ];
   environment.shells = [pkgs.zsh];
-
+  #######################################
+  #            STYLE                  #
+  #######################################
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-
+  #######################################
+  #            SECURİTY                 #
+  #######################################
   nixpkgs.config.allowUnfree = true;
 
   security.polkit.enable = true;
-
+  #######################################
+  #            SİSTEM VERSİON           #
+  #######################################
   system.stateVersion = "25.05";
 }

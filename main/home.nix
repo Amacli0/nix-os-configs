@@ -4,15 +4,21 @@
   lib,
   ...
 }: {
+  #######################################
+  #            BASIC SETTİNGS           #
+  #######################################
   home.username = "deepshell";
   home.homeDirectory = "/home/deepshell";
   home.stateVersion = "25.05";
-
+  #######################################
+  #            IMPORTS                  #
+  #######################################
   imports = [
     ./modules/hyprland.nix
-    ./modules/nvim.nix
   ];
-
+  #######################################
+  #            PAKETLER                 #
+  #######################################
   home.packages = with pkgs; [
     kitty
     fastfetch
@@ -38,16 +44,25 @@
     btop
     polkit_gnome
   ];
-
+  #######################################
+  #            PROGRAMLAR               #
+  #######################################
   programs = {
+    #######################################
+    #                GİT                  #
+    #######################################
     git = {
       enable = true;
       userName = "Mehmet Şükrü Bilgiç";
       userEmail = "deepshell@proton.me";
     };
-
+    #######################################
+    #            FİREFOX                  #
+    #######################################
     firefox.enable = true;
-
+    #######################################
+    #            KİTTY                    #
+    #######################################
     kitty = {
       enable = true;
       settings = {
@@ -58,7 +73,9 @@
         size = 12;
       };
     };
-
+    #######################################
+    #            ZSH                      #
+    #######################################
     zsh = {
       enable = true;
       enableCompletion = true;
@@ -77,18 +94,24 @@
         theme = "kphoen";
       };
     };
-
+    #######################################
+    #            BARS                     #
+    #######################################
     waybar = {
       enable = true;
     };
   };
-
+  #######################################
+  #            EVRENSEL                 #
+  #######################################
   home.file = {};
 
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
+  #######################################
+  #            POLKİT               #
+  #######################################
   systemd.user.services.polkit-gnome-agent = {
     Unit = {
       Description = "Polkit GNOME Authentication Agent";

@@ -4,16 +4,20 @@
   lib,
   ...
 }: {
+  #######################################
+  #            HYPRLAND AYARLARI        #
+  #######################################
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
     package = pkgs.hyprland;
-
-    extraConfig = ''
-      exec-once = hyprpolkitagent
-    '';
-
+    #######################################
+    #            SETTINGS                 #
+    #######################################
     settings = {
+      #######################################
+      #            ATAMALAR                 #
+      #######################################
       "$mod" = "SUPER";
       "$alt" = "Alt";
       "$space" = "SPACE";
@@ -21,22 +25,32 @@
       "$shift" = "SHIFT";
       "$terminal" = "kitty";
       "$menu" = "rofi";
-
+      #######################################
+      #            BAŞLANGIÇ                #
+      #######################################
       exec-once = [
         "${pkgs.waybar}/bin/waybar"
         "swww-daemon"
         "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
       ];
+      #######################################
+      #            MONITOR                  #
+      #######################################
 
       "monitor" = "eDP-1, 1920x1080@144, 0x0, 1";
 
+      #######################################
+      #            GENEL AYARLAR            #
+      #######################################
       general = {
         "layout" = "dwindle";
         "gaps_in" = 5;
         "gaps_out" = 10;
         "border_size" = 2;
       };
-
+      #######################################
+      #            KLAVYE                  #
+      #######################################
       input = {
         "kb_layout" = "tr";
         "kb_variant" = "";
@@ -47,7 +61,9 @@
           "natural_scroll" = true;
         };
       };
-
+      #######################################
+      #            KISAYOLLAR               #
+      #######################################
       "bind" = [
         "$mod, T, exec, $terminal"
         "$mod, Q, killactive"
