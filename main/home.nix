@@ -36,7 +36,7 @@
     swww
     waypaper
     btop
-    hyprpolkitagent
+    polkit_gnome
   ];
 
   programs = {
@@ -89,13 +89,13 @@
     EDITOR = "nvim";
   };
 
-  systemd.user.services.hyprpolkitagent = {
+  systemd.user.services.polkit-gnome-agent = {
     Unit = {
-      Description = "Hyprland Polkit Authentication Agent";
+      Description = "Polkit GNOME Authentication Agent";
       After = ["graphical-session.target"];
     };
     Service = {
-      ExecStart = "${pkgs.hyprpolkitagent}/bin/hyprpolkitagent";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
       Restart = "on-failure";
     };
     Install = {
