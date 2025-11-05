@@ -22,7 +22,7 @@
         image = "ghcr.io/cultureamp/docker-candy:latest";
 
         ports = [
-          "8080:8080"
+          "8080:80"
         ];
         environment = {
           TZ = "Europe/Istanbul"; # Saat dilimi
