@@ -45,7 +45,7 @@
     #FİREWALL
     firewall = {
       enable = true;
-      allowedTCPPorts = [22 80 443 8080];
+      allowedTCPPorts = [22 80 443 5678 8080 8082];
       trustedInterfaces = ["tailscale0"];
       allowedUDPPorts = [41641];
     };
