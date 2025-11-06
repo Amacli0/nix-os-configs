@@ -22,8 +22,6 @@ in {
 
   virtualisation.oci-containers = {
     backend = "podman";
-    networks = {
-      nextcloud-net = {};
     };
 
     containers = {
