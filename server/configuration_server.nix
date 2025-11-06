@@ -35,7 +35,7 @@
 
   sops.defaultSopsFile = ../secrets/main2.yaml;
   sops.age.keyFile = "~/secrets/new_age_key.txt";
-  secrets = {
+  sops.secrets = {
     "nextcloud_db_passwd" = {
       sopsFile = ../secrets/main.yaml;
       key = "POSTGRES_PASSWORD";
