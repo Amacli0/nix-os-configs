@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  # SOPS’un oluşturduğu güvenli dosya yolu (/run/secrets/... gibi)
+  # SOPS'un oluşturduğu güvenli dosya yolu
   dbPasswordPath = config.sops.secrets."nextcloud_db_passwd".path;
 in {
   virtualisation.podman = {
@@ -56,7 +56,7 @@ in {
         };
         volumes = [
           "/var/lib/nextcloud-db:/var/lib/postgresql/data"
-          "/run/secrets/nextcloud_db_passwd:/run/secrets/nextcloud_db_passwd:ro"
+          "${dbPasswordPath}:${dbPasswordPath}:ro"
         ];
         autoStart = true;
       };
@@ -78,5 +78,11 @@ in {
         autoStart = true;
       };
     };
+  };
+
+  # SOPS secret tanımı — bu önemli!
+  sops.secrets."nextcloud_db_passwd" = {
+    sopsFile = ../secrets/main.yaml;
+    key = "POSTGRES_PASSWORD";
   };
 }
