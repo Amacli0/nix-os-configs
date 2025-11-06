@@ -54,7 +54,10 @@ in {
           POSTGRES_USER = "nextcloud";
           POSTGRES_PASSWORD_FILE = dbPasswordPath;
         };
-        volumes = ["nextcloud_db:/var/lib/postgresql/data"];
+        volumes = [
+          "/var/lib/nextcloud-db:/var/lib/postgresql/data"
+          "/run/secrets/nextcloud_db_passwd:/run/secrets/nextcloud_db_passwd:ro"
+        ];
         autoStart = true;
       };
 
