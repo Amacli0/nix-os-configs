@@ -79,10 +79,4 @@ in {
       };
     };
   };
-
-  # SOPS secret tanımı — bu önemli!
-  sops.secrets."nextcloud_db_passwd" = {
-    sopsFile = ../secrets/main.yaml;
-    key = "POSTGRES_PASSWORD";
-  };
 }
