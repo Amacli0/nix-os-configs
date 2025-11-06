@@ -22,6 +22,10 @@ in {
 
   virtualisation.oci-containers = {
     backend = "podman";
+    networks = {
+      nextcloud-net = {};
+    };
+
     containers = {
       candy = {
         image = "docker.io/library/caddy:latest";
@@ -58,6 +62,7 @@ in {
           "/var/lib/nextcloud-db:/var/lib/postgresql/data"
           "${dbPasswordPath}:${dbPasswordPath}:ro"
         ];
+        networks = ["nextcloud-net"];
         autoStart = true;
       };
 
@@ -75,6 +80,7 @@ in {
           NEXTCLOUD_TRUSTED_DOMAINS = "localhost 100.108.192.97 100.116.167.72 100.117.164.25";
         };
         volumes = ["nextcloud_data:/var/www/html"];
+        networks = ["nextcloud-net"];
         autoStart = true;
       };
     };
