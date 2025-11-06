@@ -6,7 +6,6 @@
 }: let
   # Güvenli dosya yolunu alıyoruz (e.g., /run/secrets/nextcloud-db-password)
   dbPasswordPath = config.sops.secrets."nextcloud_db_passwd".path;
-  nextcloudDBPassword = pkgs.lib.fileContents dbPasswordPath;
 in {
   virtualisation.podman = {
     enable = true;
