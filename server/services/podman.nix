@@ -11,6 +11,7 @@ in {
     enable = true;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
+    networks.nextcloud-net = {};
   };
 
   environment.systemPackages = with pkgs; [
@@ -22,7 +23,6 @@ in {
 
   virtualisation.oci-containers = {
     backend = "podman";
-
     containers = {
       candy = {
         image = "docker.io/library/caddy:latest";
@@ -48,6 +48,10 @@ in {
         };
         volumes = ["n8n_data:/home/node/.n8n"];
         autoStart = true;
+        extraOptions = [
+          "--cap-add=NET_RAW"
+          "--cap-add=NET_ADMIN"
+        ];
       };
 
       nextcloud-db = {
