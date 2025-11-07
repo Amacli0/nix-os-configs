@@ -76,7 +76,7 @@
     };
     ollama = {
       enable = true;
-      models = ["phi3:mini"];
+      loadModels = ["phi3:mini"];
     };
   };
   #######################################
