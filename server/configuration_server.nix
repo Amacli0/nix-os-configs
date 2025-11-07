@@ -66,12 +66,18 @@
   #######################################
   #              SERVİSLER              #
   #######################################
-  services.openssh = {
-    enable = true;
-  };
+  services = {
+    openssh = {
+      enable = true;
+    };
 
-  services.tailscale = {
-    enable = true;
+    tailscale = {
+      enable = true;
+    };
+    ollama = {
+      enable = true;
+      models = ["phi3:mini"];
+    };
   };
   #######################################
   #            SİSTEM VERSİON           #
