@@ -77,6 +77,9 @@
     ollama = {
       enable = true;
       loadModels = ["phi3:mini"];
+      settings = {
+        host = "0.0.0.0";
+      };
     };
   };
   #######################################
