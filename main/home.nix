@@ -45,7 +45,6 @@
     polkit_gnome
 
     cheese
-    ob
   ];
   #######################################
   #            PROGRAMLAR               #
