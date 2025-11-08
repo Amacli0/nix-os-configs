@@ -86,6 +86,40 @@ in {
         dependsOn = ["nextcloud-db"];
         autoStart = true;
       };
+      synapse-db = {
+        image = "docker.io/library/postgres:16-alpine";
+        environment = {
+          POSTGRES_DB = "synapse";
+          POSTGRES_USER = "synapse";
+          # Güçlü parola için sops path veya plaintext test
+          POSTGRES_PASSWORD = "change_me_strong";
+        };
+        volumes = [
+          "/var/lib/synapse-db:/var/lib/postgresql/data"
+        ];
+        extraOptions = ["--network=matrix-net"];
+        autoStart = true;
+      };
+
+      synapse = {
+        image = "ghcr.io/matrix-org/synapse:latest";
+        environment = {
+          # Generate-mode için gerekli:
+          SYNAPSE_SERVER_NAME = "matrix.deepshell.org"; # kendi domain'inizi koyun
+          SYNAPSE_REPORT_STATS = "no";
+          # (İlk üretimde SYNAPSE_CONFIG_DIR kullanılabilir; image generate komutunun çıktısı volume'a yazılacak)
+        };
+        volumes = [
+          "/var/lib/synapse-data:/data" # /data içinde homeserver.yaml, media_store vb.
+        ];
+        extraOptions = [
+          "--network=matrix-net"
+          "--restart=unless-stopped"
+          # ek capability gerekmez
+        ];
+        # Port map yapmıyoruz çünkü Cloudflare Tunnel/Reverse proxy üzerinden erişilecek.
+        autoStart = true;
+      };
     };
   };
 }
