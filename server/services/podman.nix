@@ -8,6 +8,7 @@
   dbPasswordPath = config.sops.secrets."nextcloud_db_passwd".path;
 in {
   virtualisation.podman = {
+    networks.nextcloud-net.enable = true;
     enable = true;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
@@ -83,6 +84,7 @@ in {
         };
         volumes = ["nextcloud_data:/var/www/html"];
         networks = ["nextcloud-net"];
+        dependsOn = ["nextcloud-db"];
         autoStart = true;
       };
     };
