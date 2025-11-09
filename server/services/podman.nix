@@ -20,28 +20,11 @@ in {
     podman
     shadow
   ];
-
-  # Podman ağlarını oluştur
-  systemd.services.create-podman-networks = {
-    description = "Create Podman networks for containers";
-    after = ["podman.service"];
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      ${pkgs.podman}/bin/podman network exists nextcloud-net || \
-        ${pkgs.podman}/bin/podman network create nextcloud-net
-
-      ${pkgs.podman}/bin/podman network exists matrix-net || \
-        ${pkgs.podman}/bin/podman network create matrix-net
-    '';
-  };
-
+  #OCI KONTEYNERLAR
   virtualisation.oci-containers = {
     backend = "podman";
     containers = {
+      #CANDY
       candy = {
         image = "docker.io/library/caddy:latest";
         ports = ["8080:80"];
@@ -51,7 +34,7 @@ in {
         volumes = ["/var/lib/candy:/data"];
         autoStart = true;
       };
-
+      #N8N
       n8n = {
         image = "docker.io/n8nio/n8n:latest";
         ports = ["8082:5678"];
@@ -71,7 +54,7 @@ in {
           "--cap-add=NET_ADMIN"
         ];
       };
-
+      #NEXTCLOUD DB
       nextcloud-db = {
         image = "docker.io/library/postgres:16-alpine";
         environment = {
@@ -86,7 +69,7 @@ in {
         extraOptions = ["--network=nextcloud-net"];
         autoStart = true;
       };
-
+      #NEXTCLOUD
       nextcloud = {
         image = "docker.io/library/nextcloud:latest";
         ports = ["8081:80"];
@@ -104,61 +87,6 @@ in {
         dependsOn = ["nextcloud-db"];
         autoStart = true;
       };
-
-      # Matrix PostgreSQL Veritabanı
-      matrix-db = {
-        image = "docker.io/library/postgres:16-alpine";
-        environment = {
-          POSTGRES_DB = "synapse";
-          POSTGRES_USER = "synapse_user";
-          POSTGRES_PASSWORD_FILE = matrixPasswordPath;
-          POSTGRES_INITDB_ARGS = "--encoding=UTF8 --locale=C";
-        };
-        volumes = [
-          "/var/lib/matrix-db:/var/lib/postgresql/data"
-          "${matrixPasswordPath}:${matrixPasswordPath}:ro"
-        ];
-        extraOptions = ["--network=matrix-net"];
-        autoStart = true;
-      };
-
-      # Matrix Synapse Ana Sunucu
-      matrix-synapse = {
-        image = "docker.io/matrixdotorg/synapse:latest";
-        ports = ["8008:8008" "8448:8448"];
-        environment = {
-          SYNAPSE_SERVER_NAME = "deepshell.org";
-          SYNAPSE_REPORT_STATS = "no";
-          TZ = "Europe/Istanbul";
-        };
-        volumes = [
-          "/var/lib/matrix/synapse:/data:Z"
-        ];
-        extraOptions = [
-          "--network=matrix-net"
-          "--user=991:991"
-        ];
-        dependsOn = ["matrix-db"];
-        autoStart = true;
-      };
-
-      # Element Web - Matrix Web İstemcisi
-      element-web = {
-        image = "docker.io/vectorim/element-web:latest";
-        ports = ["8009:80"];
-        volumes = [
-          "/var/lib/matrix/element/config.json:/app/config.json:ro"
-        ];
-        autoStart = true;
-      };
     };
   };
-
-  # Matrix için gerekli dizinleri oluştur
-  systemd.tmpfiles.rules = [
-    "d /var/lib/matrix 0755 root root -"
-    "d /var/lib/matrix/synapse 0755 991 991 -"
-    "d /var/lib/matrix/element 0755 root root -"
-    "d /var/lib/matrix-db 0755 999 999 -"
-  ];
 }
