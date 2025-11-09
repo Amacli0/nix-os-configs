@@ -132,9 +132,12 @@ in {
           TZ = "Europe/Istanbul";
         };
         volumes = [
-          "/var/lib/matrix/synapse:/data"
+          "/var/lib/matrix/synapse:/data:Z"
         ];
-        extraOptions = ["--network=matrix-net"];
+        extraOptions = [
+          "--network=matrix-net"
+          "--user=991:991"
+        ];
         dependsOn = ["matrix-db"];
         autoStart = true;
       };
