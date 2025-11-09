@@ -6,6 +6,7 @@
 }: let
   # SOPS'un oluşturduğu güvenli dosya yolu
   dbPasswordPath = config.sops.secrets."nextcloud_db_passwd".path;
+  matrixPasswordPath = config.sops.secrets."matrix_db_passwd".path;
 in {
   virtualisation.podman = {
     enable = true;
@@ -19,6 +20,24 @@ in {
     podman
     shadow
   ];
+
+  # Podman ağlarını oluştur
+  systemd.services.create-podman-networks = {
+    description = "Create Podman networks for containers";
+    after = ["podman.service"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      ${pkgs.podman}/bin/podman network exists nextcloud-net || \
+        ${pkgs.podman}/bin/podman network create nextcloud-net
+
+      ${pkgs.podman}/bin/podman network exists matrix-net || \
+        ${pkgs.podman}/bin/podman network create matrix-net
+    '';
+  };
 
   virtualisation.oci-containers = {
     backend = "podman";
@@ -76,9 +95,8 @@ in {
           POSTGRES_DB = "nextcloud";
           POSTGRES_USER = "nextcloud";
           POSTGRES_PASSWORD_FILE = dbPasswordPath;
-
           NEXTCLOUD_ADMIN_USER = "admin";
-          NEXTCLOUD_ADMIN_PASSWORD = "admin"; # test için
+          NEXTCLOUD_ADMIN_PASSWORD = "admin";
           NEXTCLOUD_TRUSTED_DOMAINS = "localhost,192.168.1.200,100.108.192.97,100.116.167.72,100.117.164.25,cloud.deepshell.org";
         };
         volumes = ["nextcloud_data:/var/www/html"];
@@ -86,40 +104,58 @@ in {
         dependsOn = ["nextcloud-db"];
         autoStart = true;
       };
-      synapse-db = {
+
+      # Matrix PostgreSQL Veritabanı
+      matrix-db = {
         image = "docker.io/library/postgres:16-alpine";
         environment = {
           POSTGRES_DB = "synapse";
-          POSTGRES_USER = "synapse";
-          # Güçlü parola için sops path veya plaintext test
-          POSTGRES_PASSWORD = "change_me_strong";
+          POSTGRES_USER = "synapse_user";
+          POSTGRES_PASSWORD_FILE = matrixPasswordPath;
+          POSTGRES_INITDB_ARGS = "--encoding=UTF8 --locale=C";
         };
         volumes = [
-          "/var/lib/synapse-db:/var/lib/postgresql/data"
+          "/var/lib/matrix-db:/var/lib/postgresql/data"
+          "${matrixPasswordPath}:${matrixPasswordPath}:ro"
         ];
         extraOptions = ["--network=matrix-net"];
         autoStart = true;
       };
 
-      synapse = {
-        image = "ghcr.io/matrix-org/synapse:latest";
+      # Matrix Synapse Ana Sunucu
+      matrix-synapse = {
+        image = "docker.io/matrixdotorg/synapse:latest";
+        ports = ["8008:8008" "8448:8448"];
         environment = {
-          # Generate-mode için gerekli:
-          SYNAPSE_SERVER_NAME = "matrix.deepshell.org"; # kendi domain'inizi koyun
+          SYNAPSE_SERVER_NAME = "deepshell.org";
           SYNAPSE_REPORT_STATS = "no";
-          # (İlk üretimde SYNAPSE_CONFIG_DIR kullanılabilir; image generate komutunun çıktısı volume'a yazılacak)
+          TZ = "Europe/Istanbul";
         };
         volumes = [
-          "/var/lib/synapse-data:/data" # /data içinde homeserver.yaml, media_store vb.
+          "/var/lib/matrix/synapse:/data"
         ];
-        extraOptions = [
-          "--network=matrix-net"
-          "--restart=unless-stopped"
-          # ek capability gerekmez
+        extraOptions = ["--network=matrix-net"];
+        dependsOn = ["matrix-db"];
+        autoStart = true;
+      };
+
+      # Element Web - Matrix Web İstemcisi
+      element-web = {
+        image = "docker.io/vectorim/element-web:latest";
+        ports = ["8009:80"];
+        volumes = [
+          "/var/lib/matrix/element/config.json:/app/config.json:ro"
         ];
-        # Port map yapmıyoruz çünkü Cloudflare Tunnel/Reverse proxy üzerinden erişilecek.
         autoStart = true;
       };
     };
   };
+
+  # Matrix için gerekli dizinleri oluştur
+  systemd.tmpfiles.rules = [
+    "d /var/lib/matrix 0755 root root -"
+    "d /var/lib/matrix/synapse 0755 991 991 -"
+    "d /var/lib/matrix/element 0755 root root -"
+    "d /var/lib/matrix-db 0755 999 999 -"
+  ];
 }
