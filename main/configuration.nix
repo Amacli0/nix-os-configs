@@ -16,7 +16,21 @@
   #######################################
   #                BOOT                 #
   #######################################
+  virtualisation = {
+    spiceUSBRedirection.enable = true;
+
+    libvirtd = {
+      enable = true;
+      qemuPackage = pkgs.qemu_kvm;
+      onBoot = "start";
+      onShutdown = "shutdown";
+    };
+  };
   boot = {
+    kernelParams = [
+      "amd_iommu=on"
+      "iommu=pt"
+    ];
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
@@ -60,7 +74,7 @@
   #            SERVİCES                 #
   #######################################
   services = {
-    dnscrypt-proxy2 = {
+    dnscrypt-proxy = {
       enable = true;
       settings = {
         listen_addresses = ["127.0.0.1:53" "[::1]:53"];
@@ -137,6 +151,7 @@
   #            PROGRAMS                 #
   #######################################
   programs = {
+    virt-manager.enable = true;
     #######################################
     #            Hyprland                  #
     #######################################
@@ -168,7 +183,7 @@
   users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "audio" "video"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "audio" "video libvirt kvm"]; # Enable ‘sudo’ for the user.
   };
 
   #######################################
