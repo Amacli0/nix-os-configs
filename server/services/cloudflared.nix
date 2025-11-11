@@ -9,16 +9,13 @@
     tunnels."mini-ana" = {
       credentialsFile = "/var/lib/cloudflared/mini-tunnel.json";
 
-      # ingress bir liste (array) olmalı — her kural bir attrset olarak
-      ingress = [
-        {
-          hostname = "terraria.deepshell.org";
-          service = "tcp://127.0.0.1:7777";
-        }
-        {
-          service = "http_status:404";
-        }
-      ];
+      # ingress bir attribute set olmalı: hostname → service
+      ingress = {
+        "terraria.deepshell.org" = "tcp://127.0.0.1:7777";
+      };
+
+      # default için 404 eklemek istersen cloudflared modülüne göre ayrı seçenek vardır.
+      # Eğer modül bunu destekliyorsa default = "http_status:404"; ekleyebilirsin
     };
   };
 }
