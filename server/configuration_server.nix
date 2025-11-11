@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ../common.nix
     ./services/podman.nix
+    ./services/terraria.nix
   ];
 
   #######################################

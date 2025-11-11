@@ -5,7 +5,7 @@
   ...
 }: {
   services = {
-    terraria-main = {
+    terraria = {
       dataDir = "/var/lib/terraria";
       enable = true;
       worldPath = "/var/lib/terraria";

@@ -51,4 +51,6 @@
     fastfetch
     tree
   ];
+
+  allowUnfree = true;
 }
