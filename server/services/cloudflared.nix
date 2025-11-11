@@ -11,7 +11,7 @@
 
       # ingress bir attribute set olmalı: hostname → service
       ingress = {
-        "terraria.deepshell.org" = "tcp://127.0.0.1:7777";
+        "**tcp://terraria.deepshell.org**" = "tcp://127.0.0.1:7777";
       };
 
       # default için 404 eklemek istersen cloudflared modülüne göre ayrı seçenek vardır.
