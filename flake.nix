@@ -45,7 +45,7 @@
         #######################################
         modules = [
           # 1. Ana Yapılandırma
-
+          ./main/configuration.nix
           # 2. SOPS-NIX Modülü
           sops-nix.nixosModules.sops
 
