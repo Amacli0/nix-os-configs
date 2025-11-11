@@ -47,5 +47,8 @@
     neovim
     age
     sops
+    btop
+    fastfetch
+    tree
   ];
 }

@@ -190,8 +190,6 @@
   #            PAKETLER                 #
   #######################################
   environment.systemPackages = with pkgs; [
-    hyprpolkitagent
-    tor-browser-bundle-bin
   ];
   environment.shells = [pkgs.zsh];
   #######################################

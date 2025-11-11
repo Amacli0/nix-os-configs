@@ -25,11 +25,10 @@
 
     bitwarden-desktop
 
-    hyprland
-
     whatsapp-electron
+
     waybar
-    tree
+
     pavucontrol
     blueman
     rofi
@@ -37,12 +36,13 @@
     vscodium
     xclip
     wl-clipboard
-    lua-language-server
-    nixd
     swww
-    waypaper
+
     btop
     polkit_gnome
+    protonvpn-gui
+    tor-browser-bundle-bin
+    protonvpn-gui
 
     cheese
   ];
@@ -120,7 +120,7 @@
     EDITOR = "nvim";
   };
   #######################################
-  #            POLKİT               #
+  #            POLKİT                   #
   #######################################
   systemd.user.services.polkit-gnome-agent = {
     Unit = {
