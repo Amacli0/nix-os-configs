@@ -16,6 +16,7 @@
 
       # default için 404 eklemek istersen cloudflared modülüne göre ayrı seçenek vardır.
       # Eğer modül bunu destekliyorsa default = "http_status:404"; ekleyebilirsin
+      default = "http_status:404";
     };
   };
 }
