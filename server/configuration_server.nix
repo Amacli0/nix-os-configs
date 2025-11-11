@@ -12,6 +12,7 @@
     ../common.nix
     ./services/podman.nix
     ./services/terraria.nix
+    ./services/cloudflared.nix
   ];
 
   #######################################
@@ -91,6 +92,12 @@
     };
   };
 
+  #######################################
+  #               PAKETLER              #
+  #######################################
+  environment.systemPackages = with pkgs; [
+    cloudflared
+  ];
   #######################################
   #            SİSTEM VERSİON           #
   #######################################
