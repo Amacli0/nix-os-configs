@@ -13,7 +13,7 @@
       ingress = [
         {
           hostname = "terraria.deepshell.org";
-          service = "tcp://127.0.0.1:7777"; # scheme gerekli: tcp://
+          service = "tcp://127.0.0.1:7777";
         }
         {
           service = "http_status:404";
