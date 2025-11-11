@@ -10,96 +10,18 @@
   imports = [
     ./hardware-configuration.nix
     ../common.nix
+    inputs.home-manager.nixosModules.home-manager
     ./services/podman.nix
     ./services/terraria.nix
     ./services/cloudflared.nix
+
+    ./modules/boot.nix
+    ./modules/ollama.nix
+    ./modules/packages.nix
+    ./modules/security.nix
+    ./modules/sops.nix
+    ./modules/users.nix
   ];
 
-  #######################################
-  #              BOOT AYARLARI          #
-  #######################################
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
-    };
-    loader = {
-      systemd-boot.enable = true;
-      timeout = 15;
-    };
-  };
-
-  #######################################
-  #           SOPS AYARLARI             #
-  #######################################
-  sops.defaultSopsFile = ../secrets/main2.yaml;
-  sops.age.keyFile = "/home/server-pc/secrets/new_age_key.txt";
-
-  sops.secrets."nextcloud_db_passwd" = {
-    sopsFile = ../secrets/main.yaml;
-    key = "postgres_password";
-  };
-
-  # Matrix veritabanı şifresi
-  sops.secrets."matrix_db_passwd" = {
-    sopsFile = ../secrets/main.yaml;
-    key = "matrix_postgres_password";
-    owner = "root";
-    mode = "0400";
-  };
-
-  #######################################
-  #              NETWORK                #
-  #######################################
-  networking = {
-    # HOSTNAME
-    hostName = "server-pc";
-
-    # FİREWALL
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [22 80 443 5678 7777 8008 8009 8081 8082 8448 11434];
-      trustedInterfaces = ["tailscale0"];
-      allowedUDPPorts = [41641];
-    };
-  };
-
-  #######################################
-  #              KULLANICI              #
-  #######################################
-  users.users.server-pc = {
-    isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel" "tailscale" "podman" "docker"];
-  };
-
-  #######################################
-  #              SERVİSLER              #
-  #######################################
-  services = {
-    openssh = {
-      enable = true;
-    };
-
-    tailscale = {
-      enable = true;
-    };
-
-    ollama = {
-      enable = true;
-      loadModels = ["phi3:mini"];
-      host = "0.0.0.0";
-    };
-  };
-
-  #######################################
-  #               PAKETLER              #
-  #######################################
-  environment.systemPackages = with pkgs; [
-    cloudflared
-  ];
-  #######################################
-  #            SİSTEM VERSİON           #
-  #######################################
   system.stateVersion = "25.05";
 }

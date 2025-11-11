@@ -1,6 +1,4 @@
-# /home/deepshell/nix-os-configs/flake.nix (Temizlenmiş Versiyon)
 {
-  description = "NixOS configuration for Nixtilus with Home Manager and Hyprland";
   #######################################
   #              INPUTLAR              #
   #######################################
@@ -47,7 +45,6 @@
         #######################################
         modules = [
           # 1. Ana Yapılandırma
-          ./main/configuration.nix
 
           # 2. SOPS-NIX Modülü
           sops-nix.nixosModules.sops
@@ -55,7 +52,6 @@
           # 3. Home Manager
           home-manager.nixosModules.home-manager
 
-          # 4. Home Manager k
           ({
             config,
             pkgs,
@@ -63,7 +59,7 @@
           }: {
             home-manager.users.deepshell = import ./main/home.nix;
           })
-          #5 Stylix Moduleri
+          #4 Stylix Moduleri
           inputs.stylix.nixosModules.stylix
         ];
       };
@@ -77,8 +73,17 @@
         modules = [
           # 1. Ana Yapılandırma
           ./server/configuration_server.nix
-          #SOPS-NİX Modül
+          # 2 .SOPS-NİX Modül
           sops-nix.nixosModules.sops
+          # 3. Home Manager
+          home-manager.nixosModules.home-manager
+          ({
+            config,
+            pkgs,
+            ...
+          }: {
+            home-manager.users.server-pc = import ./server/home-server.nix;
+          })
         ];
       };
     };

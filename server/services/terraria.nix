@@ -8,7 +8,7 @@
     terraria = {
       dataDir = "/var/lib/terraria";
       enable = true;
-      worldPath = "/var/lib/terraria";
+      worldPath = "/var/lib/terraria/Hyper_Homeland_of_Inflation.wld";
       secure = true;
       port = 7777;
       password = null;

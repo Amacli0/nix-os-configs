@@ -44,13 +44,10 @@
   environment.systemPackages = with pkgs; [
     alejandra
     git
-    neovim
+
     age
     sops
-    btop
-    fastfetch
-    tree
   ];
-
+  security.polkit.enable = true;
   nixpkgs.config.allowUnfree = true;
 }

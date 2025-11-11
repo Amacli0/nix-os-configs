@@ -14,111 +14,18 @@
   #            IMPORTS                  #
   #######################################
   imports = [
-    ./modules/hyprland.nix
+    ./home-modules/hyprland.nix
+    ./home-modules/packages.nix
+
+    ./home-modules/apps/obs.nix
+    ./home-modules/apps/firefox.nix
+    ./home-modules/apps/git.nix
+    ./home-modules/apps/kitty.nix
+    ./home-modules/apps/waybar.nix
+    ./home-modules/apps/zsh.nix
+    ./home-modules/apps/neovim.nix
   ];
-  #######################################
-  #            PAKETLER                 #
-  #######################################
-  home.packages = with pkgs; [
-    kitty
-    fastfetch
 
-    bitwarden-desktop
-
-    whatsapp-electron
-
-    waybar
-
-    pavucontrol
-    blueman
-    rofi
-    yazi
-    vscodium
-    xclip
-    wl-clipboard
-    swww
-
-    btop
-    polkit_gnome
-    protonvpn-gui
-    tor-browser-bundle-bin
-    protonvpn-gui
-
-    cheese
-  ];
-  #######################################
-  #            PROGRAMLAR               #
-  #######################################
-  programs = {
-    #######################################
-    #               OBS                   #
-    #######################################
-    obs-studio = {
-      enable = true;
-    };
-    #######################################
-    #                GİT                  #
-    #######################################
-    git = {
-      enable = true;
-      settings = {
-        user.name = "Mehmet Şükrü Bilgiç";
-        user.email = "deepshell@proton.me";
-      };
-    };
-    #######################################
-    #            FİREFOX                  #
-    #######################################
-    firefox.enable = true;
-    #######################################
-    #            KİTTY                    #
-    #######################################
-    kitty = {
-      enable = true;
-      settings = {
-        confirm_os_window_close = -1;
-      };
-      font = {
-        name = lib.mkForce "Monocraft";
-        size = 12;
-      };
-    };
-    #######################################
-    #            ZSH                      #
-    #######################################
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-
-      shellAliases = {
-        ll = "ls -l";
-        update = "sudo nixos-rebuild switch --flake /etc/nixos#Nixtilus";
-      };
-
-      history.size = 10000;
-
-      oh-my-zsh = {
-        enable = true;
-        plugins = ["git"];
-        theme = "kphoen";
-      };
-    };
-    #######################################
-    #            BARS                     #
-    #######################################
-    waybar = {
-      enable = true;
-    };
-  };
-  #######################################
-  #            EVRENSEL                 #
-  #######################################
-  home.file = {};
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
   #######################################
   #            POLKİT                   #
   #######################################
