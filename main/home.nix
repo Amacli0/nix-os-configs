@@ -16,7 +16,6 @@
   #######################################
   imports = [
     ./home-modules/hyprland.nix
-    ./home-modules/stylinx.nix
     ./home-modules/packages.nix
     inputs.stylix.homeManagerModules.stylix
     ./home-modules/apps/obs.nix
