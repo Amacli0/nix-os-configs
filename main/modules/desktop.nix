@@ -23,6 +23,11 @@
     };
     desktopManager.gnome.enable = true;
   };
+  qt = {
+    enable = true;
+    platformTheme = "adwaita";
+  };
+
   programs = {
     hyprland = {
       enable = true;
