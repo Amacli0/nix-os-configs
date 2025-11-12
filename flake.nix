@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #STYLİX
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
   };
   #######################################
   #              OUTPUTS                #
@@ -44,14 +44,10 @@
         #              MODUL AYARLARI         #
         #######################################
         modules = [
-          # 1. Ana Yapılandırma
           ./main/configuration.nix
-          # 2. SOPS-NIX Modülü
           sops-nix.nixosModules.sops
-
-          # 3. Home Manager
           home-manager.nixosModules.home-manager
-
+          inputs.stylix.nixosModules.stylix
           ({
             config,
             pkgs,
@@ -59,8 +55,6 @@
           }: {
             home-manager.users.deepshell = import ./main/home.nix;
           })
-          #4 Stylix Moduleri
-          inputs.stylix.nixosModules.stylix
         ];
       };
       #SERVER PC
@@ -71,11 +65,8 @@
         #            MODUL AYARLARI           #
         #######################################
         modules = [
-          # 1. Ana Yapılandırma
           ./server/configuration_server.nix
-          # 2 .SOPS-NİX Modül
           sops-nix.nixosModules.sops
-          # 3. Home Manager
           home-manager.nixosModules.home-manager
           ({
             config,
