@@ -30,7 +30,6 @@
     polkit_gnome
     protonvpn-gui
     tor-browser-bundle-bin
-    protonvpn-gui
 
     cheese
     waypaper

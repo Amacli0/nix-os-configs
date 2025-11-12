@@ -23,6 +23,11 @@
     ./modules/users.nix
     ./modules/virsulation.nix
   ];
-
+  environment.systemPackages = with pkgs; [
+    #her şeyin ölme ihtimaline karşı önlemler
+    kitty
+    firefox
+    vscodium
+  ];
   system.stateVersion = "25.05";
 }
