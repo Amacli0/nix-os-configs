@@ -21,11 +21,11 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-    xserver.desktopManager.xfce = {
-      enable = true;
+    xserver = {
+      desktopManager.gnome.enable = true;
+      displayManager.sddm.enable = true;
     };
   };
-
   programs = {
     hyprland = {
       enable = true;
