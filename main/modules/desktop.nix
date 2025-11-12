@@ -21,10 +21,7 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-    xserver = {
-      desktopManager.gnome.enable = true;
-      displayManager.sddm.enable = true;
-    };
+    desktopManager.gnome.enable = true;
   };
   programs = {
     hyprland = {
