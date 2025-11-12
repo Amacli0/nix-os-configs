@@ -21,7 +21,7 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-    services.xserver.desktopManager.xfce = {
+    xserver.desktopManager.xfce = {
       enable = true;
     };
   };
