@@ -15,6 +15,7 @@
   #######################################
   imports = [
     ./home-modules/hyprland.nix
+    ./home-modules/stylinx.nix
     ./home-modules/packages.nix
 
     ./home-modules/apps/obs.nix

@@ -19,7 +19,6 @@
     ./modules/hardware.nix
     ./modules/network.nix
     ./modules/security.nix
-    ./modules/stylinx.nix
     ./modules/users.nix
     ./modules/virsulation.nix
   ];

@@ -11,7 +11,7 @@
   services = {
     libinput.enable = true;
 
-    displayManager.sddm = {
+    displayManager.ly = {
       enable = true;
       wayland.enable = true;
     };
