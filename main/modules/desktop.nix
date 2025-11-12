@@ -21,11 +21,6 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-    desktopManager.gnome.enable = true;
-  };
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
   };
 
   programs = {
