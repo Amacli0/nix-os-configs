@@ -25,7 +25,7 @@
   };
   qt = {
     enable = true;
-    platformTheme = "adwaita";
+    platformTheme = "gnome";
   };
 
   programs = {
