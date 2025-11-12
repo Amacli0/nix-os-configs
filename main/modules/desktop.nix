@@ -13,7 +13,6 @@
 
     displayManager.ly = {
       enable = true;
-      wayland.enable = true;
     };
 
     pipewire = {
