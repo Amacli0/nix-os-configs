@@ -18,6 +18,7 @@
     ./home-modules/hyprland.nix
     ./home-modules/packages.nix
     inputs.stylix.homeManagerModules.stylix
+    ./home-modules/stylinx.nix
     ./home-modules/apps/obs.nix
     ./home-modules/apps/firefox.nix
     ./home-modules/apps/git.nix
