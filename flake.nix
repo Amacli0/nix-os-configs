@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #STYLİX
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
   };
   #######################################
   #              OUTPUTS                #
