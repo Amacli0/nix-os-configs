@@ -11,14 +11,6 @@
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
-  stylix.targets = {
-    # Qt5 uygulamalarını temalaştırır.
-    qt5.enable = true;
-
-    # Qt6 uygulamalarını temalaştırır.
-    qt6.enable = true;
-  };
-
   # Ayrıca bu platformlar için Kvantum motorunu tercih etmeniz en iyisidir.
   # Stylix, Kvantum'u otomatik olarak doğru renklere ayarlar.
   home.packages = with pkgs; [
