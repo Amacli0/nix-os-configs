@@ -12,8 +12,11 @@
     displayManager.ly = {
       enable = true;
       settings = {
-        animate = true;
-        animation = "rain";
+        bigclock = false;
+        clock = "%H:%M:%S";
+        date = "%a %d %b";
+        message = "IZTECH Computer Engineering Loading...";
+        vt_switching = true;
       };
     };
     libinput.enable = true;
