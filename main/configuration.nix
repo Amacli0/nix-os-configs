@@ -12,7 +12,6 @@
     ../common.nix
     ./hardware-configuration.nix
     ./modules/stylinx.nix
-    inputs.home-manager.nixosModules.home-manager
     ./modules/boot.nix
     ./modules/desktop.nix
     ./modules/fonts.nix
