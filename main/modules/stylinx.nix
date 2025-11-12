@@ -19,14 +19,6 @@
     qt6.enable = true;
   };
 
-  # Ayrıca bu platformlar için Kvantum motorunu tercih etmeniz en iyisidir.
-  # Stylix, Kvantum'u otomatik olarak doğru renklere ayarlar.
-  home.packages = with pkgs; [
-    # Gerekli Kvantum paketlerini yüklüyoruz
-    qt5.qtbase.platformThemes.kvantum
-    qt6.qtbase.platformThemes.kvantum
-  ];
-
   # home-manager'ın bu platform temalarını kullanması gerektiğini beyan ediyoruz
   # Bu, QT_PLATFORM_THEME environment variable'ını ayarlar.
   qt.enable = true;
