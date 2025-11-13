@@ -11,7 +11,7 @@
   sops.age.keyFile = "/home/server-pc/secrets/new_age_key.txt";
 
   sops.secrets."nextcloud_db_passwd" = {
-    sopsFile = ../secrets/main.yaml;
+    sopsFile = ../../secrets/main.yaml;
     key = "postgres_password";
   };
 }
