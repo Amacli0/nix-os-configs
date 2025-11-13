@@ -16,11 +16,13 @@
     tmux.enable = true;
     git = {
       enable = true;
-      user = {
+settings = {    
+  user = {
         name = "Mehmet Şükrü Bilgiç";
         email = "deepshell@proton.me";
       };
     };
+};
     neovim.enable = true;
   };
 
