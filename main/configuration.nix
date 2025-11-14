@@ -30,6 +30,7 @@
     kitty
     firefox
     vscodium
+    papirus-icon-theme
   ];
   system.stateVersion = "25.05";
 }

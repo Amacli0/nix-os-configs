@@ -34,5 +34,7 @@
     waypaper
 
     tree
+
+Prism Launcher
   ];
 }

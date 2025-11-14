@@ -9,10 +9,8 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-
     # Leader tuşu
     globals.mapleader = " ";
-
     # Temel ayarlar
     opts = {
       number = true;
@@ -25,20 +23,16 @@
       clipboard = "unnamedplus";
       termguicolors = true;
     };
-
     # Renk şeması
     colorschemes.gruvbox = {
       enable = true;
       settings.palette = "dark";
     };
-
     plugins = {
       # Dosya gezgini
       nvim-tree.enable = true;
-
       # Git işaretleri
       gitsigns.enable = true;
-
       # Durum çubuğu
       lualine = {
         enable = true;
@@ -46,17 +40,15 @@
           options.theme = "gruvbox";
         };
       };
-
       # Fuzzy finder
       telescope.enable = true;
-
       # LSP
       lsp = {
         enable = true;
         servers = {
           # Postgres'i açıkça kapat
           postgres_lsp.enable = false;
-          
+
           # Temel serverlar
           pyright.enable = true;
           clangd.enable = true;
@@ -65,7 +57,6 @@
           lua_ls.enable = true;
         };
       };
-
       # Fonksiyon imzası önizlemesi (yazarken parametreleri gösterir)
       lsp-signature = {
         enable = true;
@@ -78,13 +69,11 @@
           hint_prefix = "🔍 ";
         };
       };
-
       # Otomatik tamamlama
       cmp = {
         enable = true;
         autoEnableSources = true;
       };
-
       # Syntax highlighting
       treesitter = {
         enable = true;
@@ -94,7 +83,6 @@
         };
       };
     };
-
     # Temel kısayollar
     keymaps = [
       {
