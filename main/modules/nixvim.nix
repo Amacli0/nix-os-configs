@@ -5,78 +5,109 @@
   inputs,
   ...
 }: {
-  # 1. Genel NixVim Ayarları
   programs.nixvim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
 
-    # Gruvbox renk şemasının konfigürasyonu
     colorschemes.gruvbox = {
       enable = true;
       settings.palette = "dark";
     };
 
-    extraConfig = "colorscheme gruvbox";
-
-    # 2. Tüm Eklentilerin Tanımlandığı Kısım (plugins)
     plugins = {
       # Temel Eklentiler
       nvim-tree.enable = true;
       gitsigns.enable = true;
 
-      # Durum Çubuğu (Status Line)
+      # Durum Çubuğu
       lualine = {
         enable = true;
-        sections.lualine_a = ["mode"];
-        sections.lualine_c = ["filename"];
+        settings = {
+          sections = {
+            lualine_a = ["mode"];
+            lualine_c = ["filename"];
+          };
+        };
       };
 
-      # LSP ve Tamamlama (Autocompletion)
+      # LSP
       lsp = {
         enable = true;
         servers = {
           pyright.enable = true;
           clangd.enable = true;
           nixd.enable = true;
-          markdownlint.enable = true; # Markdown linter
+          marksman.enable = true; # Markdown LSP (markdownlint yerine)
           bashls.enable = true;
         };
       };
+
+      # Tamamlama
       cmp = {
         enable = true;
         settings = {
+          snippet.expand = ''
+            function(args)
+              require('luasnip').lsp_expand(args.body)
+            end
+          '';
           sources = [
             {name = "nvim_lsp";}
+            {name = "luasnip";}
             {name = "buffer";}
+            {name = "path";}
           ];
         };
-        snippet.enable = true;
       };
 
-      # 3. Not Alma Eklentileri (DOĞRU YERLEŞİM!)
+      luasnip.enable = true;
 
-      # Zettelkasten Not Sistemi (nvim-zk)
-      zk = {
-        enable = true;
-        # Tilde (~) işaretini kullanmak Home Manager'da daha garanti sonuç verir,
-        # ancak sistem modülünde de çalışması beklenir.
-        workspace = "~/.notes/zk_vault";
-        fileType = "markdown";
-      };
-
-      # Markdown Önizleme (nvim-markdown-preview ya da benzeri)
-      # Not: NixVim'de bu eklenti genellikle `markdown-preview` adıyla tanımlanır.
+      # Markdown Önizleme
       markdown-preview = {
         enable = true;
+        settings = {
+          browser = "firefox"; # veya "chromium"
+        };
       };
 
-      # Gelişmiş Markdown Syntax Desteği (vim-markdown)
-      # Not: Bu eklenti de programs.nixvim.plugins altında olmalıdır.
-      vim-markdown = {
-        enable = true;
-        settings.conceal_code_blocks = true;
-      };
+      # Telescope (zk için gerekli)
+      telescope.enable = true;
     };
+
+    # Manuel Eklentiler
+    extraPlugins = with pkgs.vimPlugins; [
+      zk-nvim
+      vim-markdown
+    ];
+
+    # Lua Yapılandırması
+    extraConfigLua = ''
+      -- zk.nvim kurulumu
+      require("zk").setup({
+        picker = "telescope",
+      })
+
+      -- vim-markdown ayarları
+      vim.g.vim_markdown_folding_disabled = 1
+      vim.g.vim_markdown_conceal = 2
+      vim.g.vim_markdown_conceal_code_blocks = 0
+    '';
+
+    # Notlar için kısayollar
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>zn";
+        action = "<cmd>ZkNew { title = vim.fn.input('Title: ') }<cr>";
+        options.desc = "Yeni not oluştur";
+      }
+      {
+        mode = "n";
+        key = "<leader>zf";
+        action = "<cmd>ZkNotes<cr>";
+        options.desc = "Notları ara";
+      }
+    ];
   };
 }
