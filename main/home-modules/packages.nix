@@ -28,8 +28,7 @@
 
     btop
     polkit_gnome
-    protonvpn-gui
-    tor-browser-bundle-bin
+    tor-browser
 
     cheese
     waypaper
