@@ -8,6 +8,6 @@
   ...
 }: {
   programs = {
-    neovim.enable = true;
+    neovim.enable = false;
   };
 }

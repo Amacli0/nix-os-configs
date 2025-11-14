@@ -52,7 +52,7 @@
 
       # LSP
       lsp = {
-        enable = true;
+        enable = false;
         servers = {
           # Postgres'i açıkça kapat
           postgres_lsp.enable = false;
