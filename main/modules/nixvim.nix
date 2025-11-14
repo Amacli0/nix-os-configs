@@ -180,6 +180,8 @@
       lsp = {
         enable = true;
         servers = {
+          # Postgres LSP'yi açıkça devre dışı bırak (paket mevcut değil)
+          postgres_lsp.enable = false;
           # Python
           pyright = {
             enable = true;
