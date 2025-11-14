@@ -12,11 +12,16 @@
     displayManager.ly = {
       enable = true;
       settings = {
-        bigclock = false;
+        animation = "matrix";
+        clear_password = true;
+        bigclock = "en";
         clock = "%H:%M:%S";
         date = "%a %d %b";
-        message = "IZTECH Computer Engineering Loading...";
-        vt_switching = true;
+        auth_fails = 3;
+        load = true;
+        save = true;
+        battery_id = "BAT0";
+        numlock = false;
       };
     };
     libinput.enable = true;

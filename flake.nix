@@ -19,6 +19,11 @@
     };
     #STYLİX
     stylix.url = "github:danth/stylix";
+    #NixVİm
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   #######################################
   #              OUTPUTS                #
@@ -29,6 +34,7 @@
     home-manager,
     sops-nix,
     stylix,
+    nixvim,
     ...
   }
   #######################################
@@ -48,6 +54,7 @@
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
+          nixvim.nixosModules.nixvim
           ({
             config,
             pkgs,

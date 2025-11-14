@@ -22,7 +22,9 @@
     ./modules/security.nix
     ./modules/users.nix
     ./modules/virsulation.nix
+    ./modules/nixvim.nix
   ];
+
   environment.systemPackages = with pkgs; [
     #her şeyin ölme ihtimaline karşı önlemler
     kitty
