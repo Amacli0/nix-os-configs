@@ -56,13 +56,26 @@
         servers = {
           # Postgres'i açıkça kapat
           postgres_lsp.enable = false;
-
+          
           # Temel serverlar
           pyright.enable = true;
           clangd.enable = true;
           nixd.enable = true;
           bashls.enable = true;
           lua_ls.enable = true;
+        };
+      };
+
+      # Fonksiyon imzası önizlemesi (yazarken parametreleri gösterir)
+      lsp-signature = {
+        enable = true;
+        settings = {
+          bind = true;
+          handler_opts = {
+            border = "rounded";
+          };
+          hint_enable = true;
+          hint_prefix = "🔍 ";
         };
       };
 
