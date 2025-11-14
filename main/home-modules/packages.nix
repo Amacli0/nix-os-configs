@@ -34,6 +34,6 @@
     waypaper
 
     tree
-prismlauncher
+    prismlauncher
   ];
 }

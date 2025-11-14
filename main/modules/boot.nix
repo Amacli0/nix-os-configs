@@ -9,6 +9,9 @@
   ...
 }: {
   boot = {
+    sysctl = {
+  "net.ipv4.ip_forward" = 1;
+};
     kernelParams = [
       "amd_iommu=on"
       "iommu=pt"
