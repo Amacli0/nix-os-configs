@@ -299,8 +299,8 @@
         enable = true;
         settings = {
           browser = "firefox";
-          auto_start = false;
-          auto_close = true;
+          auto_start = 0; # 0 veya 1 kullan (boolean yerine)
+          auto_close = 1;
         };
       };
 
