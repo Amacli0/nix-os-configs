@@ -90,6 +90,44 @@ in {
         dependsOn = ["nextcloud-db"];
         autoStart = true;
       };
+      #fresh rss
+      fresh-rss = { 
+        image = "freshrss/freshrss:latest";
+        ports = ["8083:80"];
+        environment = {
+          TZ   = "Europe/Istanbul";
+
+          DB_TYPE = "mysql"; 
+          DB_HOST = "freshrss-db"; 
+          DB_NAME = "freshrssdb";
+          DB_USER = "freshrss_user";
+          DB_PASS_FILE = dbPasswordPath;
+
+        };
+        volumes = [
+          "/var/lib/fresh-rss:/var/www/FreshRSS/data"
+          "${dbPasswordPath}:${dbPasswordPath}:ro"
+        ];
+        extraOptions = ["--network=freshrss-net"];
+        dependsOn = ["freshrss-db"];
+        autoStart = true;
+      };
+      #fresh rss data base
+      freshrss-db = {
+        image = "docker.io/library/mariadb:latest";
+        environment = {
+          MARIADB_DATABASE = "freshrssdb";
+          MARIADB_USER = "freshrss_user";
+          MARIADB_PASSWORD_FILE = dbPasswordPath; # Aynı şifre dosyasını kullanabiliriz
+        };
+        volumes = [
+          "/var/lib/freshrss-db:/var/lib/mysql"
+          "${dbPasswordPath}:${dbPasswordPath}:ro"
+        ];
+        extraOptions = ["--network=freshrss-net"]; # Yeni bir ağ oluşturmak daha temizdir
+        autoStart = true;
+      };
+
     };
   };
 }
