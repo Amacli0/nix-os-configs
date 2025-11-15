@@ -45,6 +45,8 @@ services.printing = {
 boot.kernelParams = [
   "usbhid.quirks=0x0810:0x0001:0x040"
 ];
-
+boot.extraModprobeConfig = ''
+  options usbhid quirks=0x0810:0x0001:0x040
+'';
   system.stateVersion = "25.05";
 }
