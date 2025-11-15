@@ -80,7 +80,7 @@ in {
           POSTGRES_PASSWORD_FILE = dbPasswordPath;
           NEXTCLOUD_ADMIN_USER = "admin";
           NEXTCLOUD_ADMIN_PASSWORD = "admin";
-          NEXTCLOUD_TRUSTED_DOMAINS = "localhost, 100.108.192.97";
+          NEXTCLOUD_TRUSTED_DOMAINS = "localhost 100.108.192.97 100.116.167.72 100.117.164.25 ";
         };
         volumes = [
           "nextcloud_data:/var/www/html"
