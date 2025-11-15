@@ -82,7 +82,10 @@ in {
           NEXTCLOUD_ADMIN_PASSWORD = "admin";
           NEXTCLOUD_TRUSTED_DOMAINS = "localhost, 100.108.192.97";
         };
-        volumes = ["nextcloud_data:/var/www/html"];
+        volumes = [
+          "nextcloud_data:/var/www/html"
+          "${dbPasswordPath}:${dbPasswordPath}:ro"
+        ];
         extraOptions = ["--network=nextcloud-net"];
         dependsOn = ["nextcloud-db"];
         autoStart = true;
