@@ -32,5 +32,14 @@
     vscodium
     papirus-icon-theme
   ];
+
+services.printing.drivers = with pkgs; [ 
+    gutenprint 
+    brother-cups-wrapper # Brother'ın özel CUPS sarmalayıcısı
+    brlaser            # Açık kaynak Brother sürücüsü (HL-20'ye destek verme olasılığı var)
+  ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+
   system.stateVersion = "25.05";
 }

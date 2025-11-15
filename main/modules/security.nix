@@ -15,7 +15,7 @@
     firewall = {
       enable = true;
       checkReversePath = false;
-      allowedTCPPorts = [22];
+      allowedTCPPorts = [22 631];
       allowedUDPPorts = [53 41641];
       trustedInterfaces = ["tailscale0"];
     };

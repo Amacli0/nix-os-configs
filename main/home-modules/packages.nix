@@ -35,5 +35,7 @@
 
     tree
     prismlauncher
+
+    nextcloud-client
   ];
 }
