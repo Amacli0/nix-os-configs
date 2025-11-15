@@ -6,11 +6,10 @@
 }: {
   services = {
     terraria = {
-      world = "Hyper_Homeland_of_Inflation"
       dataDir = "/var/lib/terraria";
       enable = true;
       worldPath = "/var/lib/terraria/Hyper_Homeland_of_Inflation.wld";
-      secure = true;
+      secure = false;
       port = 7777;
       password = null;
       openFirewall = true;
