@@ -11,7 +11,7 @@
   users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "audio" "video" "libvirt" "kvm" "lp"];
+    extraGroups = ["wheel" "networkmanager" "audio" "video" "libvirt" "kvm" "lp" "lpadmin"];
   };
   users.users.softshell = {
     shell = pkgs.bash;
