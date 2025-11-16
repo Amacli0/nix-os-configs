@@ -128,6 +128,89 @@ in {
         autoStart = true;
       };
 
+      #JELLYFIN
+      jellyfin = {
+        image = "docker.io/jellyfin/jellyfin:latest";
+        ports = [
+          "8096:8096"
+          "8920:8920"
+          "7359:7359/udp"
+          "1900:1900/udp"
+        ];
+        environment = {
+          TZ = "Europe/Istanbul";
+          JELLYFIN_PublishedServerUrl = "http://localhost:8096";
+        };
+        volumes = [
+          "/var/lib/jellyfin/config:/config"
+          "/var/lib/jellyfin/cache:/cache"
+          "/media/movies:/media/movies:ro"
+          "/media/tv:/media/tv:ro"
+          "/media/music:/media/music:ro"
+        ];
+        extraOptions = [
+          "--device=/dev/dri:/dev/dri"
+        ];
+        autoStart = true;
+      };
+  #IMMICH DATABASE
+      immich-db = {
+        image = "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0";
+        environment = {
+          POSTGRES_DB = "immich";
+          POSTGRES_USER = "immich";
+          POSTGRES_PASSWORD_FILE =  dbPasswordPath;
+        };
+        volumes = [
+          "/var/lib/immich-db:/var/lib/postgresql/data"
+          "${dbPasswordPath}:${dbPasswordPath}:ro"
+        ];
+        extraOptions = ["--network=immich-net"];
+        autoStart = true;
+      };
+
+ #IMMICH REDIS
+      immich-redis = {
+        image = "docker.io/library/redis:7-alpine";
+        extraOptions = ["--network=immich-net"];
+        autoStart = true;
+      };
+
+
+      #IMMICH SERVER
+      immich-server = {
+        image = "ghcr.io/immich-app/immich-server:release";
+        ports = ["2283:3001"];
+        environment = {
+          TZ = "Europe/Istanbul";
+          DB_HOSTNAME = "immich-db";
+          DB_USERNAME = "immich";
+          DB_PASSWORD_FILE =  dbPasswordPath;
+          DB_DATABASE_NAME = "immich";
+          REDIS_HOSTNAME = "immich-redis";
+          UPLOAD_LOCATION = "/usr/src/app/upload";
+        };
+        volumes = [
+          "/var/lib/immich/upload:/usr/src/app/upload"
+          "${dbPasswordPath}:${dbPasswordPath}:ro"
+        ];
+        extraOptions = ["--network=immich-net"];
+        dependsOn = ["immich-db" "immich-redis"];
+        autoStart = true;
+      };
+      #IMMICH MACHINE LEARNING
+      immich-ml = {
+        image = "ghcr.io/immich-app/immich-machine-learning:release";
+        environment = {
+          TZ = "Europe/Istanbul";
+        };
+        volumes = [
+          "/var/lib/immich/model-cache:/cache"
+        ];
+        extraOptions = ["--network=immich-net"];
+        autoStart = true;
+      };
+
     };
   };
 }
