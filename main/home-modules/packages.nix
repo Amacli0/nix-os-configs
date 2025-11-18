@@ -37,5 +37,7 @@
     prismlauncher
 
     nextcloud-client
+
+    bat
   ];
 }

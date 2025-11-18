@@ -8,15 +8,14 @@
   inputs,
   ...
 }: {
-  boot = {
-    kernelParams = [
-      "amd_iommu=on"
-      "iommu=pt"
-    ];
-    kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "resume_offsets=533760" ];
+  boot.resumeDevice = "/dev/mapper/cryptroot";
+swapDevices = [ { device = "/swap/swapfile";   } ];    
+   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    loader = {
+    boot.loader = {
       timeout = 15;
+   efi.canTouchEfiVariables = true;
 
       grub = {
         enable = true;
@@ -29,5 +28,7 @@
         enable = false;
       };
     };
-  };
+
+
+
 }
