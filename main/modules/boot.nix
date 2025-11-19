@@ -8,8 +8,8 @@
   inputs,
   ...
 }: {
-  boot.kernelParams = ["resume_offsets=533760"];
-  boot.resumeDevice = "/dev/mapper/cryptroot";
+  boot.kernelParams = ["resume_offset=269568"];
+boot.resumeDevice = "/dev/disk/by-uuid/cd8cc7c6-4a37-4a5a-95a7-f40d6fa744b2";
   swapDevices = [{device = "/swap/swapfile";}];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
