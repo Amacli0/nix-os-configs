@@ -33,20 +33,20 @@
     papirus-icon-theme
   ];
 
-services.printing = {
- enable = true;
-    drivers = with pkgs; [ 
-    gutenprint 
-    brlaser            # Açık kaynak Brother sürücüsü (HL-20'ye destek verme olasılığı var)
-  ];
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      gutenprint
+      brlaser # Açık kaynak Brother sürücüsü (HL-20'ye destek verme olasılığı var)
+    ];
   };
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
-boot.kernelParams = [
-  "usbhid.quirks=0x0810:0x0001:0x040"
-];
-boot.extraModprobeConfig = ''
-  options usbhid quirks=0x0810:0x0001:0x040
-'';
+  boot.kernelParams = [
+    "usbhid.quirks=0x0810:0x0001:0x040"
+  ];
+  boot.extraModprobeConfig = ''
+    options usbhid quirks=0x0810:0x0001:0x040
+  '';
   system.stateVersion = "25.05";
 }

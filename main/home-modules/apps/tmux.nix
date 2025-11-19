@@ -1,17 +1,11 @@
-{ config, pkgs, ... }:
 {
-
-
-
-programs.tmux = {
-
-enable = true;
-clock24 = true;
-shell = "${pkgs.zsh}/bin/zsh";
-
- 
+  config,
+  pkgs,
+  ...
+}: {
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    shell = "${pkgs.zsh}/bin/zsh";
   };
-
-
-
 }
