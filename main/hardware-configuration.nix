@@ -37,11 +37,6 @@
     options = ["subvol=@nix"];
   };
 
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-uuid/cd8cc7c6-4a37-4a5a-95a7-f40d6fa744b2";
-    fsType = "btrfs";
-    options = ["subvol=@swap"];
-  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/1655-B01A";
