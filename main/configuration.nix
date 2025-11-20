@@ -23,6 +23,7 @@
     ./modules/users.nix
     ./modules/virsulation.nix
     ./modules/nixvim.nix
+    ./modules/power.nix
   ];
 
   environment.systemPackages = with pkgs; [
