@@ -39,5 +39,7 @@
     nextcloud-client
 
     bat
+
+    vitetris
   ];
 }

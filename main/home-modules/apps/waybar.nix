@@ -33,6 +33,8 @@
           "pulseaudio"
           "clock#time"
         ];
+        
+        ############################
 
         # Modül ayarları
         "clock#date" = {
@@ -48,7 +50,7 @@
         network = {
           format-wifi = "  {essid}";
           format-ethernet = " {ipaddr}";
-          format-disconnected = "⚠️";
+          format-disconnected = "Connection Lost";
           tooltip = false;
         };
 
