@@ -26,7 +26,7 @@
     ./home-modules/apps/neovim.nix
     ./home-modules/apps/tmux.nix
   ];
-
+  nixpkgs.config.allowUnfree = true;
   #######################################
   #            POLKİT                   #
   #######################################

@@ -24,6 +24,7 @@
     vscodium
     xclip
     wl-clipboard
+
     swww
 
     btop
@@ -41,5 +42,9 @@
     bat
 
     vitetris
+
+    spotify
+
+    terraform
   ];
 }
