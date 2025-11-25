@@ -122,8 +122,8 @@
       "rounding_power" = 2;
 
     # Change transparency of focused and unfocused windows
-      "active_opacity" = 0.9;
-      "inactive_opacity" = 0.7;
+      "active_opacity" = 1;
+      "inactive_opacity" = 1;
 
       "shadow" =  {
           "enabled" = true;
@@ -133,7 +133,7 @@
 
     # https://wiki.hypr.land/Configuring/Variables/#blur
       "blur" = {
-          "enabled" = true;
+          "enabled" = false;
           "size" = 3;
           "passes" = 1;
 
