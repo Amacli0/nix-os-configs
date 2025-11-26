@@ -46,5 +46,7 @@
     spotify
 
     terraform
+
+    awscli2
   ];
 }
