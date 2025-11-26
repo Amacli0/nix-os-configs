@@ -55,6 +55,7 @@
           nixd.enable = true;
           bashls.enable = true;
           lua_ls.enable = true;
+          terraformls.enable = true;
         };
       };
       # Fonksiyon imzası önizlemesi (yazarken parametreleri gösterir)
