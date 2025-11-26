@@ -22,6 +22,8 @@
       wrap = false;
       clipboard = "unnamedplus";
       termguicolors = true;
+
+      completeopt = "menu,menuone,noselect";
     };
     # Renk şeması
     colorschemes.gruvbox = {
