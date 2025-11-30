@@ -28,62 +28,47 @@
   #######################################
   #              OUTPUTS                #
   #######################################
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    sops-nix,
-    stylix,
-    nixvim,
-    ...
-  }
-  #######################################
-  #              AYARLAMALAR              #
-  #######################################
-  @ inputs: {
-    nixosConfigurations = {
-      #NİXTİLUS
-      Nixtilus = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        #######################################
-        #              MODUL AYARLARI         #
-        #######################################
-        modules = [
-          ./main/configuration.nix
-          sops-nix.nixosModules.sops
-          home-manager.nixosModules.home-manager
-          inputs.stylix.nixosModules.stylix
-          nixvim.nixosModules.nixvim
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            home-manager.users.deepshell = import ./main/home.nix;
-          })
-        ];
-      };
-      #SERVER PC
-      server-pc = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        #######################################
-        #            MODUL AYARLARI           #
-        #######################################
-        modules = [
-          ./server/configuration_server.nix
-          sops-nix.nixosModules.sops
-          home-manager.nixosModules.home-manager
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            home-manager.users.server-pc = import ./server/home-server.nix;
-          })
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      sops-nix,
+      stylix,
+      nixvim,
+      ...
+    }
+    #######################################
+    #              AYARLAMALAR              #
+    #######################################
+    @inputs:
+    {
+      nixosConfigurations = {
+        #NİXTİLUS
+        Nixtilus = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          #######################################
+          #              MODUL AYARLARI         #
+          #######################################
+          modules = [
+            ./main/configuration.nix
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            inputs.stylix.nixosModules.stylix
+            nixvim.nixosModules.nixvim
+            (
+              {
+                config,
+                pkgs,
+                ...
+              }:
+              {
+                home-manager.users.deepshell = import ./main/home.nix;
+              }
+            )
+          ];
+        };
       };
     };
-  };
 }
