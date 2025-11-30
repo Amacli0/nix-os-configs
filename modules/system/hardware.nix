@@ -13,13 +13,12 @@
     xserver.videoDriver = [ "amdgpu" ];
     tlp = {
       enable = true;
-      libinput.enable = true;
-      pipewire = {
-        enable = true;
-        pulse.enable = true;
-        alsa.enable = true;
-      };
-
+    };
+    libinput.enable = true;
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa.enable = true;
     };
 
   };
