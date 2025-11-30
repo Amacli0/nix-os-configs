@@ -4,14 +4,25 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   programs.nixvim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
-    # Leader tuşu
+
+    extraPackages = with pkgs; [
+      ripgrep
+      fd
+
+      nixfmt-rfc-style
+      black
+      stylua
+      terraform
+    ];
+
     globals.mapleader = " ";
-    # Temel ayarlar
+
     opts = {
       number = true;
       relativenumber = true;
@@ -22,36 +33,37 @@
       wrap = false;
       clipboard = "unnamedplus";
       termguicolors = true;
-
       completeopt = "menu,menuone,noselect";
     };
-    # Renk şeması
+
     colorschemes.gruvbox = {
       enable = true;
       settings.palette = "dark";
     };
+
     plugins = {
-      # Dosya gezgini
+
       nvim-tree.enable = true;
-      # Git işaretleri
+
       gitsigns.enable = true;
-      # Durum çubuğu
+
       lualine = {
         enable = true;
         settings = {
           options.theme = "gruvbox";
         };
       };
-      # Fuzzy finder
-      telescope.enable = true;
-      # LSP
+
+      telescope = {
+        enable = true;
+        extensions = {
+          fzf-native.enable = true;
+        };
+      };
+
       lsp = {
         enable = true;
         servers = {
-          # Postgres'i açıkça kapat
-          postgres_lsp.enable = false;
-
-          # Temel serverlar
           pyright.enable = true;
           clangd.enable = true;
           nixd.enable = true;
@@ -60,7 +72,7 @@
           terraformls.enable = true;
         };
       };
-      # Fonksiyon imzası önizlemesi (yazarken parametreleri gösterir)
+
       lsp-signature = {
         enable = true;
         settings = {
@@ -72,21 +84,106 @@
           hint_prefix = "🔍 ";
         };
       };
-      # Otomatik tamamlama
+
+      conform-nvim = {
+        enable = true;
+        settings = {
+          format_on_save = {
+            timeout_ms = 500;
+            lsp_fallback = true;
+          };
+          formatters_by_ft = {
+            terraform = [ "terraform_fmt" ];
+            python = [ "black" ];
+            nix = [ "alejandra" ];
+            lua = [ "stylua" ];
+          };
+          formatters = {
+            nixfmt = {
+              command = "${pkgs.nixfmt-rfc-style}/bin/alejandra";
+            };
+            black = {
+              command = "${pkgs.black}/bin/black";
+            };
+            stylua = {
+              command = "${pkgs.stylua}/bin/stylua";
+            };
+            terraform_fmt = {
+              command = "${pkgs.terraform}/bin/terraform";
+              args = [
+                "fmt"
+                "-"
+              ];
+            };
+          };
+        };
+      };
+
+      hop = {
+        enable = true;
+        settings.keys = "etovxqpdygfblzhckisuran";
+      };
+
       cmp = {
         enable = true;
         autoEnableSources = true;
+        settings = {
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+          mapping = {
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-p>" = "cmp.mapping.select_prev_item()";
+            "<C-n>" = "cmp.mapping.select_next_item()";
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+          };
+          sources = [
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "buffer"; }
+            { name = "path"; }
+          ];
+        };
       };
-      # Syntax highlighting
+
+      luasnip.enable = true;
+
+      neorg = {
+        enable = true;
+        settings = {
+          load = {
+            "core.defaults" = {
+              __empty = null;
+            };
+            "core.concealer" = {
+              __empty = null;
+            };
+            "core.dirman" = {
+              config = {
+                workspaces = {
+                  notes = "~/notes";
+                };
+                default_workspace = "notes";
+              };
+            };
+          };
+        };
+      };
+
+      zen-mode = {
+        enable = true;
+      };
+
       treesitter = {
         enable = true;
+        nixGrammars = true;
         settings = {
           highlight.enable = true;
           indent.enable = true;
         };
       };
     };
-    # Temel kısayollar
+
     keymaps = [
       {
         mode = "n";
@@ -105,6 +202,36 @@
         key = "<leader>fg";
         action = "<cmd>Telescope live_grep<cr>";
         options.desc = "Metin ara";
+      }
+      {
+        mode = "n";
+        key = "<leader>fm";
+        action = "<cmd>lua require('conform').format()<cr>";
+        options.desc = "Dosyayı Formatla";
+      }
+      {
+        mode = "n";
+        key = "<leader>gn";
+        action = "<cmd>Gitsigns next_hunk<cr>";
+        options.desc = "Sonraki Git Değişikliği";
+      }
+      {
+        mode = "n";
+        key = "<leader>gp";
+        action = "<cmd>Gitsigns prev_hunk<cr>";
+        options.desc = "Önceki Git Değişikliği";
+      }
+      {
+        mode = "n";
+        key = "<leader>zz";
+        action = "<cmd>ZenMode<cr>";
+        options.desc = "Odak Modu";
+      }
+      {
+        mode = "n";
+        key = "<leader>w";
+        action = "<cmd>HopWord<cr>";
+        options.desc = "Hop: Kelimeye atla";
       }
     ];
   };

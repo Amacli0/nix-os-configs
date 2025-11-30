@@ -6,7 +6,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     kitty
     fastfetch
@@ -48,5 +49,7 @@
     terraform
 
     awscli2
+
+    superTuxKart
   ];
 }

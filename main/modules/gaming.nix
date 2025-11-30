@@ -7,9 +7,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   programs = {
-    #STEAM
     steam = {
       enable = true;
     };

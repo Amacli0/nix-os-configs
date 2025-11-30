@@ -2,18 +2,16 @@
 #             POWER            #
 ################################
 {
-      config,
-      lib,
-       pkgs,
+  config,
+  lib,
+  pkgs,
   inputs,
-     ...
-   }: {
+  ...
+}:
+{
 
-services.tlp = {
-  enable = true;
-
-
-
+  services.tlp = {
+    enable = true;
 
   };
 }

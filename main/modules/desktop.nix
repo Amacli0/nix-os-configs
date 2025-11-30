@@ -7,7 +7,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   services = {
     displayManager.ly = {
       enable = true;
@@ -23,12 +24,6 @@
         battery_id = "BAT0";
         numlock = false;
       };
-    };
-    libinput.enable = true;
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-      alsa.enable = true;
     };
   };
 

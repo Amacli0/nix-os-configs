@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   #######################################
   #            IMPORTS                  #
   #######################################
@@ -25,29 +26,9 @@
     ./modules/nixvim.nix
     ./modules/power.nix
   ];
-
-  environment.systemPackages = with pkgs; [
-    #her şeyin ölme ihtimaline karşı önlemler
-    kitty
-    firefox
-    vscodium
-    papirus-icon-theme
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
   ];
-
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [
-      gutenprint
-      brlaser # Açık kaynak Brother sürücüsü (HL-20'ye destek verme olasılığı var)
-    ];
-  };
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
-  boot.kernelParams = [
-    "usbhid.quirks=0x0810:0x0001:0x040"
-  ];
-  boot.extraModprobeConfig = ''
-    options usbhid quirks=0x0810:0x0001:0x040
-  '';
   system.stateVersion = "25.05";
 }
