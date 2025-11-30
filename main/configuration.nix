@@ -28,6 +28,7 @@
     ../modules/desktop/stylinx.nix
     ###
     ../modules/developer/virsulation.nix
+    ../modules/developer/nixvim.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"

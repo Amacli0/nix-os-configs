@@ -25,7 +25,6 @@
     ./home-modules/apps/kitty.nix
     ./home-modules/apps/waybar.nix
     ./home-modules/apps/zsh.nix
-    ./home-modules/apps/nixvim.nix
     ./home-modules/apps/tmux.nix
   ];
 }
