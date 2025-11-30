@@ -16,15 +16,16 @@
   #            IMPORTS                  #
   #######################################
   imports = [
-    ./home-modules/hyprland.nix
-    ./home-modules/packages.nix
+    ./home-modules/general/hyprland.nix
+    ./home-modules/general/home-packages.nix
+    ###
     ./home-modules/apps/obs.nix
     ./home-modules/apps/firefox.nix
     ./home-modules/apps/git.nix
     ./home-modules/apps/kitty.nix
     ./home-modules/apps/waybar.nix
     ./home-modules/apps/zsh.nix
-    ./home-modules/apps/neovim.nix
+    ./home-modules/apps/nixvim.nix
     ./home-modules/apps/tmux.nix
   ];
 }

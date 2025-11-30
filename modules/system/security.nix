@@ -10,7 +10,7 @@
 }:
 {
   security.pki.certificates = [
-    (builtins.readFile ../MEB_SERTIFIKASI.pem)
+    (builtins.readFile ./MEB_SERTIFIKASI.pem)
   ];
   networking = {
     firewall = {

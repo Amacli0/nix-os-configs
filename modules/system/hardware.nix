@@ -11,6 +11,11 @@
 {
   services = {
     xserver.videoDriver = [ "amdgpu" ];
+    tlp = {
+      enable = true;
+
+    };
+
   };
   hardware = {
     bluetooth.enable = true;
@@ -26,5 +31,4 @@
     pulse.enable = true;
     alsa.enable = true;
   };
-
 }

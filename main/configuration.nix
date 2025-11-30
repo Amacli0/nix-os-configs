@@ -10,21 +10,24 @@
   #            IMPORTS                  #
   #######################################
   imports = [
-    ../common.nix
     ./hardware-configuration.nix
-    ./modules/stylinx.nix
     inputs.home-manager.nixosModules.home-manager
-    ./modules/boot.nix
-    ./modules/desktop.nix
-    ./modules/fonts.nix
-    ./modules/gaming.nix
-    ./modules/hardware.nix
-    ./modules/network.nix
-    ./modules/security.nix
-    ./modules/users.nix
-    ./modules/virsulation.nix
-    ./modules/nixvim.nix
-    ./modules/power.nix
+    ###
+    ../modules/system/boot.nix
+    ../modules/system/network.nix
+    ../modules/system/hardware.nix
+    ../modules/system/keyboard.nix
+    ../modules/system/security.nix
+    ../modules/system/system-packages.nix
+    ####
+    ../modules/desktop/main.nix
+    ../modules/desktop/fonts.nix
+    ../modules/desktop/users.nix
+    ../modules/desktop/main.nix
+    ../modules/desktop/gaming.nix-command
+    ../modules/desktop/stylinx.nix
+    ###
+    ../modules/developer/virsulation.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"
