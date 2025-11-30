@@ -52,4 +52,5 @@
 
     superTuxKart
   ];
+  nixpkgs.config.allowUnfree = true;
 }
