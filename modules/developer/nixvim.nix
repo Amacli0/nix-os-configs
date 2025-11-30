@@ -4,8 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   programs.nixvim = {
     enable = true;
     viAlias = true;
@@ -42,6 +41,7 @@
     };
 
     plugins = {
+      web-devicons.enable = true;
 
       nvim-tree.enable = true;
 
@@ -93,10 +93,10 @@
             lsp_fallback = true;
           };
           formatters_by_ft = {
-            terraform = [ "terraform_fmt" ];
-            python = [ "black" ];
-            nix = [ "alejandra" ];
-            lua = [ "stylua" ];
+            terraform = ["terraform_fmt"];
+            python = ["black"];
+            nix = ["alejandra"];
+            lua = ["stylua"];
           };
           formatters = {
             nixfmt = {
@@ -138,10 +138,10 @@
             "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           };
           sources = [
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "buffer"; }
-            { name = "path"; }
+            {name = "nvim_lsp";}
+            {name = "luasnip";}
+            {name = "buffer";}
+            {name = "path";}
           ];
         };
       };
