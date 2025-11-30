@@ -24,7 +24,7 @@
     ../modules/desktop/fonts.nix
     ../modules/desktop/users.nix
     ../modules/desktop/main.nix
-    ../modules/desktop/gaming.nix-command
+    ../modules/desktop/gaming.nix
     ../modules/desktop/stylinx.nix
     ###
     ../modules/developer/virsulation.nix
