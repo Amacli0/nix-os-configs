@@ -6,8 +6,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   home.packages = with pkgs; [
     kitty
     fastfetch
@@ -51,6 +50,8 @@
     awscli2
 
     superTuxKart
+
+    openttd
   ];
   nixpkgs.config.allowUnfree = true;
 }

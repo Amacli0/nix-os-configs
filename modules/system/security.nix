@@ -7,8 +7,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   security.pki.certificates = [
     (builtins.readFile ./MEB_SERTIFIKASI.pem)
   ];
@@ -23,9 +22,10 @@
       ];
       allowedUDPPorts = [
         53
+        36963
         41641
       ];
-      trustedInterfaces = [ "tailscale0" ];
+      trustedInterfaces = ["tailscale0"];
     };
   };
 
