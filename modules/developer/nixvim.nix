@@ -69,12 +69,14 @@
 
       conform-nvim = {
         enable = true;
-        format_on_save = true;
-        formatters_by_ft = {
-          go = ["goimports"];
-          python = ["black"];
-          terraform = ["terraform_fmt"];
-          nix = ["alejandra"];
+        settings = {
+          formatOnSave = true;
+          formattersByFt = {
+            go = ["goimports"];
+            python = ["black"];
+            terraform = ["terraform_fmt"];
+            nix = ["alejandra"];
+          };
         };
       };
 
