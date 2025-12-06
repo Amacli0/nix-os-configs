@@ -50,9 +50,6 @@
         enable = true;
       };
 
-      gitsigns.enable = true;
-
-      nvim-tree.enable = true;
       conform-nvim = {
         enable = true;
         formatOnSave = true;
@@ -64,18 +61,6 @@
         };
       };
 
-      treesitter = {
-        enable = true;
-        settings = {
-          highlight.enable = true;
-        };
-      };
-      lualine = {
-        enable = true;
-        settings = {
-          options.theme = "gruvbox";
-        };
-      };
       luasnip.enable = true;
       cmp = {
         enable = true;
@@ -104,6 +89,22 @@
       };
     };
 
+    gitsigns.enable = true;
+
+    nvim-tree.enable = true;
+
+    treesitter = {
+      enable = true;
+      settings = {
+        highlight.enable = true;
+      };
+    };
+    lualine = {
+      enable = true;
+      settings = {
+        options.theme = "gruvbox";
+      };
+    };
     ##########
     #key maps#
     ##########
