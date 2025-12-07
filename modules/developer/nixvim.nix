@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  lib,
+  inputs,
   ...
 }: {
   programs.nixvim = {
@@ -32,11 +34,33 @@
     };
 
     plugins = {
+
+      comment-nvim.enable = true;
+
+ web-devicons.enable = true;
+
+      gitsigns.enable = true;
+
+      nvim-tree.enable = true;
+
+
+
       treesitter = {
         enable = true;
         settings = {
           highlight.enable = true;
-        };
+       ensure_installed = [
+          "nix"
+          "lua"
+          "python"
+          "go"
+          "bash"
+          "terraform"
+          "json"
+          "yaml"
+        ];
+
+       };
       };
       lualine = {
         enable = true;
@@ -45,13 +69,7 @@
         };
       };
 
-      web-devicons.enable = true;
-
-      gitsigns.enable = true;
-
-      nvim-tree.enable = true;
-
-      lsp = {
+           lsp = {
         enable = false;
         servers = {
           pyright.enable = true;
@@ -170,6 +188,18 @@
         key = "<leader>fm";
         action = "<cmd>ConformFormat<cr>";
         options.desc = "Format Code";
+      }
+{
+        mode = "n";
+        key = "<leader>/";
+        action = "<cmd>lua require('Comment.nvim').toggle()<cr>";
+        options.desc = "Toggle Comment (Line)";
+      }
+      {
+        mode = "v";
+        key = "<leader>/";
+        action = "<esc><cmd>lua require('Comment.nvim').toggle('j')<cr>"; 
+        options.desc = "Toggle Comment (Block)";
       }
     ];
   };
