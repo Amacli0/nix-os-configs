@@ -14,8 +14,6 @@
       gopls
       gotools
 
-      bash-language-server
-
       black
 
       alejandra
@@ -54,13 +52,14 @@
       nvim-tree.enable = true;
 
       lsp = {
-        enable = true;
+        enable = false;
         servers = {
           pyright.enable = true;
           terraformls.enable = true;
           gopls.enable = true;
           bashls.enable = true;
-          lua-ls.enable = true;
+
+          tclsp.enable = false;
         };
       };
       telescope = {
