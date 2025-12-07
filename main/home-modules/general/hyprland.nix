@@ -107,8 +107,7 @@
 
         "$mod, W, exec, waypaper"
       ];
-        "bindel" = [
-
+      "bindel" = [
         " ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
         " ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         " ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
@@ -117,28 +116,28 @@
         " ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
       ];
 
-    decoration = {
-      "rounding" = 10;
-      "rounding_power" = 2;
+      decoration = {
+        "rounding" = 10;
+        "rounding_power" = 2;
 
-    # Change transparency of focused and unfocused windows
-      "active_opacity" = 1;
-      "inactive_opacity" = 1;
+        # Change transparency of focused and unfocused windows
+        "active_opacity" = 1;
+        "inactive_opacity" = 1;
 
-      "shadow" =  {
+        "shadow" = {
           "enabled" = true;
           "range" = 4;
           "render_power" = 3;
-      };
+        };
 
-    # https://wiki.hypr.land/Configuring/Variables/#blur
-      "blur" = {
+        # https://wiki.hypr.land/Configuring/Variables/#blur
+        "blur" = {
           "enabled" = false;
           "size" = 3;
           "passes" = 1;
 
           "vibrancy" = 0.8696;
-         };
+        };
       };
     };
   };

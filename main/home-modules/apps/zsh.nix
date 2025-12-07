@@ -6,8 +6,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   programs = {
     zsh = {
       enable = true;
@@ -24,7 +23,7 @@
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "git" ];
+        plugins = ["git"];
         theme = "kphoen";
       };
     };

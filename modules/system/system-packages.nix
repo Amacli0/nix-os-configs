@@ -1,15 +1,11 @@
 #######################################
 #              PACKAGES               #
 #######################################
-
 {
   config,
   pkgs,
   ...
-}:
-
-{
-
+}: {
   environment.systemPackages = with pkgs; [
     git
     age
@@ -18,7 +14,6 @@
     kitty
     firefox
     vim
-
   ];
 
   nixpkgs.config.allowUnfree = true;

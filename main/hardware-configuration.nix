@@ -37,7 +37,6 @@
     options = ["subvol=@nix"];
   };
 
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/1655-B01A";
     fsType = "vfat";

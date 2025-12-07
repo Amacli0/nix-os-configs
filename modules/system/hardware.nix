@@ -7,10 +7,9 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   services = {
-    xserver.videoDriver = [ "amdgpu" ];
+    xserver.videoDriver = ["amdgpu"];
     tlp = {
       enable = true;
     };
@@ -20,7 +19,6 @@
       pulse.enable = true;
       alsa.enable = true;
     };
-
   };
   hardware = {
     bluetooth.enable = true;

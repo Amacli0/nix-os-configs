@@ -33,7 +33,7 @@
           "pulseaudio"
           "clock#time"
         ];
-        
+
         ############################
 
         # Modül ayarları

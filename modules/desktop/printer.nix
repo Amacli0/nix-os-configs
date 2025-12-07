@@ -1,9 +1,11 @@
 ################################
 #          PRINTER             #
 ################################
-{ config, pkgs, ... }:
 {
-
+  config,
+  pkgs,
+  ...
+}: {
   services.printing = {
     enable = true;
     drivers = with pkgs; [
@@ -13,5 +15,4 @@
   };
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
-
 }

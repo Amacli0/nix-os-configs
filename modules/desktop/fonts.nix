@@ -7,8 +7,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   fonts.packages = with pkgs; [
     monocraft
     nerd-fonts.fira-code
