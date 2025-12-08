@@ -52,6 +52,11 @@
     superTuxKart
 
     openttd
+
+    go
+    delve
+
+    python3
   ];
   nixpkgs.config.allowUnfree = true;
 }
