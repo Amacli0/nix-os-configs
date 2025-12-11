@@ -105,6 +105,7 @@
         "$mod $shift, 9 ,  movetoworkspace, 9"
         "$mod $shift, 0 ,  movetoworkspace, 10"
 
+        "$mod, S, exec, grim -g \"$(slurp)\" - | wl-copy"
         "$mod, W, exec, waypaper"
       ];
       "bindel" = [

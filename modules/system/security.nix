@@ -14,14 +14,13 @@
   networking = {
     firewall = {
       enable = true;
-      checkReversePath = false;
+      checkReversePath = true;
       allowedTCPPorts = [
         22
         631
         9999
       ];
       allowedUDPPorts = [
-        53
         36963
         41641
       ];

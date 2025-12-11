@@ -10,7 +10,7 @@
     enable = true;
     drivers = with pkgs; [
       gutenprint
-      brlaser # Açık kaynak Brother sürücüsü (HL-20'ye destek verme olasılığı var)
+      brlaser
     ];
   };
   services.avahi.enable = true;

@@ -31,6 +31,7 @@
           "cpu"
           "memory"
           "pulseaudio"
+          "battery"
           "clock#time"
         ];
 

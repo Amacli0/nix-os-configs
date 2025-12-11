@@ -53,10 +53,22 @@
 
     openttd
 
+    lutris
+    heroic
+    wine
+
     go
     delve
 
     python3
+
+    grim
+    slurp
+
+    unzip
+    zip
+
+    xfce.thunar
   ];
   nixpkgs.config.allowUnfree = true;
 }
