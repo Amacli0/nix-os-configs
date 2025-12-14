@@ -7,9 +7,6 @@
   lib,
   ...
 }: {
-  home.sessionVariables = {
-    EDITOR = "nixvim";
-  };
   programs = {
     zsh = {
       enable = true;
