@@ -7,6 +7,9 @@
   lib,
   ...
 }: {
+  home.sessionVariables = {
+    EDITOR = "nixvim";
+  };
   programs = {
     zsh = {
       enable = true;
@@ -27,9 +30,5 @@
         theme = "kphoen";
       };
     };
-  };
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
   };
 }

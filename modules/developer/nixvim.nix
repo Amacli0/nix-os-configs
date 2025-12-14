@@ -9,6 +9,8 @@
   ...
 }: {
   programs.nixvim = {
+    defaultEditor = true;
+
     enable = true;
 
     extraPackages = with pkgs; [
