@@ -8,6 +8,9 @@
   inputs,
   ...
 }: {
+  environment.variables = {
+    EDITOR = "nixvim";
+  };
   programs.nixvim = {
     defaultEditor = true;
 
