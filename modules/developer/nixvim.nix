@@ -68,6 +68,11 @@
           ];
         };
       };
+
+      nvimTsContextCommentstring = {
+        enable = true;
+      };
+
       lualine = {
         enable = true;
         settings = {
