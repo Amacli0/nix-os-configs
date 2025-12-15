@@ -34,13 +34,5 @@
     "flakes"
   ];
 
-  environment.variables = {
-    # NixVim'in çalıştırılabilir dosyasının tam yolunu buraya yazıyoruz:
-    EDITOR = "/run/current-system/sw/bin/nvim";
-    VISUAL = "/run/current-system/sw/bin/nvim";
-
-    # KRİTİK: SUDO komutlarının kullanacağı düzenleyiciyi ayarlıyoruz.
-    SUDO_EDITOR = "/run/current-system/sw/bin/nvim";
-  };
   system.stateVersion = "25.05";
 }
