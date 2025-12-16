@@ -28,11 +28,11 @@
     ###
     ../modules/developer/virsulation.nix
     ../modules/developer/nixvim.nix
+    ../modules/developer/emacs.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
   system.stateVersion = "25.05";
 }

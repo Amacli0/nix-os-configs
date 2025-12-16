@@ -25,8 +25,6 @@
     ./home-modules/apps/waybar.nix
     ./home-modules/apps/zsh.nix
     ./home-modules/apps/tmux.nix
-
-    ../modules/developer/emacs.nix
   ];
 
   systemd.user.services.polkit-gnome-agent = {
