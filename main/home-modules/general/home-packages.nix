@@ -69,6 +69,8 @@
     zip
 
     xfce.thunar
+
+    libreoffice
   ];
   nixpkgs.config.allowUnfree = true;
 }
