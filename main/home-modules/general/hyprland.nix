@@ -69,7 +69,7 @@
         "$mod, Q, killactive"
         "$mod SHIFT, M, exit"
         "$mod, F, fullscreen"
-        "$mod, V, togglefloating"
+        "$mod, Y, togglefloating"
         "$mod, M, exit"
         "$alt, $space,exec, $menu -show drun"
 
