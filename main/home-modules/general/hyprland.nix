@@ -54,7 +54,7 @@
       input = {
         "kb_layout" = "tr";
         "kb_variant" = "";
-        "kb_options" = "";
+        "kb_options" = "caps:ctrl_modifier";
         "follow_mouse" = 1;
         "sensitivity" = 0.2;
         "touchpad" = {
@@ -139,6 +139,9 @@
 
           "vibrancy" = 0.8696;
         };
+      };
+      animations = {
+        "enabled" = false;
       };
     };
   };
