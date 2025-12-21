@@ -25,6 +25,7 @@
     ../modules/desktop/main.nix
     ../modules/desktop/gaming.nix
     ../modules/desktop/stylinx.nix
+    ../modules/desktop/printer.nix
     ###
     ../modules/developer/virsulation.nix
     ../modules/developer/nixvim.nix
