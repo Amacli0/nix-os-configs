@@ -30,6 +30,8 @@
 
       gcc
       pkg-config
+
+      tree-sitter
     ];
     globals.mapleader = " ";
     opts = {
