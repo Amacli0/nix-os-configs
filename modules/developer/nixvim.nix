@@ -27,11 +27,6 @@
       alejandra
 
       nixfmt-rfc-style
-
-      gcc
-      pkg-config
-
-      tree-sitter
     ];
     globals.mapleader = " ";
     opts = {
@@ -58,6 +53,7 @@
       treesitter = {
         enable = true;
         settings = {
+          auto_install = false;
           highlight.enable = true;
           ensure_installed = [
             "nix"
