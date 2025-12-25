@@ -52,7 +52,10 @@
 
       treesitter = {
         enable = true;
+
         settings = {
+          nixGrammars = true;
+
           auto_install = false;
           highlight.enable = true;
           ensure_installed = [
