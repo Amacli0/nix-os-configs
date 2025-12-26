@@ -54,7 +54,7 @@
         enable = true;
 
         nixGrammars = true;
-        package = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+        package = pkgs.vimPlugins.nvim-treesitter;
         settings = {
           auto_install = false;
           highlight.enable = true;
