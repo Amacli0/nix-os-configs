@@ -53,21 +53,11 @@
       treesitter = {
         enable = true;
 
+        nixGrammars = true;
+        package = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
         settings = {
-          nixGrammars = true;
-
           auto_install = false;
           highlight.enable = true;
-          ensure_installed = [
-            "nix"
-            "lua"
-            "python"
-            "go"
-            "bash"
-            "terraform"
-            "json"
-            "yaml"
-          ];
         };
       };
       indent-blankline = {
