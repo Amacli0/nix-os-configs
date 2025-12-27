@@ -16,7 +16,7 @@
       "networkmanager"
       "audio"
       "video"
-      "libvirt"
+      "libvirtd"
       "kvm"
       "lp"
       "lpadmin"
