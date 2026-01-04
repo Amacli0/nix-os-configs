@@ -51,10 +51,17 @@
       #######################################
       #            KLAVYE                  #
       #######################################
+
+      device = [
+        {
+          name = "at-translated-set-2-keyboard";
+          enabled = false;
+        }
+      ];
       input = {
         "kb_layout" = "tr";
         "kb_variant" = "";
-        "kb_options" = "caps:ctrl_modifier";
+        "kb_options" = "";
         "follow_mouse" = 1;
         "sensitivity" = 0.2;
         "touchpad" = {

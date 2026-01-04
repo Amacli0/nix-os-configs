@@ -71,6 +71,16 @@
     xfce.thunar
 
     libreoffice
+
+    sioyek
+
+    brightnessctl
+
+    xdg-utils
+    xdg-desktop-portal-gtk
+
+    mgba
+    pokemmo-installer
   ];
   nixpkgs.config.allowUnfree = true;
 }
