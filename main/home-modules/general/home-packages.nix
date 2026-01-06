@@ -81,6 +81,12 @@
 
     mgba
     pokemmo-installer
+
+    cabextract
+    p7zip
+
+    fuzzel
+    xwayland-satellite
   ];
   nixpkgs.config.allowUnfree = true;
 }

@@ -14,6 +14,7 @@
     kitty
     firefox
     vim
+    niri
   ];
 
   nixpkgs.config.allowUnfree = true;
