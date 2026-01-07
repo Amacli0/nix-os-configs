@@ -15,7 +15,6 @@
   #            IMPORTS                  #
   #######################################
   imports = [
-    ./home-modules/general/hyprland.nix
     ./home-modules/general/home-packages.nix
     ###
     ./home-modules/apps/obs.nix
@@ -26,7 +25,11 @@
     ./home-modules/apps/zsh.nix
     ./home-modules/apps/tmux.nix
   ];
+  ########################
+  home.packages = [pkgs.niri];
 
+  home.file.".config/niri/config.kdl".source = ./config.kdl;
+  ########################
   systemd.user.services.polkit-gnome-agent = {
     Unit = {
       Description = "Polkit GNOME Authentication Agent";

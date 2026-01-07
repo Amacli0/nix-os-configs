@@ -17,12 +17,13 @@
         # SOL
         modules-left = [
           "clock#date"
-          "hyprland/window"
+          "niri/window"
+          "wlr/taskbar"
         ];
 
         # ORTA
         modules-center = [
-          "hyprland/workspaces"
+          "niri/workspaces"
         ];
 
         # SAĞ
@@ -38,6 +39,25 @@
         ############################
 
         # Modül ayarları
+        "niri/workspaces" = {
+          format = "{icon}";
+          # Niri'de workspace'ler genelde dinamiktir
+        };
+
+        # Taskbar (Görev Çubuğu) Ayarı
+        "wlr/taskbar" = {
+          format = "{icon}";
+          icon-size = 18;
+          tooltip-format = "{title}";
+          on-click = "activate";
+          on-click-middle = "close";
+        };
+
+        "niri/window" = {
+          format = " {title}";
+          separate-outputs = true;
+        };
+
         "clock#date" = {
           format = "{:%A, %d %B}";
           tooltip = false;
