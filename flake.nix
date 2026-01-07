@@ -5,9 +5,6 @@
   inputs = {
     #NİX PAKETLERİ
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #HYPRLAND
-    hyprland.url = "github:hyprwm/Hyprland";
-    #HOME MANAGER
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
