@@ -26,9 +26,8 @@
     ./home-modules/apps/tmux.nix
   ];
   ########################
-  home.packages = [pkgs.niri];
 
-  home.file.".config/niri/config.kdl".source = ./config.kdl;
+  home.file.".config/niri/config.kdl".source = ./home-files/niri/config.kdl;
   ########################
   systemd.user.services.polkit-gnome-agent = {
     Unit = {

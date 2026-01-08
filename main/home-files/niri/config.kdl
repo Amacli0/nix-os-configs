@@ -1,0 +1,168 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://yalter.github.io/niri/Configuration:-Introduction
+
+// Input device configuration.
+input {
+    keyboard {
+        xkb {
+            // Güncellenen klavye düzeni
+            layout "tr"
+        }
+
+        numlock
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        dwt // Yeni eklenen özellik
+    }
+
+    mouse {
+        // Değişiklik yok
+    }
+
+    trackpoint {
+        // Değişiklik yok
+    }
+}
+
+// Output ayarları korunmuştur
+/-output "eDP-1" {
+    mode "1920x1080@120.030"
+    scale 2
+    transform "normal"
+    position x=1280 y=0
+}
+
+// Layout ayarları güncellendi
+layout {
+    gaps 12 // 16 -> 12 olarak güncellendi
+
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 2 // 4 -> 2 olarak güncellendi
+        active-color "#98971a" // Yeni renk
+        inactive-color "#444444" // Yeni renk
+    }
+
+    border {
+        off
+        width 4
+        active-color "#ffc87f"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+    }
+
+    shadow {
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+
+    struts {
+        // Değişiklik yok
+    }
+}
+
+// Başlangıç komutları güncellendi
+spawn-at-startup "waybar"
+spawn-at-startup "foot --server" // Yeni eklenen komut
+
+hotkey-overlay {
+    // skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+animations {
+    // Değişiklik yok
+}
+
+// Pencere Kuralları (Window Rules)
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Kısayollar (Binds) - Gönderdiğin yeni listeye göre düzenlendi
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Temel Kısayollar
+    Mod+T { spawn "footclient"; } // alacritty -> footclient
+    Alt+Space { spawn "fuzzel"; } // Mod+D -> Alt+Space
+    Mod+Q { close-window; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+
+    // Ses ve Medya Tuşları (Korundu ve güncellendi)
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    // Hareketler ve Odaklanma
+    Mod+O repeat=false { toggle-overview; }
+
+    Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-down; }
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+
+    // Pencere Yönetimi
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    
+    // Screenshot
+    Print { screenshot; }
+
+    // Workspace ve diğerleri (Base dosyadan korunanlar)
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    
+    // Çıkış
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+}

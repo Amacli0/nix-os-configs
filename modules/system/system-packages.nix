@@ -11,10 +11,9 @@
     age
     sops
     alejandra
-    kitty
     firefox
     vim
-    niri
+    foot
   ];
 
   nixpkgs.config.allowUnfree = true;

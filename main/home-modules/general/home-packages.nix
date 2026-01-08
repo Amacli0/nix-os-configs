@@ -8,7 +8,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    kitty
     fastfetch
 
     bitwarden-desktop
@@ -19,11 +18,13 @@
 
     pavucontrol
     blueman
-    rofi
     yazi
     vscodium
-    xclip
     wl-clipboard
+
+    ffmpegthumbnailer
+    poppler
+    fontconfig
 
     swww
 
@@ -31,7 +32,6 @@
     polkit_gnome
     tor-browser
 
-    cheese
     waypaper
 
     tree
@@ -68,8 +68,6 @@
     unzip
     zip
 
-    xfce.thunar
-
     libreoffice
 
     sioyek
@@ -87,6 +85,7 @@
 
     fuzzel
     xwayland-satellite
+    foot
   ];
   nixpkgs.config.allowUnfree = true;
 }
