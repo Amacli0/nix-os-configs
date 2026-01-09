@@ -10,9 +10,11 @@
   programs = {
     foot = {
       enable = true;
-      font = {
-        name = lib.mkForce "JetBrainsMono Nerd Font";
-        size = 12;
+      settings = {
+        font = {
+          name = lib.mkForce "JetBrainsMono Nerd Font";
+          size = 12;
+        };
       };
     };
   };
