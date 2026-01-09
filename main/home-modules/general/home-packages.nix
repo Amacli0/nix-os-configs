@@ -86,6 +86,10 @@
     fuzzel
     xwayland-satellite
     foot
+
+    snes9x-gtk
+
+    distrobox
   ];
   nixpkgs.config.allowUnfree = true;
 }

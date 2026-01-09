@@ -9,6 +9,8 @@
   ...
 }: {
   virtualisation = {
+    podman.enable = true;
+
     spiceUSBRedirection.enable = true;
 
     libvirtd = {
