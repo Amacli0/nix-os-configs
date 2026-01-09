@@ -4,7 +4,9 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
 // Input device configuration.
+prefer-no-csd
 input {
+
     keyboard {
         xkb {
             // Güncellenen klavye düzeni
@@ -27,6 +29,7 @@ input {
     trackpoint {
         // Değişiklik yok
     }
+    focus-follows-mouse max-scroll-amount="0%"
 }
 
 // Output ayarları korunmuştur
@@ -39,7 +42,8 @@ input {
 
 // Layout ayarları güncellendi
 layout {
-    gaps 12 // 16 -> 12 olarak güncellendi
+
+  gaps 12 // 16 -> 12 olarak güncellendi
 
     center-focused-column "never"
 
@@ -93,6 +97,12 @@ animations {
 
 // Pencere Kuralları (Window Rules)
 window-rule {
+    draw-border-with-background false
+    geometry-corner-radius 12 // İstersen köşeleri buradan yuvarlayabilirsin
+    clip-to-geometry true
+}
+
+window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
 }
@@ -110,7 +120,7 @@ binds {
     Mod+T { spawn "footclient"; } // alacritty -> footclient
     Alt+Space { spawn "fuzzel"; } // Mod+D -> Alt+Space
     Mod+Q { close-window; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Ses ve Medya Tuşları (Korundu ve güncellendi)
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
@@ -141,10 +151,20 @@ binds {
 
     Mod+Shift+Left  { move-column-left; }
     Mod+Shift+Right { move-column-right; }
+      
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
 
     // Pencere Yönetimi
     Mod+F { maximize-column; }
+    Mod+R { switch-preset-column-width; }
     Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
     
     // Screenshot
     Print { screenshot; }
@@ -159,6 +179,16 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
 
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     
