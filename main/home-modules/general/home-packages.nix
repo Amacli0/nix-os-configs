@@ -77,19 +77,17 @@
     xdg-utils
     xdg-desktop-portal-gtk
 
-    mgba
     pokemmo-installer
-
-    cabextract
-    p7zip
 
     fuzzel
     xwayland-satellite
     foot
 
-    snes9x-gtk
-
     distrobox
+
+    vlc
+
+    godot
   ];
   nixpkgs.config.allowUnfree = true;
 }

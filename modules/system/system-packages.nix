@@ -15,6 +15,6 @@
     vim
     foot
   ];
-
+  services.flatpak.enable = true;
   nixpkgs.config.allowUnfree = true;
 }

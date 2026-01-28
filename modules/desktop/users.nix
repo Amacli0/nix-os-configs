@@ -20,6 +20,9 @@
       "kvm"
       "lp"
       "lpadmin"
+      "docker"
+      "podman"
+      "eno1"
     ];
   };
   users.users.softshell = {
