@@ -8,6 +8,7 @@
   inputs,
   ...
 }: {
+  services.udev.packages = with pkgs; [platformio-core.udev];
   users.users.deepshell = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -23,6 +24,10 @@
       "docker"
       "podman"
       "eno1"
+      "dialout"
+      "plugdev"
+      "tty"
+      "plugdev"
     ];
   };
   users.users.softshell = {
