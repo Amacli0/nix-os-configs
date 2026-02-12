@@ -22,6 +22,8 @@
         9999
         8080
         8754
+        30001
+        30002
         30005
       ];
       allowedUDPPorts = [
@@ -37,12 +39,12 @@
   };
 
   services.nginx = {
-  enable = true;
-  virtualHosts."localhost" = {
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:8080/";  # dump1090's built-in server
+    enable = true;
+    virtualHosts."localhost" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8080/"; # dump1090's built-in server
+      };
     };
   };
-  }
   services.udev.packages = [pkgs.rtl-sdr];
 }

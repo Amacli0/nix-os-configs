@@ -95,6 +95,8 @@
     platformio
     avrdude
     esptool
+
+    dump1090-fa
   ];
   nixpkgs.config.allowUnfree = true;
 }
