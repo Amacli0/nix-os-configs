@@ -88,6 +88,13 @@
     vlc
 
     godot
+
+    rtl-sdr
+    sdrpp
+
+    platformio
+    avrdude
+    esptool
   ];
   nixpkgs.config.allowUnfree = true;
 }

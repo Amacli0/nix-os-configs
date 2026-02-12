@@ -29,6 +29,7 @@
     ###
     ../modules/developer/virsulation.nix
     ../modules/developer/nixvim.nix
+    ../modules/developer/sdr.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"
