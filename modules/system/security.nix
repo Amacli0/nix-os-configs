@@ -37,17 +37,12 @@
   };
 
   services.nginx = {
-    enable = true;
-    virtualHosts."localhost" = {
-      locations."/" = {
-        root = "${pkgs.dump1090-fa}/share/dump1090-fa/html";
-        tryFiles = "$uri $uri/ /index.html";
-      };
-      locations."/data/" = {
-        proxyPass = "http://127.0.0.1:30005/data/";
-        proxyWebsockets = true;
-      };
+  enable = true;
+  virtualHosts."localhost" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:8080/";  # dump1090's built-in server
     };
   };
+  }
   services.udev.packages = [pkgs.rtl-sdr];
 }
