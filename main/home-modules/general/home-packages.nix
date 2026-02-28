@@ -50,6 +50,7 @@
     pavucontrol
     blueman
     brightnessctl
+    w3m-full
 
     # --- SDR & Hardware ---
     rtl-sdr
