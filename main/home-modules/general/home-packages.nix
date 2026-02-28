@@ -81,7 +81,6 @@
     fontconfig
     xdg-utils
     xdg-desktop-portal-gtk
-    polkit-dumb-agent
     xwayland-satellite
   ];
   nixpkgs.config.allowUnfree = true;
