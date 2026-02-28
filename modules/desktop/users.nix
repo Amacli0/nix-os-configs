@@ -28,6 +28,7 @@
       "plugdev"
       "tty"
       "plugdev"
+      "docker"
     ];
   };
   users.users.softshell = {

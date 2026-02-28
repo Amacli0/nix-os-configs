@@ -9,94 +9,80 @@
 }: {
   home.packages = with pkgs; [
     fastfetch
-
-    bitwarden-desktop
-
-    whatsapp-electron
-
-    waybar
-
-    pavucontrol
-    blueman
     yazi
-    vscodium
-    wl-clipboard
-
-    ffmpegthumbnailer
-    poppler
-    fontconfig
-
-    swww
-
-    btop
-    polkit_gnome
-    tor-browser
-
-    waypaper
-
-    tree
-    prismlauncher
-
-    nextcloud-client
-
     bat
-
-    vitetris
-
-    spotify
-
-    terraform
-
-    awscli2
-
-    superTuxKart
-
-    openttd
-
-    lutris
-    heroic
-    wine
-
-    go
-    delve
-
-    python3
-
-    grim
-    slurp
-
+    btop
+    tree
     unzip
     zip
+    wl-clipboard
+    ffmpegthumbnailer
+    poppler
 
-    libreoffice
+    # --- DevOps & Cloud ---
+    opentofu
+    terraform
+    awscli2
+    docker
+    docker-compose
+    distrobox
+    ansible
+    kubectl
 
-    sioyek
+    # --- Development & Infrastructure ---
+    platformio
+    avrdude
+    go
+    delve
+    python3
+    vscodium
+    esptool
+    zellij
 
+    # --- Wayland & Desktop ---
+    foot
+    fuzzel
+    waybar
+    grim
+    slurp
+    swww
+    waypaper
+    pavucontrol
+    blueman
     brightnessctl
 
-    xdg-utils
-    xdg-desktop-portal-gtk
-
-    pokemmo-installer
-
-    fuzzel
-    xwayland-satellite
-    foot
-
-    distrobox
-
-    vlc
-
-    godot
-
+    # --- SDR & Hardware ---
     rtl-sdr
     sdrpp
 
-    platformio
-    avrdude
-    esptool
+    # --- Apps & Social ---
+    bitwarden-desktop
+    whatsapp-electron
+    spotify
+    libreoffice
 
-    dump1090-fa
+    # --- Gaming ---
+    prismlauncher
+    vitetris
+    superTuxKart
+    godot
+    openttd
+    pokemmo-installer
+    lutris
+    heroic
+    wine
+    luanti
+
+    # --- Media & Documents ---
+    mpv
+    sioyek
+
+    # --- System Services & Wayland Support ---
+    fontconfig
+    xdg-utils
+    xdg-desktop-portal-gtk
+    xpolkit-dumb-agent
+    wayland-satellite
   ];
   nixpkgs.config.allowUnfree = true;
 }
