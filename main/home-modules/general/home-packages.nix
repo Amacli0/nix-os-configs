@@ -28,6 +28,7 @@
     distrobox
     ansible
     kubectl
+    opentofu
 
     # --- Development & Infrastructure ---
     platformio
@@ -63,17 +64,11 @@
     libreoffice
 
     # --- Gaming ---
-    prismlauncher
     vitetris
-    superTuxKart
     godot
-    openttd
     pokemmo-installer
-    lutris
-    heroic
     wine
-    luanti
-
+    retroarch-full
     # --- Media & Documents ---
     mpv
     sioyek
@@ -83,6 +78,10 @@
     xdg-utils
     xdg-desktop-portal-gtk
     xwayland-satellite
+
+    # --- Music and Utau ---
+    openutau
+    ardour
   ];
   nixpkgs.config.allowUnfree = true;
 }

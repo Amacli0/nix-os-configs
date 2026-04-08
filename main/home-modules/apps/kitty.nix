@@ -9,7 +9,7 @@
 }: {
   programs = {
     kitty = {
-      enable = true;
+      enable = false;
       settings = {
         confirm_os_window_close = -1;
       };
