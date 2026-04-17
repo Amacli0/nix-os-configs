@@ -37,6 +37,6 @@
   ];
 
   services.rpcbind.enable = true;
-
+  boot.supportedFilesystems = ["nfs"];
   system.stateVersion = "25.05";
 }
