@@ -18,6 +18,7 @@
     wl-clipboard
     ffmpegthumbnailer
     poppler
+    nfs-utils
 
     # --- DevOps & Cloud ---
     opentofu
@@ -28,7 +29,6 @@
     distrobox
     ansible
     kubectl
-    opentofu
 
     # --- Development & Infrastructure ---
     platformio
@@ -68,7 +68,13 @@
     godot
     pokemmo-installer
     wine
-    retroarch-full
+
+    (pkgs.retroarch.withCores (cores:
+      with cores; [
+        fbneo # FinalBurn Neo (Arcade)
+        mgba
+      ]))
+
     # --- Media & Documents ---
     mpv
     sioyek

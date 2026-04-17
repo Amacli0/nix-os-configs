@@ -35,5 +35,8 @@
     "nix-command"
     "flakes"
   ];
+
+  services.rpcbind.enable = true;
+
   system.stateVersion = "25.05";
 }
