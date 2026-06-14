@@ -58,6 +58,7 @@
               pkgs,
               ...
             }: {
+              home-manager.backupFileExtension = "backup";
               home-manager.users.deepshell = import ./main/home.nix;
             }
           )

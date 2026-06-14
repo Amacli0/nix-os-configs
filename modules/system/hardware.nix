@@ -8,6 +8,8 @@
   inputs,
   ...
 }: {
+  security.rtkit.enable = true;
+
   services = {
     xserver.videoDriver = ["amdgpu"];
     tlp = {
@@ -18,6 +20,7 @@
       enable = true;
       pulse.enable = true;
       alsa.enable = true;
+      jack.enable = true;
     };
   };
   hardware = {

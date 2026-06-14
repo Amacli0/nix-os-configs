@@ -19,6 +19,10 @@
     ffmpegthumbnailer
     poppler
     nfs-utils
+    syncthing
+    pinta
+
+    brave
 
     # --- DevOps & Cloud ---
     opentofu
@@ -46,34 +50,35 @@
     waybar
     grim
     slurp
-    swww
+    awww
     waypaper
     pavucontrol
     blueman
     brightnessctl
-    w3m-full
+    noctalia-shell
+    vial
+    via
 
     # --- SDR & Hardware ---
     rtl-sdr
     sdrpp
 
     # --- Apps & Social ---
-    bitwarden-desktop
     whatsapp-electron
     spotify
     libreoffice
+    freetube
 
     # --- Gaming ---
     vitetris
     godot
     pokemmo-installer
     wine
-
-    (pkgs.retroarch.withCores (cores:
-      with cores; [
-        fbneo # FinalBurn Neo (Arcade)
-        mgba
-      ]))
+    retroarch-free
+    antimicrox
+    lutris
+    ruffle
+    osu-lazer
 
     # --- Media & Documents ---
     mpv
@@ -88,6 +93,24 @@
     # --- Music and Utau ---
     openutau
     ardour
+    nicotine-plus
+    picard
+    supersonic-wayland
+    strawberry
+    zrythm
+    supercollider
+    helvum
+    (haskellPackages.ghcWithPackages (hp:
+      with hp; [
+        tidal
+      ]))
+
+    # --- Ctf and Stuff ---
+    openvpn
+    nmap
+    gobuster
+    netcat
+    exploitdb
   ];
   nixpkgs.config.allowUnfree = true;
 }

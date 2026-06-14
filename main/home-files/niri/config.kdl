@@ -10,7 +10,7 @@ input {
     keyboard {
         xkb {
             // Güncellenen klavye düzeni
-            layout "tr"
+            layout "us"
         }
 
         numlock
@@ -24,6 +24,7 @@ input {
 
     mouse {
         // Değişiklik yok
+        accel-profile "flat"
     }
 
     trackpoint {
@@ -57,8 +58,8 @@ layout {
 
     focus-ring {
         width 2 // 4 -> 2 olarak güncellendi
-        active-color "#98971a" // Yeni renk
-        inactive-color "#444444" // Yeni renk
+        active-color "#7aa2f7" // Yeni renk
+        inactive-color "#3b4261" // Yeni renk
     }
 
     border {
@@ -73,7 +74,7 @@ layout {
         softness 30
         spread 5
         offset x=0 y=5
-        color "#0007"
+        color "#10121b80"
     }
 
     struts {
@@ -82,8 +83,8 @@ layout {
 }
 
 // Başlangıç komutları güncellendi
-spawn-at-startup "waybar"
-spawn-at-startup "foot --server" // Yeni eklenen komut
+spawn-at-startup "noctalia-shell"
+spawn-at-startup "foot" "--server"
 
 hotkey-overlay {
     // skip-at-startup

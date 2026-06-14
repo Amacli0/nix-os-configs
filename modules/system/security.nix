@@ -14,7 +14,7 @@
   networking = {
     firewall = {
       enable = true;
-      checkReversePath = true;
+      checkReversePath = "loose";
       allowedTCPPorts = [
         22
         631
@@ -27,11 +27,16 @@
         30005
       ];
       allowedUDPPorts = [
+        53
+        67
         3500
         36963
         41641
       ];
-      trustedInterfaces = ["tailscale0"];
+      trustedInterfaces = [
+        "tailscale0"
+        "waydroid0"
+      ];
     };
   };
 }

@@ -27,8 +27,8 @@
     ./home-modules/apps/foot.nix
   ];
   ########################
-
   home.file.".config/niri/config.kdl".source = ./home-files/niri/config.kdl;
+  home.file.".config/SuperCollider/startup.scd".source = ./home-files/supercollider/startup.scd;
   ########################
   systemd.user.services.polkit-gnome-agent = {
     Unit = {
