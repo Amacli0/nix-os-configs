@@ -21,8 +21,9 @@
     nfs-utils
     syncthing
     pinta
-
     brave
+    joplin-desktop
+    qbittorrent
 
     # --- DevOps & Cloud ---
     opentofu
@@ -33,6 +34,7 @@
     distrobox
     ansible
     kubectl
+    talosctl
 
     # --- Development & Infrastructure ---
     platformio
@@ -73,12 +75,16 @@
     vitetris
     godot
     pokemmo-installer
-    wine
+    wineWow64Packages.stable
     retroarch-free
     antimicrox
     lutris
     ruffle
     osu-lazer
+    itch
+    supertuxkart
+
+    blender
 
     # --- Media & Documents ---
     mpv

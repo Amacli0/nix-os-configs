@@ -14,6 +14,18 @@
 
     enable = true;
 
+    extraPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "vim-tidal";
+        src = pkgs.fetchFromGitHub {
+          owner = "tidalcycles";
+          repo = "vim-tidal";
+          rev = "master";
+          sha256 = "sha256-8gyk17YLeKpLpz3LRtxiwbpsIbZka9bb63nK5/9IUoA="; # ilk build hatası size gerçek hash'i verir
+        };
+      })
+    ];
+
     extraPackages = with pkgs; [
       ripgrep
       fd
@@ -57,6 +69,7 @@
         package = pkgs.vimPlugins.nvim-treesitter;
         settings = {
           auto_install = false;
+          ensure_installed = "all";
           highlight.enable = true;
         };
       };
@@ -76,9 +89,6 @@
 
       lualine = {
         enable = true;
-        settings = {
-          options.theme = "gruvbox";
-        };
       };
 
       lsp = {
@@ -203,6 +213,22 @@
         key = "<leader>fm";
         action = "<cmd>lua require('conform').format()<cr>";
         options.desc = "Format Code";
+      }
+      {
+        mode = "n";
+        key = "<leader>tt";
+        action.__raw = "'<Plug>TidalParagraphSend'";
+        options = {
+          desc = "Tidal: Send Paragraph";
+          remap = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<leader>th"; # Tidal Hush (Sustur)
+        action = "<Plug>TidalHush";
+        options.desc = "Tidal: Hush All";
       }
     ];
   };
