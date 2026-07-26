@@ -27,7 +27,6 @@
     ../modules/desktop/printer.nix
     ###
     ../modules/developer/virsulation.nix
-    ../modules/developer/neovim.nix
     ../modules/developer/sdr.nix
   ];
   nix.settings.experimental-features = [

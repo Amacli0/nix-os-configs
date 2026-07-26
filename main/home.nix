@@ -25,6 +25,7 @@
     ./home-modules/apps/zsh.nix
     ./home-modules/apps/tmux.nix
     ./home-modules/apps/foot.nix
+    ./home-modules/apps/neovim.nix
   ];
   ########################
   home.file.".config/niri/config.kdl".source = ./home-files/niri/config.kdl;
