@@ -24,6 +24,7 @@
     brave
     joplin-desktop
     qbittorrent
+    vlc
 
     # --- DevOps & Cloud ---
     opentofu
@@ -33,8 +34,10 @@
     docker-compose
     distrobox
     ansible
-    kubectl
+    # kubectl
     talosctl
+    kubernetes-helm
+    minikube
 
     # --- Development & Infrastructure ---
     platformio
@@ -58,8 +61,6 @@
     blueman
     brightnessctl
     noctalia-shell
-    vial
-    via
 
     # --- SDR & Hardware ---
     rtl-sdr
@@ -80,10 +81,8 @@
     antimicrox
     lutris
     ruffle
-    osu-lazer
     itch
     supertuxkart
-
     blender
 
     # --- Media & Documents ---

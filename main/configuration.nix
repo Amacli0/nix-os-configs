@@ -22,13 +22,12 @@
     ../modules/desktop/main.nix
     ../modules/desktop/fonts.nix
     ../modules/desktop/users.nix
-    ../modules/desktop/main.nix
     ../modules/desktop/gaming.nix
     ../modules/desktop/stylinx.nix
     ../modules/desktop/printer.nix
     ###
     ../modules/developer/virsulation.nix
-    ../modules/developer/nixvim.nix
+    ../modules/developer/neovim.nix
     ../modules/developer/sdr.nix
   ];
   nix.settings.experimental-features = [
