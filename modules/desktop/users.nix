@@ -45,8 +45,8 @@
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      "deepshell" = ../../main/home.nix;
-      "softshell" = ../../main/home-soft.nix;
+      "deepshell" = ../../homes/deepshell/default.nix;
+      "softshell" = ../../homes/softshell/default.nix;
     };
   };
   environment.shells = [pkgs.zsh];

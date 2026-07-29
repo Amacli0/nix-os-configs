@@ -15,21 +15,22 @@
   #            IMPORTS                  #
   #######################################
   imports = [
-    ./home-modules/general/home-packages.nix
-    ###
-    ./home-modules/apps/obs.nix
-    ./home-modules/apps/firefox.nix
-    ./home-modules/apps/git.nix
-    ./home-modules/apps/kitty.nix
-    ./home-modules/apps/waybar.nix
-    ./home-modules/apps/zsh.nix
-    ./home-modules/apps/tmux.nix
-    ./home-modules/apps/foot.nix
-    ./home-modules/apps/neovim.nix
+    ../../modules/home/general/home-packages.nix
+    ../../modules/home/apps/obs.nix
+    ../../modules/home/apps/firefox.nix
+    ../../modules/home/apps/git.nix
+    ../../modules/home/apps/kitty.nix
+    ../../modules/home/apps/waybar.nix
+    ../../modules/home/apps/zsh.nix
+    ../../modules/home/apps/tmux.nix
+    ../../modules/home/apps/foot.nix
+    ../../modules/home/apps/neovim.nix
   ];
-  ########################
-  home.file.".config/niri/config.kdl".source = ./home-files/niri/config.kdl;
-  home.file.".config/SuperCollider/startup.scd".source = ./home-files/supercollider/startup.scd;
+
+  # Konfigürasyon dosyası bağlantıları
+  home.file.".config/niri/config.kdl".source = ./files/niri/config.kdl;
+  home.file.".config/SuperCollider/startup.scd".source = ./files/supercollider/startup.scd;
+
   ########################
   systemd.user.services.polkit-gnome-agent = {
     Unit = {
