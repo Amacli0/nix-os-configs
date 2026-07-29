@@ -1,5 +1,5 @@
 {...}: {
-  import = [
+  imports = [
     ./boot.nix
     ./network.nix
     ./hardware.nix
