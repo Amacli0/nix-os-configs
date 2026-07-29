@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  zapret = {
+  services.zapret = {
     enable = true;
     params = [
       "--dpi-desync=fake"
