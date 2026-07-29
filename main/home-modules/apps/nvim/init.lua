@@ -33,8 +33,17 @@ require("lualine").setup({
   options = { theme = "gruvbox" },
 })
 
-require("nvim-treesitter.configs").setup({
-  highlight = { enable = true },
+-- Not: nixpkgs'teki nvim-treesitter artık yeni (master) API'yi kullanıyor,
+-- eski `nvim-treesitter.configs` modülü ve `highlight.enable` kaldırıldı.
+-- Highlight artık her buffer için vim.treesitter.start() ile açılıyor.
+pcall(function()
+  require("nvim-treesitter").setup()
+end)
+
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
 })
 
 require("telescope").setup()
@@ -99,19 +108,26 @@ cmp.setup({
 -------------------------------------------------
 -- LSP
 -------------------------------------------------
+-- Not: `require('lspconfig').server.setup{}` artık deprecated (nvim-lspconfig
+-- v3.0.0'da kaldırılacak). Neovim 0.11+ ile gelen yerleşik vim.lsp.config /
+-- vim.lsp.enable API'sini kullanıyoruz. nvim-lspconfig paketi hâlâ kurulu,
+-- sadece varsayılan server ayarlarını (runtimepath'teki lsp/*.lua) sağlamak için.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require("lspconfig")
 
-for _, server in ipairs({
+local servers = {
   "pyright",
   "terraformls",
   "gopls",
   "bashls",
   "nixd",
   "lua_ls",
-}) do
-  lspconfig[server].setup({ capabilities = capabilities })
+}
+
+for _, server in ipairs(servers) do
+  vim.lsp.config(server, { capabilities = capabilities })
 end
+
+vim.lsp.enable(servers)
 
 -------------------------------------------------
 -- KEYMAPS

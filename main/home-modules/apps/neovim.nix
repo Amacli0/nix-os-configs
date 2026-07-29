@@ -53,7 +53,6 @@
       gopls
       gotools
 
-      python3Packages.pyright
       terraform-ls
       bash-language-server
       nixd
