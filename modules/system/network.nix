@@ -20,6 +20,9 @@
     ];
   };
 
+  services.netbird.enable = true;
+  environment.systemPackages = [pkgs.netbird-ui];
+
   services = {
     dnscrypt-proxy = {
       enable = true;

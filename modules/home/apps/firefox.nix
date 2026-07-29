@@ -11,6 +11,6 @@
 
   programs = {
     firefox.enable = true;
-    firefox.configPath = "home/deepshell/.mozilla/firefox";
+    firefox.configPath = "${config.home.homeDirectory}/.mozilla/firefox";
   };
 }

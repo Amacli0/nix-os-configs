@@ -8,6 +8,8 @@
   inputs,
   ...
 }: {
+  services.rpcbind.enable = true;
+  boot.supportedFilesystems = ["nfs"];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelParams = [];

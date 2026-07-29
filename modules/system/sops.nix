@@ -6,10 +6,10 @@
 }: {
   # Sops ana yapılandırması
   sops = {
-    defaultSopsFile = "../../secrets/secrets.yaml";
+    defaultSopsFile = ../../secrets/secrets.yaml;
 
     # Klonlayan kişinin veya sistemin age anahtar konumu
-    age.keyFile = "/home/deepshell/.config/sops/age/keys.txt";
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
     # Gizli anahtarların tanımları
     secrets = {

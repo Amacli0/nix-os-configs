@@ -8,8 +8,8 @@
   #######################################
   #            BASIC SETTİNGS           #
   #######################################
-  home.username = "deepshell";
-  home.homeDirectory = "/home/deepshell";
+  home.username = lib.mkDefault "deepshell";
+  home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
   home.stateVersion = "25.05";
   #######################################
   #            IMPORTS                  #

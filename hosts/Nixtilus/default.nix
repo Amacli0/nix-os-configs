@@ -37,11 +37,5 @@
     "flakes"
   ];
 
-  services.rpcbind.enable = true;
-  boot.supportedFilesystems = ["nfs"];
-
-  services.netbird.enable = true;
-  environment.systemPackages = [pkgs.netbird-ui];
-
   system.stateVersion = "25.05";
 }
