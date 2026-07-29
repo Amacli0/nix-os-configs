@@ -27,7 +27,6 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./hosts/Nixtilus/default.nix
-          sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
         ];

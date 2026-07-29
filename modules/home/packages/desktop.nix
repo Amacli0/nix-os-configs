@@ -9,7 +9,6 @@
     libreoffice
 
     # Wayland & Shell
-    foot
     fuzzel
     waybar
     grim

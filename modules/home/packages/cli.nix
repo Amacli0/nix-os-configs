@@ -15,5 +15,6 @@
     zellij
     xdg-utils
     fontconfig
+    commitizen
   ];
 }

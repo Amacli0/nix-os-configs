@@ -1,1 +1,4 @@
-MEB_SERTIFIKASI.pem
+.eza/
+*.pem
+.env
+result
