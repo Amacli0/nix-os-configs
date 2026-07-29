@@ -15,16 +15,8 @@
   #            IMPORTS                  #
   #######################################
   imports = [
-    ../../modules/home/general/home-packages.nix
-    ../../modules/home/apps/obs.nix
-    ../../modules/home/apps/firefox.nix
-    ../../modules/home/apps/git.nix
-    ../../modules/home/apps/kitty.nix
-    ../../modules/home/apps/waybar.nix
-    ../../modules/home/apps/zsh.nix
-    ../../modules/home/apps/tmux.nix
-    ../../modules/home/apps/foot.nix
-    ../../modules/home/apps/neovim.nix
+    ../../modules/home/packages
+    ../../modules/home/apps
   ];
 
   # Konfigürasyon dosyası bağlantıları

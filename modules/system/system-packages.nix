@@ -7,13 +7,11 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    git
-    age
-    sops
-    alejandra
-    firefox
     vim
-    foot
+    wget
+    curl
+    git
+    sysstat
   ];
   services.flatpak.enable = true;
   nixpkgs.config.allowUnfree = true;

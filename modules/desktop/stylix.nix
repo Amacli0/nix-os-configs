@@ -16,5 +16,4 @@
   stylix.cursor.size = 24;
 
   home-manager.users.deepshell.home.pointerCursor.enable = true;
-  home-manager.users.softshell.home.pointerCursor.enable = true;
 }

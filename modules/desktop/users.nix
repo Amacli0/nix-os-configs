@@ -31,22 +31,15 @@
       "docker"
     ];
   };
-  users.users.softshell = {
-    shell = pkgs.bash;
-    isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "users"
-    ];
-  };
   #######################################
   #            HOME MANAGER             #
   #######################################
   home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
     extraSpecialArgs = {inherit inputs;};
     users = {
       "deepshell" = ../../homes/deepshell/default.nix;
-      "softshell" = ../../homes/softshell/default.nix;
     };
   };
   environment.shells = [pkgs.zsh];
