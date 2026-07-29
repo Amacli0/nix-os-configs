@@ -12,25 +12,13 @@
     ./hardware-configuration.nix
 
     # Sistem Modülleri
-    ../../modules/system/boot.nix
-    ../../modules/system/network.nix
-    ../../modules/system/hardware.nix
-    ../../modules/system/keyboard.nix
-    ../../modules/system/security.nix
-    ../../modules/system/system-packages.nix
-    ../../modules/system/sops.nix
+    ../../modules/system
 
     # Desktop Modülleri
-    ../../modules/desktop/main.nix
-    ../../modules/desktop/fonts.nix
-    ../../modules/desktop/users.nix
-    ../../modules/desktop/gaming.nix
-    ../../modules/desktop/stylix.nix
-    ../../modules/desktop/printer.nix
+    ../../modules/desktop
 
     # Developer Modülleri
-    ../../modules/developer/virtualisation.nix
-    ../../modules/developer/sdr.nix
+    ../../modules/developer
   ];
   nix.settings.experimental-features = [
     "nix-command"
