@@ -12,6 +12,8 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    withPython3 = false;
+    withRuby = false;
 
     # Plugins (replaces nixvim's `plugins.*.enable`)
     plugins = with pkgs.vimPlugins; [
@@ -44,7 +46,6 @@
       cmp_luasnip
     ];
 
-    # External tools the plugins/LSPs shell out to (replaces nixvim's extraPackages)
     extraPackages = with pkgs; [
       ripgrep
       fd
@@ -60,9 +61,9 @@
 
       black
       alejandra
-      nixfmt-rfc-style
+      nixfmt
     ];
 
-    extraLuaConfig = builtins.readFile ./nvim/init.lua;
+    initLua = builtins.readFile ./nvim/init.lua;
   };
 }

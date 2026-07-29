@@ -19,15 +19,15 @@
       # Unity ve modern oyunların aradığı standart Linux paketleri
       stdenv.cc.cc
       glibc
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXrandr
-      xorg.libXext
-      xorg.libXi
-      xorg.libXinerama
+      libX11
+      libXcursor
+      libXrandr
+      libXext
+      libXi
+      libXinerama
       libGL # Kesinlikle ekle (OpenGL)
       vulkan-loader # Kesinlikle ekle (Vulkan)
-      xorg.libXScrnSaver
+      libXScrnSaver
       libglvnd
       alsa-lib
       pulseaudio
