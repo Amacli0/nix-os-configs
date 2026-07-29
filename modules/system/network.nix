@@ -56,7 +56,7 @@
       settings = {
         server.port = 8888;
         server.bind_address = "127.0.0.1";
-        server.secret_key = "senin_cok_gizli_anahtarin"; # Buraya rastgele uzun bir yazı yaz
+        server.secret_key = config.sops.secrets.searx_secret_key.path; # Buraya rastgele uzun bir yazı yaz
         ui.static_use_hash = true;
         search.formats = ["html" "json"];
         engines = [

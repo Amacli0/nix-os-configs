@@ -18,6 +18,7 @@
     ../../modules/system/keyboard.nix
     ../../modules/system/security.nix
     ../../modules/system/system-packages.nix
+    ../../modules/system/sops.nix
 
     # Desktop Modülleri
     ../../modules/desktop/main.nix
