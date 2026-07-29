@@ -1,3 +1,7 @@
-#My NixOS Config file
+# My NixOS Config file
+
+---
+
+''' deneme icin hahaha '''
 
 
