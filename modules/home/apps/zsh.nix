@@ -16,7 +16,6 @@
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch --flake .#Nixtilus";
-        update_end = "fastfetch --config examples/18.jsonc ";
       };
 
       history.size = 10000;

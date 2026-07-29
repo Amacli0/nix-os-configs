@@ -10,12 +10,6 @@
 }: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/3cb59df9-d2df-451e-ae17-dcd22e82361a";}
-  ];
-
-  boot.resumeDevice = "/dev/disk/by-uuid/3cb59df9-d2df-451e-ae17-dcd22e82361a";
-
   boot.kernelParams = [];
 
   boot.loader = {
