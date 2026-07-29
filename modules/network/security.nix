@@ -8,9 +8,12 @@
   inputs,
   ...
 }: {
-  security.pki.certificates = [
-    (builtins.readFile ./MEB_SERTIFIKASI.pem)
-  ];
+  security.pki.certificates =
+    if (builtins.pathExists ./MEB_SERTIFIKASI.pem)
+    then [
+      (builtins.readFile ./MEB_SERTIFIKASI.pem)
+    ]
+    else [];
   networking = {
     firewall = {
       enable = true;
@@ -35,7 +38,6 @@
       ];
       trustedInterfaces = [
         "tailscale0"
-        "waydroid0"
       ];
     };
   };

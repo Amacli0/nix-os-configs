@@ -19,6 +19,9 @@
 
     # Developer Modülleri
     ../../modules/developer
+
+    # Network Modulleri
+    ../../modules/network
   ];
   nix.settings.experimental-features = [
     "nix-command"
