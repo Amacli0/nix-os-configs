@@ -19,10 +19,7 @@
 
   fonts.fontconfig.enable = true;
 
-  gtk = {
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-  };
+  environment.systemPackages = with pkgs; [
+    papirus-icon-theme
+  ];
 }
