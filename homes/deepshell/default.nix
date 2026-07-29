@@ -24,6 +24,8 @@
   home.file.".config/SuperCollider/startup.scd".source = ./files/supercollider/startup.scd;
 
   ########################
+  home.pointerCursor.enable = true;
+
   systemd.user.services.polkit-gnome-agent = {
     Unit = {
       Description = "Polkit GNOME Authentication Agent";
