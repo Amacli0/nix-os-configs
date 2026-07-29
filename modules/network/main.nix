@@ -19,7 +19,7 @@
       "::1"
     ];
   };
-  servive.openssh = {
+  services.openssh = {
     enable = true;
   };
 }
