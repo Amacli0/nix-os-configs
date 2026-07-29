@@ -19,8 +19,7 @@
       "::1"
     ];
   };
-    openssh = {
-      enable = true;
-    };
+  openssh = {
+    enable = true;
   };
 }
