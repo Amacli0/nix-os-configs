@@ -24,8 +24,13 @@
     enable = true;
   };
 
+  # 2. Tell Home Manager to recursively map your files into ~/.config/noctalia
+  home.file.".config/noctalia" = {
+    source = ./files/noctalia;
+    recursive = true; # <-- This allows Home Manager to merge files instead of replacing the folder with a rigid symlink!
+  };
+
   # Konfigürasyon dosyası bağlantıları
-  home.file.".config/noctalia".source = config.lib.file.mkOutOfStoreSymlink "/home/deepshell/03.Infrastructure/nix-os-configs/homes/deepshell/files/noctalia";
 
   home.file.".config/SuperCollider/startup.scd".source = ./files/supercollider/startup.scd;
   home.file.".config/noctalia/settings.json".source = ./files/noctalia/settings.json;
