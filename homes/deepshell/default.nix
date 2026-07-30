@@ -15,9 +15,14 @@
   #            IMPORTS                  #
   #######################################
   imports = [
+    inputs.noctalia.homeModules.default
     ../../modules/home/packages
     ../../modules/home/apps
   ];
+
+  programs.noctalia = {
+    enable = true;
+  };
 
   # Konfigürasyon dosyası bağlantıları
   home.file.".config/niri/config.kdl".source = ./files/niri/config.kdl;

@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   #######################################
   #              OUTPUTS                #
@@ -17,8 +22,8 @@
     self,
     nixpkgs,
     home-manager,
-    sops-nix,
     stylix,
+    noctalia,
     ...
   }: {
     nixosConfigurations = {
