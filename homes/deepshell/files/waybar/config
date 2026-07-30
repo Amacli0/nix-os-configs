@@ -1,0 +1,62 @@
+{
+    "layer": "top",
+    "position": "bottom", // Taskbar goes on bottom
+    "height": 30,
+    "spacing": 0,
+
+    "modules-left": [
+        "custom/start",
+        "hyprland/workspaces" // Or "sway/workspaces" depending on your compositor
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "cpu",
+        "memory",
+        "tray",
+        "clock"
+    ],
+
+    "custom/start": {
+        "format": "<b>🪟 Start</b>",
+        "on-click": "rofi -show drun", // Replace with wofi, dmenu, or your launcher
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate"
+    },
+
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "separate-outputs": true
+    },
+
+    "clock": {
+        "format": "📟 {:%I:%M %p}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "cpu": {
+        "format": "CPU {usage}%"
+    },
+
+    "memory": {
+        "format": "RAM {percentage}%"
+    },
+
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-muted": "MUTED",
+        "on-click": "pavucontrol"
+    },
+
+    "tray": {
+        "icon-size": 14,
+        "spacing": 5
+    }
+}
