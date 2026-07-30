@@ -9,6 +9,10 @@
   ...
 }: {
   fonts.packages = with pkgs; [
+    pixelify-sans
+    proggyfonts
+    fixedsys-excelsior
+
     monocraft
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono

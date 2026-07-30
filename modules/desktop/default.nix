@@ -6,5 +6,6 @@
     ./gaming.nix
     ./stylix.nix
     ./printer.nix
+    ./gtk.nix
   ];
 }

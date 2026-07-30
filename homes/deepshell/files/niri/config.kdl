@@ -44,7 +44,7 @@ input {
 // Layout ayarları güncellendi
 layout {
 
-  gaps 12 // 16 -> 12 olarak güncellendi
+  gaps 6
 
     center-focused-column "never"
 
@@ -57,24 +57,17 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        width 2 // 4 -> 2 olarak güncellendi
-        active-color "#7aa2f7" // Yeni renk
-        inactive-color "#3b4261" // Yeni renk
+        width 2 // 4 -> 2 olarak güncellend
+        active-color "#000080"   // Classic Win95 Navy Blue
+        inactive-color "#808080" // Classic Win95 Gray
     }
 
     border {
         off
-        width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
     }
 
     shadow {
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#10121b80"
+        off
     }
 
     struts {
@@ -83,7 +76,7 @@ layout {
 }
 
 // Başlangıç komutları güncellendi
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "ags"
 spawn-at-startup "foot" "--server"
 
 hotkey-overlay {
@@ -99,7 +92,7 @@ animations {
 // Pencere Kuralları (Window Rules)
 window-rule {
     draw-border-with-background false
-    geometry-corner-radius 12 // İstersen köşeleri buradan yuvarlayabilirsin
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 

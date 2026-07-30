@@ -10,15 +10,15 @@
 
     # Wayland & Shell
     fuzzel
-    waybar
+    ags
     grim
     slurp
+    chicago95
     awww
     waypaper
     pavucontrol
     blueman
     brightnessctl
-    noctalia-shell
     xdg-desktop-portal-gtk
     xwayland-satellite
   ];
