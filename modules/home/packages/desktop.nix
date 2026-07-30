@@ -10,7 +10,7 @@
 
     # Wayland & Shell
     fuzzel
-    waybar
+    noctalia-shell
     grim
     slurp
     chicago95

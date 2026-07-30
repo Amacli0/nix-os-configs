@@ -7,6 +7,5 @@
     ./zsh.nix
     ./neovim.nix
     ./gtk.nix
-    ./waybar.nix
   ];
 }
