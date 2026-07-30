@@ -54,4 +54,6 @@
       WantedBy = ["graphical-session.target"];
     };
   };
+
+  home-manager.backupFileExtension = "backup";
 }
