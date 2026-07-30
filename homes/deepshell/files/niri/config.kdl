@@ -76,7 +76,7 @@ layout {
 }
 
 // Başlangıç komutları güncellendi
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 spawn-at-startup "foot" "--server"
 
 hotkey-overlay {

@@ -33,7 +33,7 @@
   # Konfigürasyon dosyası bağlantıları
 
   home.file.".config/SuperCollider/startup.scd".source = ./files/supercollider/startup.scd;
-  home.file.".config/noctalia/settings.json".source = ./files/noctalia/settings.json;
+  home.file.".config/niri/config.kdl".source = ./files/niri/config.kdl;
   ########################
   home.pointerCursor.enable = true;
 
@@ -54,6 +54,4 @@
       WantedBy = ["graphical-session.target"];
     };
   };
-
-  home-manager.backupFileExtension = "backup";
 }
