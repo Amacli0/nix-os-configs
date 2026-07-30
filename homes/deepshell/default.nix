@@ -25,9 +25,10 @@
   };
 
   # Konfigürasyon dosyası bağlantıları
-  home.file.".config/niri/config.kdl".source = ./files/niri/config.kdl;
-  home.file.".config/SuperCollider/startup.scd".source = ./files/supercollider/startup.scd;
+  home.file.".config/noctalia".source = config.lib.file.mkOutOfStoreSymlink "/home/deepshell/03.Infrastructure/nix-os-configs/homes/deepshell/files/noctalia";
 
+  home.file.".config/SuperCollider/startup.scd".source = ./files/supercollider/startup.scd;
+  home.file.".config/noctalia/settings.json".source = ./files/noctalia/settings.json;
   ########################
   home.pointerCursor.enable = true;
 
