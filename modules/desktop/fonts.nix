@@ -10,7 +10,7 @@
 }: {
   fonts.packages = with pkgs; [
     proggyfonts
-
+    terminus_font
     monocraft
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono

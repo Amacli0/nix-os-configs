@@ -76,7 +76,7 @@ layout {
 }
 
 // Başlangıç komutları güncellendi
-spawn-at-startup "ags"
+spawn-at-startup "waybar"
 spawn-at-startup "foot" "--server"
 
 hotkey-overlay {

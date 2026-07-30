@@ -10,7 +10,7 @@
 
     # Wayland & Shell
     fuzzel
-    ags
+    waybar
     grim
     slurp
     chicago95

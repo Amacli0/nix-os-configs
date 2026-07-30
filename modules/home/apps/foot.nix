@@ -11,7 +11,7 @@
     enable = true;
     settings = {
       main = {
-        font = lib.mkForce "ProggyClean:size=13";
+        font = lib.mkForce "Terminus:size=16";
         pad = "8x8";
       };
       tweak = {
