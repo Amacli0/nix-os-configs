@@ -11,12 +11,12 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Chicago95";
-      package = pkgs.chicago95;
+      name = lib.mkForce "Chicago95";
+      package = lib.mkForce pkgs.chicago95;
     };
     iconTheme = {
-      name = "Chicago95";
-      package = pkgs.chicago95;
+      name = lib.mkForce "Chicago95";
+      package = lib.mkForce pkgs.chicago95;
     };
   };
 

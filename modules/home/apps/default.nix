@@ -6,5 +6,6 @@
     ./obs.nix
     ./zsh.nix
     ./neovim.nix
+    ./gtk.nix
   ];
 }
