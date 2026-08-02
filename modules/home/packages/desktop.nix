@@ -13,6 +13,7 @@
     grim
     slurp
     chicago95
+    evtest
     awww
     waypaper
     pavucontrol

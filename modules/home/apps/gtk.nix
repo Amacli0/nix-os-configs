@@ -9,34 +9,44 @@
   ...
 }: {
   stylix.targets.gtk.enable = false;
+  stylix.targets.qt.enable = false;
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style = {
+      name = "oxygen";
+      package = pkgs.kdePackages.oxygen;
+    };
+  };
 
   gtk = {
     enable = true;
-
+    gtk4.theme = config.gtk.theme;
     # Frutiger Aero/Glossy hissiyatı veren aydınlık GTK teması
     theme = {
-      name = "Adwaita";
-      package = pkgs.gnome-themes-extra;
+      name = "adw-gtk3";
+      package = pkgs.adw-gtk3;
     };
 
-    # Parlak ve renkli ikon seti (Yaru / Breeze veya Papirus-Light)
     iconTheme = {
-      name = "Yaru";
-      package = pkgs.yaru-theme;
+      name = "oxygen";
+      package = pkgs.kdePackages.oxygen-icons;
     };
 
     # Yumuşak ve modern imleç
     cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
+      name = "Oxygen-White";
+      package = pkgs.kdePackages.oxygen;
       size = 24;
     };
   };
 
   # İmlecin tüm sistemde varsayılan olması için
   home.pointerCursor = {
-    name = "Bibata-Modern-Classic";
-    package = pkgs.bibata-cursors;
+    name = "Oxygen-White";
+    package = pkgs.kdePackages.oxygen;
+
     size = 24;
     gtk.enable = true;
     x11.enable = true;

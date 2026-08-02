@@ -147,3 +147,31 @@ map("n", "<leader>nn", "<cmd>NvimTreeToggle<cr>", vim.tbl_extend("force", opts, 
 map("n", "<leader>fm", function()
   require("conform").format()
 end, vim.tbl_extend("force", opts, { desc = "Format Code" }))
+
+-- TidalCycles Yapılandırması
+-------------------------------------------------
+-- TIDALCYCLES CONFIG
+-------------------------------------------------
+-- .tidal uzantılı dosyaları otomatik algıla
+vim.filetype.add({
+  extension = {
+    tidal = "tidal",
+  },
+})
+
+-- Tidal buffer'ında çalışacak kısayollar
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tidal",
+  callback = function()
+    local opts = { buffer = true, silent = true }
+
+    -- Bulunduğun bloğu/satırı GHCI'ye gönder
+    vim.keymap.set({ "n", "v" }, "<C-e>", "<Plug>TidalRegionSend", opts)
+
+    -- Tüm dosyayı gönder
+    vim.keymap.set("n", "<leader>ta", "<Plug>TidalConfig", opts)
+
+    -- Sesi tamamen kes (Hush)
+    vim.keymap.set("n", "<C-h>", ":call TidalHush()<CR>", opts)
+  end,
+})
